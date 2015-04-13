@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Crypto</title>
+<link href="style.css" rel="stylesheet" type="text/css" media="all" />
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+<script>
+
+function display(text) {
+	$('#form').fadeOut('slow', function() {
+		$('#outputBox').text(text);
+		$('#outputBox').fadeIn('slow');
+	});
+};
+
+$(document).ready(function() {
+	$('#outputBox').hide();
+
+	$('#outputBox').focus(function () { // select text on focus
+        $(this).select();
+    });
+
+	//needs to be inside here so jquery is defined
+	show = function(text) {
+		$('#form').fadeOut('slow', function() {
+			$('#outputBox').text(text);
+			$('#outputBox').fadeIn('slow');
+		});
+	};
+
+	$(window).keypress(function(e) {
+		if(e.which == 13) {
+			$(this).blur();
+			$('#submit').focus().click();
+		}
+	});
+
+	$('#encode').click(function() {
+		msg = $('#inputtext').val();
+		passphrase = $('#passphrase').val();
+		show(CryptoJS.AES.encrypt(msg,passphrase).toString());
+	});
+
+	$('#decode').click(function() {
+		msg = $('#inputtext').val();
+		passphrase = $('#passphrase').val();
+		show(CryptoJS.AES.decrypt(msg,passphrase).toString(CryptoJS.enc.Latin1));
+	});
+
+	});
+</script>
+</head>
+<body>
+	<div id="page">
+	<div id="content">
+	<div id="form">
+		<input type="text" id="inputtext" placeHolder="message"/>
+		<br/>
+		<input type="password" id="passphrase" placeHolder="passphrase"/>
+		<br/>
+		<input type="button" id="encode" value="encrypt"/>
+		<input type="button" id="decode" value="decrypt"/>
+	</div>
+	<div id="outputBox"/></div>
+	</div>
+	</div>
+</body>
+</html>
