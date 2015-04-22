@@ -4,6 +4,15 @@ body {
 	background-color: rgba(0, 0, 0, 0.02);
 }
 
+.labelicon {
+	transform: translateY(9%);
+}
+
+.labeltext {
+	font-size: 16px;
+}
+
+
 .button {
 	font-family: 'Raleway', Helvetica, Arial, sans-serif;
 }
