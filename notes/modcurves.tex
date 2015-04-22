@@ -1,0 +1,497 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,amsfonts,amscd,tikz} %usual symbols, theorems, etc
+\usepackage{tikz-cd} %diagrams
+\usepackage{multicol} %columns
+\usepackage{enumerate} %lists
+\usepackage{hyperref} %links, references
+\usepackage{graphicx} %pictures
+\usepackage{subcaption} %subfigures - use minipage
+\usetikzlibrary{arrows,matrix,calc,decorations.pathmorphing} %curved arrows
+\usepackage{mathabx} %more symbols
+\usepackage{sagetex} %for sage input
+\usepackage{mathrsfs} %super curly letters
+\usepackage{bbm} %quaternions
+\usepackage{microtype}
+
+\newcommand{\mytitle}{Supersingular Elliptic Curves}
+\newcommand{\myauthor}{Travis Scholl}
+\newcommand{\myemail}{tscholl2@uw.edu}
+
+%GENERAL SYMBOLS
+\newcommand{\BB}[1]{\mathbb{#1}} %bold face
+\newcommand{\script}[1]{\mathcal{#1}} %curvy
+\newcommand{\curly}[1]{\mathscr{#1}} %extra curvy
+\newcommand{\cat}[1]{\textbf{\emph{#1}}} %bold
+\renewcommand{\frak}[1]{\mathfrak{#1}} %gothic
+\newcommand{\del}[1]{\frac{\partial}{\partial{#1}}} %single derivative vector d/dx
+\newcommand{\ddel}[2]{\frac{\partial{#1}}{\partial{#2}}} %dy/dx
+\newcommand{\floor}[1]{{\lfloor #1 \rfloor}} %flooor
+\newcommand{\free}[1]{\!\left\langle#1\right\rangle\!} %nice brackets
+
+%SPECIFIC SYMBOLS
+\newcommand{\CC}{\BB{C}}
+\newcommand{\RR}{\BB{R}}
+\newcommand{\NN}{\BB{N}}
+\newcommand{\QQ}{\BB{Q}}
+\newcommand{\ZZ}{\BB{Z}}
+\newcommand{\PP}{\BB{P}}
+\renewcommand{\AA}{\BB{A}} %\AA is a non-ascii acented A, weird
+\newcommand{\HH}{\BB{H}}
+\newcommand{\DD}{\BB{D}}
+\newcommand{\TT}{\BB{T}}
+\newcommand{\FF}{\BB{F}}
+\newcommand{\RP}{\RR\PP}
+\newcommand{\CP}{\CC\PP}
+\renewcommand{\SS}{\BB{S}} %\SS is a silly non-ascii letter "SS".
+\newcommand{\st}{\colon}
+\newcommand{\VF}{\frak{X}}
+\newcommand{\ld}{\curly{L}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\Int}{\operatorname{Int}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\nullity}{\operatorname{nullity}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\supp}{\operatorname{Supp}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\curl}{\operatorname{curl}}
+\newcommand{\sgn}{\operatorname{sign}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\lie}{\operatorname{Lie}}
+\newcommand{\Div}{\operatorname{Div}}
+\renewcommand{\div}{\operatorname{div}} %renews over % symbol
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\gal}{\operatorname{Gal}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\ns}{\operatorname{ns}}
+\newcommand{\D}{\,d}
+%into command like interior multiplication in jacks book
+\newcommand{\into}{\scalebox{0.8}{$\mathrel{
+\raisebox{-.25em}{\reflectbox{\rotatebox[origin=c]{0}{$-$}}}
+\hspace*{-0.435em}
+\raisebox{.05em}{\reflectbox{\rotatebox[origin=c]{90}{$-$}}}
+}$}}
+
+%more margins
+\setlength{\oddsidemargin}{.5in}
+\setlength{\evensidemargin}{.5in}
+\setlength{\topmargin}{0in}
+\setlength{\headsep}{.6in}
+\setlength{\footskip}{.5in}
+\setlength{\textheight}{8in}
+\setlength{\textwidth}{5.5in}
+
+%define theorem enciroments
+
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+
+\newtheorem{prob}[thm]{Problem}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{ex}[thm]{Example}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{note}[thm]{Note}
+\newtheorem{case}[thm]{Case}
+
+%page style, title page
+
+\pagestyle{myheadings}
+\markboth{\hfill \mytitle \hfill}{\hfill \myauthor \hfill}
+
+\begin{document}
+\title{\bfseries\sffamily \mytitle}
+\author{\sc \myauthor }
+\maketitle
+
+\begin{abstract}
+	The goal of this is to define supersingular elliptic curves and say some basic stuff about them.
+\end{abstract}
+
+\section{Elliptic Curves Over Fields}
+
+\begin{defn}[Silverman III.3, p 59]
+	An \emph{elliptic curve} is a smooth curve (projective variety of dimension 1, Silverman II.1) of genus 1 together together with a point on the curve.
+\end{defn}
+
+We will slowly go through each word in the definition to see what it means.
+
+\subsection{Variety}
+
+\subsubsection{Affine}
+
+An \emph{affine algebraic set} $V$ is the vanishing set of some polynomials in $\overline{K}[X]$. We will identify $\AA^n$ with $\overline{K}^n$. We will denote $K^n$ will be denoted by $\AA^n(K)$. An algebraic set $V$ is defined over $K$ if it is the vanishing set of polynomials in $K[X]$. This is denoted by $V/K$. Let $V(K)$ denote $V \cap\AA^n(K)$. The corresponding ideal $I(V)$ lives in $\overline{K}[X]$ and $I(V/K)$ lives in $K[X]$ (it is just $I(V)\cap K[X]$). An \emph{affine variety} is an \emph{irreducible} algebraic set. That means that either the ideal of vanishing polynomials $I(V)$ is prime in $\overline{K}[X]$ or the set cannot be written as a union of two closed subsets.
+
+\begin{rem}
+	$x^2-2y^2$ is prime in $\QQ[x,y]$ but not in $\overline{\QQ}[x,y]$ because $x^2-2y^2 = (x-\sqrt{2}y)(x+\sqrt{2}y)$. So it is not enough to check $I(V/K)$ is prime but really $I(V) = I(V/K)\overline{K}[X]$ is prime.
+\end{rem}
+
+\subsubsection{Projective}
+
+The word projective means we take the analogous definitions in projective space $\PP^n$, represented by homogeneous coordinates from $\AA^{n+1}$. A \emph{projective algebraic set} is the vanishing set of homogenous polynomials, which makes sense in $\PP^n$. A \emph{projective variety} is an irreducible projective algebraic set. The definitions of irreducible are more or less the same. For example, we could use that the homogeneous ideal $I(V)$ is prime in $\overline{K}[X]$.
+
+
+\begin{rem}
+	We can also define $V(K)$ as $\{P\in V \st P^\sigma = P \ \forall \ \sigma\in G_{\overline{K}/K}\}$. Here the action is on the coordinates of $P$ in the obvious way. The same holds for projective varieties since the action will respect the equivalence relation.
+\end{rem}
+
+\begin{rem}
+	For the case of $\PP^n(\QQ)$ note that any homogeneous coordinate has a representative of the form $(x_1,\dots,x_n)$ for relatively prime integers. So to find rational solutions to homogeneous polynomials in $\QQ[X_1,\dots,X_n]$, it is sufficient to check for solutions that are relatively prime integers. In particular, to describe $V(\QQ)$, it is enough to describe the relatively prime integer solutions to the polynomials generating $I(V/\QQ)$.
+\end{rem}
+
+\subsection{Dimension}
+
+\subsubsection{Affine}
+
+Let $V$ be an affine-variety. \emph{The dimension of $V$} is given by the transendence degree of the function field $\overline{K}(V)$ over the ground field $\overline{K}$. Here $L[V] = L[X]/I(V/L)$ and $L(V)$ is the fraction field of $L[V]$. Again here we are using algebraically closed fields.
+
+Alternatively, it is the Krull dimension of the affine coordinate ring. %pg 3
+Here we can use the ground field directly. If $V$ is defined over $K$, then $\dim V = \dim K[X]/I(V/K)$.
+
+\subsubsection{Projective}
+
+Let $V$ be a projective variety. Fix an embedding $\AA^n\to\PP^n$ such that $V\cap\AA^n\neq\emptyset$. Then define $\dim V = \dim V\cap\AA^n$. Proposition 2.6 in Chapter I says that $V\cap\AA^n$ is an affine variety.
+
+\subsection{Smooth}
+
+\subsubsection{Affine}
+
+Let $V$ be an affine-variety of $\AA^n$ and $I(V)$ be the corresponding ideal in the coordinate ring $\overline{K}[X_1,\dots,X_n]$. By Hilbert Basis Theorem this ring is noetherian so $I(V)$ is finitely generated say by $f_1,\dots,f_m$. Then $V$ is \emph{non-singular or smooth} at a point $P\in\AA^n$ if the matrix
+$$
+\left[\frac{\partial f_i}{\partial X_j}(P)\right]
+$$
+has rank $n - \dim V$.
+
+Alternatively, a point $P\in V$ is non-singular if and only if
+$$
+\dim_{\overline{K}} M_P/M_P^2 = \dim V
+$$
+where $M_P$ is the maximal ideal in $\overline{K}[X]$ corresponding to $P$.
+
+\subsubsection{Projective}
+
+Let $V$ be a projective variety. Fix an embedding $\AA^n\to\PP^n$ such that $P\in \AA^n$. Note that $V\cap\AA^n\neq\emptyset$. Then define $\dim V = \dim V\cap\AA^n$.
+
+\subsection{Genus}
+
+%\subsubsection{Degree}
+%
+%Let $\phi$ be a rational map of curves $C_1\to C_2$. If it is constant then define $\deg\phi = 0$. Otherwise it induces a homomorphism of function fields $\phi^*:K(C_2)\to K(C_1)$ which fixes $K$. By Hartshorne II.6.8, $K(C_1)$ is a finite extension of $\phi^*K(C_2)$. So we define $\deg \phi = [K(C_1):\phi^* K(C_2)]$. We call $\phi$ separable, purely inseparable if $K(C_1)/\phi^*K(C_2)$ has the corresponding property.
+
+\subsubsection{Divisors}
+
+Let $C$ be a curve. The \emph{divisor group $\Div C$} of a curve $C$ is the free abelian group generated by the points of $C$. The \emph{degree of a divisor} $D = \sum_{P\in C} n_P P$ is given by $\deg D = \sum n_P$. Let $\Div^0 C$ be the subgroup of divisors of degree $0$.
+
+Note that the Galois group acts on divisors in an obvious way, $D^\sigma = \sum n_P P^\sigma$. A divisor is \emph{defined over $K$} if $D^\sigma = D$ for all $\sigma\in\gal_{\overline{K}/K}$.
+
+Let $C$ be a smooth curve. Then by Proposition II.1.2 (finite number of poles/zeros) we can define $\div(f) = \sum \ord_P(f) P$ (see II.1). Here $\ord_P(f)$ is the maximum integer $d\geq 0$ such that $f\in M^d_P$ for polynomial $f$. It is basically the order of the $0$ at $P$. It is extended to rational functions by $\ord_P(f/g) = \ord_P(f) - \ord_P(g)$.
+
+Define $l(D) = \dim \mathscr{L}(D)$ where $\mathscr{L}(D) = \{f\in\overline{K}(C)\setminus\{0\} \st \div(f) \geq -D \}\cup\{0\}$. We can think of $\mathscr{L}(D)$ to be the space of rational functions on $C$ whose poles at every point are not worse than the corresponding coefficient in $D$.
+
+\begin{thm}[Riemann-Roch, II.5.4]
+	There exists an integer $g\geq 0$ called the genus of $C$, such that for every divisor $D\in\Div C$,
+	$$
+	l(D) - l(K_C - D) = \deg D - g + 1
+	$$
+	where $K_C$ is a canonical divisor on $C$ (see II.4.4).
+\end{thm}
+
+\begin{prob}
+	Show that $\mathscr{L}(D)$ is finite dimensional.
+\end{prob}
+\begin{proof}
+	We will show $l(D)\leq \deg D + 1$ whenever $\deg D \geq 0$ by induction on $\deg D$.
+
+	\begin{enumerate}
+		\item[Base:] If $\deg D = 0$ then show only constant functions work. Suppose a function had a root. Then it also has a pole somewhere.
+
+		\item[Induction:] Use the following fact:
+
+		$$
+		\div(f) = \div(g) \Rightarrow f=cg \ ,\quad \text{some constant $c$}.
+		$$
+	\end{enumerate}
+\end{proof}
+
+\subsection{Group Law}
+
+There are two equivalent ways of defining the group law on an elliptic curve. There is the geometrical way of intersecting lines and the following using the Picard group.
+
+\begin{defn} %II.3.0, p.31,32
+	Let $(E/K,O)$ be an elliptic curve. Let $\Div^0(E)$ be the subgroup of $\Div(E)$ given by divisors of degree $0$. We say a divisor $D$ is \emph{principle} if $D = \div(f)$ for some $f\in \overline{K}(E)^*$. Two divisors $D_1,D_2$ (denoted $D_1\sim D_2$) are \emph{linearly equivalent} if $D_1 - D_2$ is principle. Then define
+	$
+	\Pic^0(E)  %p.33, near remark II.3.4
+	$
+	to be the quotient of $\Div^0$ by the principle divisors. We also define $\Pic^0_K(E)$ to be the subgroup of $\Pic^0(E)$ fixed by $G_{\overline{K}/K}$.
+\end{defn}
+
+Note that a map $\phi$ between curves induces a homomorphism on the group of divisors which takes degree $0$ to degree $0$. Moreover it takes principle divisors to principle divisors ($\div(f) \mapsto \div(\phi^*f)$) so it induces a group homomorphism on $\Pic^0$, hence the naturality.
+
+\begin{prop} %III.3.4, p. 66
+	There is a well defined map $\sigma:\Div^0(E)\to E$ which takes a divisor $D$ to a point $P$ which satisfies $D\sim(P) - (O)$.
+
+	There is a bijection of sets $\sigma: \Pic^0(E)\to E$.
+
+	If $E$ is given by a Weirstrass equation then the geometric group law coincides with the group law induced by $\Pic^0$.
+\end{prop}
+\begin{proof}
+	Riemann-Roch plus the following clever lemma.
+\end{proof}
+
+\begin{lem} %III.3.3, p. 65
+	Let $C$ be a curve of genus $1$ and $P,Q\in C$. Then $(P)\sim (Q)$ if and only if $P=Q$.
+\end{lem}
+\begin{proof} %a jumble of different propositions special purposed for this
+	The reverse direction is trivial.
+
+	The Riemann-Roch theorem tells us $l((Q)) - l(K_C-(Q)) = \deg (Q)$. Also $\deg(K_C) = 2g-2 = 0$. So $\deg K_C-D<0$ which implies $l(K_C-(Q))=0$. This is because any non-constant function either has no roots/poles, or some roots/poles. Thus $\div(f)$ can not be effective (meaning the coefficient at every point is non-negative) unless it is $0$. Hence $\curly{L}(K_C-(Q))=0 \Rightarrow l(K_C-(Q))=0$. So we have that $l((Q))=\deg (Q) = 1$. Note that $\curly{L}((Q))$ already contains constant functions because $\div(c) = 0\geq -(Q)$. What this means is that $\curly{L}((Q))=\overline{K}$, i.e. it is only constant functions.
+
+	By hypothesis $(P)-(Q)$ is principle so there is some $f\in\overline{K}^*(C)$ such that $\div(f) = (P) - (Q)$. Then in particular $f\in\curly{L}$. So by above $f\in\overline{K}$. This implies $\div(f) = 0 \Rightarrow (P)=(Q) \Rightarrow P=Q$.
+\end{proof}
+
+
+\section{Reduction}
+
+Let $K$ be a local field with a discrete valuation $v$. Think of finite extensions of $\QQ_p$ or formal Laurent series $\FF_{q}((t))$ where $q$ is a power of a prime $p$. Let $R$ be the valuation ring of $K$, i.e. $R = \{x \st v(x)\geq 0\}$.
+
+Then $R$ is a local PID. Let $M=(\pi)=\pi R$ be the maximal ideal. We may assume $v$ is normalized so $v(\pi)=1$. By convention $v(0)=\infty$. Let $k$ be the residue field $R/M$.
+
+We assume $k,K$ are both perfect (finite extensions are separable).
+
+We can always find a Weierstrass equation for an elliptic curve $E/K$ of the form
+$$
+y^2 + a_1xy + a_3y
+=
+x^3 + a_2x^2 + a_4x + a_6.
+$$
+
+\begin{rem}
+	The indices on the $a_i$ are because if we replace $(x,y)$ with $(x/u^2,y/u^3)$ (which is an isomorphism of curves) the coefficients become $a_iu^i$. This allows us to ``scale'' them so that all coefficients lie in $R$.
+\end{rem}
+
+\begin{defn} %p. 172, VII.1 end
+	A Weierstrass equation is \emph{minimal} if $v(\Delta)$ is minimized with respect to the condition $a_i\in R$.
+\end{defn}
+\begin{rem}
+	It is easy to see every curve $E/K$ has a minimal Weierstrass model because $v$ is discrete.
+\end{rem}
+
+One can show the minimal equation is unique up to a certain change of coordinates, see VII.2 Proposition 1.3.
+
+\begin{defn} %VII.2
+	Given an elliptic curve $E/K$ and a minimal Weirstrass equation, define a curve $\tilde{E}/k$ to be the \emph{reduction of $E$ modulo $\pi$} given by the equation
+	$$
+	\tilde{E} : \
+	y^2 + \tilde{a}_1xy + \tilde{a}_3y
+	=
+	x^3 + \tilde{a}_2x^2 + \tilde{a}_4x + \tilde{a}_6.
+	$$
+\end{defn}
+Here $x\mapsto\tilde{x}$ is the map $R\to R/\pi R$. Again, the equation for $\tilde{E}$ is unique up to a change of coordinates over $k$ (not $K$) like before.
+
+\begin{rem}
+	There is a map $E\to\tilde{E}$ which is just the restriction of a reduction map $\PP^2(K)\to\PP^2(k)$. In general, given any homogeneous coordinate $[x_0,\dots,x_n]$ we can find representatives such that all $x_i\in R$ and one of them is a unit.
+
+	To see this, let $n = \max|v(x_i)|$. Then consider $[\pi^nx_0,\dots,\pi^nx_n]$. Because $v(\pi^nx_0)=v(\pi^n)+v(x_0)$ it will be non-negative by construction and one of them will be $0$. So all will live in $R$ and one is a unit. Choosing these coordinates defines a reduction map $\PP^n(K)\to\PP^n(k)$.
+\end{rem}
+
+
+As stated, the reduced curve \emph{may not necessarily be an elliptic curve}. Since we have written a nice (Weierstrass) equation for it, $\tilde{E}$ is a curve. Also we have a point $\tilde{O}\in\tilde{E}$, the image of the given point $O$ on $E$. So the only thing stopping $\tilde{E}$ from being an elliptic curve is smoothness. This suggestions the following definitions.
+
+\begin{defn} %p 179, VII.5
+	$E$ has \emph{good reduction} at $\pi$ if $\tilde{E}$ is non-singular. Otherwise $E$ has \emph{bad reduction}.
+\end{defn}
+
+\begin{prop}
+	$E$ has good reduction at $\pi$ if and only if $\min v(\Delta)>0$ where the minimum is taken over all models/Weierstrass equations with integer coefficients representing $E$.
+\end{prop}
+\begin{proof}
+	Being non-singular is the same as $\Delta\neq 0$ by Proposition III.1.4(a). Now use the fact that $x\mapsto\tilde{x}$ is a ring homomorphism and $\Delta$ is an algebraic combination of the coefficients.
+\end{proof}
+
+So in the case of $\QQ$, a curve has good reduction at $p$ if there is a model whose discriminant is not divisible by $p$, i.e. $p\not\mid\Delta$ or $v(\Delta) = 0$.
+
+\begin{ex}
+	Consider the two equations $E_1: y^2=x^3+16$ and $E_2: y^2 + y = x^3$. Both define elliptic curves over $\QQ$ because the matrices
+	$$
+	\begin{pmatrix}
+		-3x^2 & 2y
+	\end{pmatrix}
+	,
+	\begin{pmatrix}
+		-3x^2 & 2y+1
+	\end{pmatrix}
+	$$
+	have maximal rank (rank $1$) at points on the curves. This shows the curves on non-singular. In fact it is easy to see this holds over $\FF_p$ for any $p\neq 2,3$. Actually $E_2$ also works over $\FF_2$, but $E_1$ does not.
+
+	Next we want to see $E_1\cong E_2$. To see this, just notice
+	\begin{align*}
+		y^2 + y = x^3
+		&\to
+		\left(y+\frac{1}{2}\right)^2 = x^3 + \frac{1}{4}
+		\\
+		&\to
+		64\left(y+\frac{1}{2}\right)^2 = 64x^3 + 16
+		\\
+		&\to
+		\left(8y+4\right)^2 = (4x)^3 + 16.
+	\end{align*}
+	So the inverse change of coordinates $(x,y)\mapsto \left(\frac{x}{4},\frac{y-4}{8}\right)$ takes $E_2$ to $E_1$.
+
+	Notice this does \emph{not} work mod $2$! These are two forms representing the same abstract variety over $\QQ$. The problem is that they don't necessary work well with the same primes. Notice that $E_1$ has bad reduction at $2$ while $E_2$ has good reduction at $2$. In fact, $E_2$ has good reduction at every prime except $3$. $E_2$ is actually the minimal model so the elliptic curve has good reduction at all primes except $3$.
+\end{ex}
+
+Note that the minimal model is just a model which has good reduction at $\pi$ if $E$ does. There are lots of models. We choose the minimal because if $E$ does, then the model does also. Note that this model is minimal \emph{with respect to $\pi$}. If we wanted to use a different prime we would get a different minimal model.
+
+This makes the next question come naturally: When can I use the same model for more then one prime?
+
+\begin{thm} %VIII.8.3, p.224, 226 defn 224
+	A number field $K$ has class number $1$ if and only if every elliptic curve $E/K$ has a global minimal Weierstrass equation. In particular, this is true for $\QQ$.
+\end{thm}
+
+\section{Supersingular}
+
+\begin{defn} %V.3.1, p. 137
+	Let $K$ be a perfect field of characteristic $p$ and $E/K$ an elliptic curve. We say $E$ is \emph{supersingular} if one of the following conditions holds (they are equivalent by Theorem of M. Deuring):
+	\begin{enumerate}[(i)]
+		\item $E[p^r]=0$ for one (all) $r\geq 1$.
+		\item $\hat{\phi}_r$ (the dual of the $p^r$-power Frobenius map $\phi_r:E\to E^{(p^r)}$) is (purely) inseparable for one (all) $r\geq 1$.
+		\item The map $[p]:E\to E$ is purely inseparable and $j(E)\in\FF_{p^2}$.
+		\item $\End(E)$ is an order in a quaternion algebra.
+		\item The formal group $\hat{E}/K$ associated to $E$ has height $2$.
+		\item The group scheme of points of order $p$ is connected, see wiki. %wikipedia
+		\item If $K=\FF_p$ then $E$ is supersingular if and only if $\#E(\FF_p)\equiv 1\mod{p}$ (this is counting projective points), see wiki.
+		\item If $p\geq 5$, then $E$ is supersingular if and only if $\#E(\FF_p)=p+1$, problem 5.10 silverman.
+	\end{enumerate}
+\end{defn}
+
+\begin{rem}
+	The ``one (all)'' business is because if $E[p^r]$ is non-trivial, then all $r$ are non-trivial because $E[p^r]$ will be $\ZZ/p^r\ZZ$ (theorem) and will contain (and show they are non-trivial) $E[p^s]$ for all $s\leq r$. It is contained in $E[p^t]$ for all $t\geq r$.
+\end{rem}
+
+\begin{thm}
+	$$
+	E[p^r](\overline{K})
+	=
+	\begin{cases}
+		\ZZ/p^r\ZZ &\text{ or }
+		\\
+		0.
+	\end{cases}
+	$$
+\end{thm}
+
+\begin{rem} %remark V.3.2.2.
+	Note that supersingular curves are elliptic curves and hence non-singular.
+\end{rem}
+
+\begin{ex}
+	\hfill
+	\begin{enumerate}[$\bullet$]
+		\item $y^2+y=x^3+x+1$ over $\FF_2$. Just checking there is only one point on this curve: $(0 : 1 : 0)$. Hence it is supersingular. The two torsion is trivial (there is one point so the group is trivial).
+
+		\item The curve $y^2=x^3+1$ over $\FF_5$ has 6 points:
+		$$
+		(0 : 1 : 0), (0 : 1 : 1), (0 : 4 : 1), (2 : 2 : 1), (2 : 3 : 1), (4 : 0 : 1).
+		$$
+		Hence it is supersingular. The group of points is isomorphic to $\ZZ/6\ZZ$ (by the ``abelian\_group'' command in sage).
+
+		\item The curve $y^2 = x^3 + x$ over $\FF_7$ has 8 points. The group is isomorphic to $\ZZ/8\ZZ$ and hence is supersingular.
+	\end{enumerate}
+\end{ex}
+
+\section{SES}
+
+Notation: Given a curve (possible singular) $E/K$, let $E_{\ns}$ be the set of non-singular points and $E_{\ns}(K)$ be the set of non-singular points of $E(K)$.
+
+\begin{prop} %III.1.4
+	Suppose a curve is given by a Weierstrass equation. It is non-singular if and only if $\Delta=0$. If $\Delta\neq 0$ then there is only one singular point.
+\end{prop}
+\begin{proof}
+	First show the given point $O$, which is usually given as the point at infinity $[0,1,0]$ is non-singular (look at hommogeneous equation).
+
+	Now move a singular point to $(0,0)$. Write down the equation, and notice partials can not vanish else where.
+\end{proof}
+
+\begin{prop} %III.2.5
+	The regular composition law turns $E_{\ns}$ into an abelian group.
+\end{prop}
+\begin{proof}
+	Recall that the composition law to add points takes the line between them. If a line intersects the singular point, it is counted twice. Hence that would be a total of $4$ intersections (two from the points defining the line and two from the singular point). This is a contradiction (Bezout's Theorem).
+
+	Now use some special maps to show inverses work.
+\end{proof}
+
+Now in the same notation as in the reduction section, define the following
+$$
+E_0(K) = \{P\in E(K) \st \tilde{P}\in \tilde{E}_{\ns}(k)\}
+,\quad
+E_1(K) = \{P\in E(K) \st \tilde{P}\in \tilde{O}\}.
+$$
+
+So in particular $E_1$ is the kernel of the reduction and $E_0$ is the points with non-singular reduction. It can be shown (with some geometry) that $E_0,E_1$ are subgroups of $E$ with $E_0\subseteq E_1$. See proof of VII.2.1 Silverman.
+
+\begin{prop} %VII.2.1
+	There is an exact sequence of abelian groups
+	$$
+	0 \to E_1(K) \to E_0(K) \to \tilde{E}_{\ns}(k) \to 0.
+	$$
+	Note: The right map is the reduction map.
+\end{prop}
+\begin{proof}
+	We need to show $E_0(K)\to\tilde{E}_{\ns}(k)$ is a group homomorphism and exactness on the right. With this we are done since exactness in the center and left is by definition of $E_1$ and $E_0$.
+
+	Essentially the homomorphism property holds because the group law is defined by intersecting lines and reduction takes lines to lines. We have to be careful here because this is not true in general, some lines are sent to points.
+
+	Surjectivity follows from ``Hansel's lemma'' which says something about lifting simple roots of reduced functions.
+\end{proof}
+
+Next we want to describe $E_1$.
+
+\begin{prop} %VII.2.2
+	Let $E/K$ be given by a minimal Weierstrass equation, let $\hat{E}/R$ be the formal group associated to $E$ (see IV.2.2.3), and let $w(z)\in R[[x]]$ be the power series from (IV.1.1). Then the map
+	$$
+	\hat{E}(\script{M}) \to E_1(K),\quad
+	z\mapsto\left(\frac{z}{w(z)},-\frac{1}{w(z)}\right)
+	$$
+	is an isomorphism of groups. (We use $z=0 \mapsto O\in E_1(K)$).
+\end{prop}
+
+Note that with this, if $E$ has good reduction there is an exact sequence
+$$
+0\to \hat{E}(\script{M}) \to E(K) \to \tilde{E}(k) \to 0.
+$$
+
+Lucas will discuss $\hat{E}(\script{M})$.
+
+
+\begin{center}
+\noindent\rule{4cm}{.5pt}
+\vspace{.25cm}
+
+\noindent {\sc \small \myauthor}\\
+{\small Department of Mathematics, University of Washington, Seattle WA 98195} \\
+email: {\tt \myemail}
+\end{center}
+
+\end{document}
+
+%%% Local Variables: ***
+%%% mode:latex ***
+%%% TeX-command-default: "PDFLaTeX"  ***
+%%% End: ***

@@ -12,76 +12,29 @@ body {
 	font-size: 16px;
 }
 
-.navbar-btn {
+.navbar .button {
+	background-color: rgba(0,255,42,0.1);
+}
+
+.navbar li {
+	padding-top: 2%;
+}
+
+.navbar a:focus {
+	color: rgba(0, 0, 0, 1);
+}
+
+.navbar a{
 	font-family: 'Raleway', Helvetica, Arial, sans-serif;
-	padding-top: 3%;
 	background-color: transparent;
 	color: rgba(0, 0, 0, 1);
 }
 
-.navbar-btn:hover {
+.navbar a:hover {
 	color: rgba(0, 0, 0, 0.4);
 	background-color: transparent;
 }
 
-
-.button {
-	font-family: 'Raleway', Helvetica, Arial, sans-serif;
-}
-
-.button-group li{
-	padding-top: 3%;
-}
-
-.button-group a{
-	color: rgba(0, 0, 0, 1);
-	background-color: transparent;
-}
-
-.button-group a:hover {
-	color: rgba(0, 0, 0, 0.4);
-	background-color: transparent;
-}
-
-.button-group{
-	float: none;
-}
-
-@media only screen and (min-width: 40.063em) {
-	.button-group{
-		float: right;
-	}
-}
-
-.namelogo {
-	padding: 20px 10px 0px 10px;
-}
-
-@media only screen and (min-width: 40.063em) {
-	.namelogo {
-		padding-bottom: 20px;
-	}
-}
-
-.namelogo h1 {
-	font-size: 1.5em;
-	font-weight: 600;
-	text-align: center;
-}
-
-@media only screen and (min-width: 40.063em) {
-	.namelogo h1 {
-		font-size: 16px;
-		text-align: left;
-	}
-}
-
-@media only screen and (min-width: 64.063em) {
-	.namelogo h1 {
-		font-size: 24px;
-		text-align: left;
-	}
-}
 
 .hero{
 	background: url("../img/widecurve.png");
@@ -127,7 +80,7 @@ body {
 }
 
 .work img:hover {
-	opacity: 0.5;
+	opacity: 0.8;
 	-webkit-transition: 0.3s ease;
 	-moz-transition: 0.3s ease;
 	-ms-transition: 0.3s ease;
@@ -135,9 +88,12 @@ body {
 	transition: 0.3s ease;
 }
 
-.work li {
-	height: 140px;
-	overflow: hidden;
+.work img {
+	height: 200px;
+}
+
+.notes-item {
+	margin-bottom 0px;
 }
 
 hr {
@@ -152,9 +108,4 @@ hr {
 
 footer {
 	padding: 80px 0 10px 0;
-}
-
-footer a:hover {
-	color: rgba(0, 0, 0, 0.4);
-	background-color: transparent;
 }

@@ -1,0 +1,972 @@
+\documentclass[article,twoside]{article}
+
+\usepackage{amsmath,amssymb,amsthm,amsfonts,amscd,tikz,tikz-cd,cite,hyperref,aliascnt}
+
+\usetikzlibrary{arrows,matrix,calc,decorations.pathmorphing}
+
+\newcommand{\mytitle}{On the Cohomology of Hyperplane Arrangements} 
+\newcommand{\myauthor}{Travis Scholl}
+\newcommand{\myemail}{tscholl@uoregon.edu}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\BB}[1]{\mathbb{#1}}
+\newcommand{\cat}[1]{\textbf{#1}}
+\newcommand{\script}[1]{\mathcal{#1}}
+\newcommand{\free}[1]{\!\left\langle#1\right\rangle\!}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\initial}{\operatorname{In}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\residue}{\operatorname{res}}
+\newcommand{\tot}{\operatorname{Tot}}
+\newcommand{\tuples}{\BB{S}}
+\newcommand{\lattice}{\BB{L}}
+\newcommand{\NBC}{$\textbf{nbc}$}
+
+\setlength{\oddsidemargin}{.5in}
+\setlength{\evensidemargin}{.5in}
+\setlength{\topmargin}{0in}
+\setlength{\headsep}{.6in}
+\setlength{\footskip}{.5in}
+\setlength{\textheight}{8in}
+\setlength{\textwidth}{5.5in}
+
+
+%THEOREM STYLE
+%COUNTER NAME
+%THEOREM TYPE
+%AUTOREF NAME
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+%\newaliascnt{theorem}{theorem} %theorem already has a counter
+%\newcommand{\theoremautorefname}{Theorem} %already set
+%\aliascntresetthe{theorem} %already good to go
+%\newcommand{\factautorefname}{Satz} %already autoref labels theorems correctly
+ % % % % % % % % % % % % % % % % % % % % % % % % % %
+\theoremstyle{plain}
+\newaliascnt{lemma}{theorem} %theorem already has a counter
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\newcommand{\lemmaautorefname}{Lemma}
+% % % % % % % % % % % %
+\theoremstyle{plain}
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\newcommand{\propositionautorefname}{Proposition}
+% % % % % % % % % % % % % % % % %
+\theoremstyle{plain}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\newcommand{\corollaryautorefname}{Corollary}
+% % % % % % % % % % % % % % % %
+\theoremstyle{plain}
+\newaliascnt{fact}{theorem}
+\newtheorem{fact}[fact]{Fact}
+\aliascntresetthe{fact}
+\newcommand{\factautorefname}{Fact}
+% % % % % % % % % % % % % % % % % % % % % % % % %
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\newcommand{\definitionautorefname}{Definition}
+% % % % % % % % % % % % % % % % % % %
+\theoremstyle{definition}
+\newaliascnt{notation}{theorem}
+\newtheorem{notation}[notation]{Notation}
+\aliascntresetthe{notation}
+\newcommand{\notationautorefname}{Notation}
+% % % % % % % % % % % % % % % % % % % % % % % %
+\theoremstyle{definition}
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+\aliascntresetthe{example}
+\newcommand{\exampleautorefname}{Example}
+% % % % % % % % % % % % % % % % % % % % % % % % % % %
+\theoremstyle{remark}
+%\newaliascnt{reason}{theorem}
+%\newtheorem{reason}[reason]{Reason}
+%\aliascntresetthe{reason}
+%\newcommand{\reasonautorefname}{Reason}
+\newtheorem*{reason}{Reason} %unnumbered version
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\theoremstyle{remark}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\newcommand{\remarkautorefname}{Remark}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+
+\pagestyle{myheadings} \markboth{\hfill \mytitle \hfill}{\hfill 
+  \myauthor  \hfill}
+
+\begin{document}
+\title{\bfseries\sffamily \mytitle}  
+\author{\sc \myauthor }
+\maketitle
+
+\begin{abstract}
+Beginning with the basic definitions, this paper walks through the proofs that several structures associated to hyperplane arrangements are in fact the same. The goal is to show (in order) that the Orlik-Solomon Algebra is isomorphic to the Brieskorn Algebra and the Brieskorn Algebra is isomorphic to the Cohomology Ring.
+
+\end{abstract}
+
+\setcounter{section}{-1}
+
+\section{Introduction}
+	\hfil
+
+	We begin with the following basic definitions and notations: $\script{A}=\{H_0,\dots,H_n\}$ is an arrangement of codimension $1$ subspaces in some $l$-dimensional vector space $V$. $\script{A}$ will be referred to as a \emph{hyperplane arrangement}. $\tuples$ is the set of all tuples of hyperplanes, e.g. $S\in \tuples$ is of the form $S=(H_{i_1},\dots,H_{i_p})$ for some $0\leq i_1,\dots,i_p\leq n$. The empty tuple $()\in \tuples$ is allowed. $\cap S$ represents the intersection of all the hyperplanes in $S$. $\script{A}'=\{H_1,\dots,H_n\}=\script{A}\setminus H_0$ is the subarrangement given by deleting the hyperplane $H_0$. $\script{A}''$ is the arrangement induced by restricting to the hyperplane $H_0$. It is defined as $\script{A}'':=\{H_i\cap H_0 \mid i\neq 0\}$.
+	
+	In this paper, we restrict to \emph{central} arrangements, that is all hyperplanes are actual subspaces. This is because, among other niceties, certain definitions are easier to deal with. For example, in a general or \emph{affine} arrangement we might have $\cap S=\emptyset$ for some $S\in\tuples$ whereas in a central arrangement $\cap S$ is always a non-empty subspace of $V$. Almost all of the theory still holds in exactly the same way for affine arrangements, only each proof needs a minor tweak to deal with this case.
+	
+	This is not a big restriction since given any affine arrangement we can take the cone to get a central arrangement. Moreover, the cone of an arrangement contains very similar properties to the original arrangement both combinatorially and topologically.
+
+\begin{definition}
+	$S=(H_{i_1},\dots,H_{i_p})\in \tuples$ is \emph{dependent} if the hyperplanes $H_{i_1},\dots,H_{i_p}$ are dependent, that is their normal vectors $v_i$ are dependent.
+\end{definition}
+
+\begin{notation}
+	For $S=(H_{i_1},\dots,H_{i_p})\in \tuples$, let $\rk(S):=\rk(\cap S)  := \codim (\cap S)$.
+\end{notation}
+
+\begin{proposition}
+	Dependency of $S\in \tuples$ is equivalent to $\rk(S)<|S|$.
+\end{proposition}
+\begin{proof}
+	A point $x$ is in $H_i$ if and only if $v_i\cdot x=0$, where $v_i$ is any normal vector to $H_i$. Now consider the matrix $A$ with the $v_i$ as rows. Then $\cap S=\ker A$. By rank-nullity theorem, $\dim \ker A = l-\dim \im A$. From linear algebra, we know $\dim\im A=|S|$ if and only if the $v_i$ are independent.
+\end{proof}
+
+
+% % % % % % % % % % % % % % %
+
+%OS - Alg
+
+% % % % % % % % % % % % % % % %
+
+\section{Orlik-Solomon Algebra}
+
+The goal of this section is to define the Orlik-Soloman algebra of an arrangement and construct an exact sequence of the form
+$$
+0\to A'\to A\to A''\to 0.
+$$
+
+Let $\script{A}=\{H_0,\dots,H_n\}$ be a hyperplane arrangement. Let $E$ be the free exterior algebra on $\{e_0,\dots,e_n\}$. We adopt the following notations: $e_{H_i}:=e_i$, $e_S=e_{(i_1,\dots,i_p)}:=e_{i_1}\cdots e_{i_p}$ for $S=(H_{i_1},\dots,H_{i_p})\in\tuples$.
+
+Define the boundary map $\partial:E\to E$ by the formula $\partial e_S =  \sum_{k=1}^p(-1)^{k-1}e_{i_1}\cdots\hat{e_{i_k}}\cdots e_{i_p}$ where $S=(H_{i_1},\dots,H_{i_p})$. Let $I$ be the ideal generated by $\{\partial e_S \mid S$ dependent$\}$. Notice that $e_S\in I$ for dependent $S$ as $e_S = e_{i}\partial e_S$ whenever $H_{i}\in S$. It is not hard to see from the definition of $\partial$ that it satisfies the graded Leibniz formula $\partial (e_Se_T) = (\partial e_S)e_T+(-1)^{|S|} e_S(\partial e_T)$.
+
+\begin{definition}
+	The quotient $E/I$ is the \emph{Orlik-Solomon Algebra} of $\script{A}$ and will be notated $A$.
+\end{definition}
+
+Notice $E$ is graded by $E=\bigoplus_{p\geq 0} E_p$ where $E_p$ is the linear span of $\{e_S \text{ such that } |S|=p\}$. These are monomials of degree $p$. Similarly $I$ is also graded because it is generated by homogeneous elements. Hence $I=\bigoplus_{p\geq 0} I_p$ where $I_p=I\cap E_p$. As $I$ is a homogeneous ideal, $A=E/I$ inherits this grading, so $A=\bigoplus_{p\geq 0} A_p$ where $A_p = E_p/I_p$.
+
+For the subarrangement and restriction, $\script{A}',\script{A}''$ we repeat the constructions to get exterior algebras $E',E''$ with ideals $I',I''$, and quotients $A',A''$ respectively.
+
+For this paper all arrangements $\script{A}$ will be ordered. The ordering will help organize the algebraic structures we build and will help give geometric intuition to some of the definitions. The ordering also gives a natural basis for $E$ given by standard monomials $e_S$.
+
+\begin{definition}
+	A tuple $S=(H_{i_1},\dots,H_{i_p})\in\tuples$ is \emph{standard} if $H_{i_1}>H_{i_2}>\cdots>H_{i_p}$.
+\end{definition}
+
+% % % % % % % % % % % % % % %
+
+%THE i:A'\to A MAP
+
+% % % % % % % % % % % % % % % %
+
+
+Next we begin constructing the maps for the exact sequence. There is a natural inclusion of arrangements $\script{A}'\hookrightarrow\script{A}$ which induces an inclusion $E'\hookrightarrow E$. This will induce the inclusion $\iota:A'\to A$. First we have to show this map is well-defined.
+
+\begin{lemma}\label{dependency}
+	For $S\in\tuples'$ $S$ is dependent in $\tuples'$ if and only if $S$ is dependent in $\tuples$.
+\end{lemma}
+\begin{proof}
+	Note that the only difference of $\tuples'$ and $\tuples$ is that no tuple in $\tuples'$ contains $H_0$. By definition, $S$ is dependent if and only if the normal vectors to the hyperplanes in $S$ have some dependency equation. This equation is the same if $S$ is viewed as an element of $\tuples'$ or $\tuples$.
+\end{proof}
+
+\begin{proposition}\label{OS_injective_map}
+	$\script{A}'\to\script{A}$ induces a linear map $\iota: A'\to A$
+\end{proposition}
+\begin{proof}
+	First consider the natural inclusion $E'\to E$. By \autoref{dependency}, $I'$ is taken to $I$. Therefore this induces a map on the quotient $\iota:A'\to A$.
+\end{proof}
+
+
+% % % % % % % % % % % % % % %
+
+%THE j:A\to A'' MAP
+
+% % % % % % % % % % % % % % % %
+
+
+Now we define the surjective map $j:A\to A''$.
+
+\begin{notation}
+	Let $\lambda:\script{A}\setminus\{H_0\}\to \script{A}''$ be the map given by $\lambda H_i:=H_0\cap H_i$. This extends to a map $\tuples\to \tuples''$ given by $(H_{i_1},\dots,H_{i_p})\mapsto (\lambda H_{i_1},\dots,\lambda H_{i_p})$. By convention, if $S=(H_{i_1},\dots,H_0,\dots,H_{i_p})$ then $\lambda S = (\lambda H_{i_1},\dots,\hat{H_0},\dots,\lambda H_{i_p})$. This means $\lambda(H_0) = ()$.
+\end{notation}
+
+Because $\script{A}$ is central we don't have to worry about empty intersections or $\lambda H_i=\emptyset$. The map we want is going to be $e_S\mapsto e_{\lambda S}$. First though we have to show it satisfies some nice properties.
+
+
+\begin{proposition}
+	There is a surjective linear map $j:E\to E''$ that satisfies
+	$$
+		j(e_S) =
+		\begin{cases}
+			e_{\lambda S} \,\text{ if $H_0\in S$}
+			\\
+			0 \,\text{ otherwise.}
+		\end{cases}
+	$$
+	Moreover, $j(I)\subset I''$ so it induces a map $A\to A''$. The induced map will also be referred to as $j$.
+\end{proposition}
+
+\begin{proof}
+	The map $E\to E''$ is well defined since the standard $e_S$ are a basis for $E$ and $j$ can be defined from this basis. Since every plane in $\script{A}''$ is of the form $\lambda H$ for some $H\in \script{A}$, every monomial in $E''$ is of the form $e_{\lambda S}$ for some $S\in\tuples$. Therefore this map is surjective.
+	
+	For the second statement, it suffices to show $j(\partial e_S)$ and $j(e_S)$ are in $I''$ for dependent $S$. This is because every element of $I$ is a linear combination of $e_S$ and $\partial e_S$ for dependent $S$. To see this, notice that $e_i\partial e_S = e_S$ if $H_i\in S$ and $e_S - \partial e_{(H_i,S)}$ if $H_i\notin S$. 
+	
+	Without loss of generality, we may assume $S$ is standard. If $H_0$ is not in $S$ then $j(e_S)=j(\partial e_S)=0$ and we are done, so we may also assume $H_0\in S$.
+	
+	If the hyperplanes in $S$ are dependent, then they are still dependent in the restriction to $H_0$, so $\lambda S$ is also dependent. Therefore $j(e_S)\in I''$ for dependent $S$.
+	
+	To show $j(\partial e_S)\in I''$, set $T=S\setminus H_0$ so $e_S=e_0e_T$ (up to a sign). Then $j(\partial e_S) = j(\partial e_0e_T) = j(e_T-e_0\partial e_T) = -\partial e_{\lambda T}$. The last equality follows because $j(e_T)=0$ ($H_0\notin T$) and every term of $e_0\partial e_T$ is of the form $\pm e_{(H_0,T_k)}$ where $T_k=T\setminus H_k$, which under $j$ will be exactly $\pm e_{(\lambda T)_k}$.
+\end{proof}
+
+
+\begin{remark}\label{not_alg_maps}
+	The maps $\iota,j$ created thus far are linear maps of vector spaces, not algebra homomorphisms. They will be used in proving the algebra homomorphism created later is a bijection.
+\end{remark}
+
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Broken circuits
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+It is difficult to show the complex $0\to A'\to A\to A''\to 0$ is exact directly from the definitions of $i$ and $j$. The common practice is to build a basis for $A$ out of \NBC s (``\NBC'' stands for no broken circuit). We start by building an ordering of monomials to organize $E$.
+
+\begin{definition}
+	$S=(H_{i_1},\dots,H_{i_p})\in \tuples$ is a \emph{circuit} if $\{H_{i_1},\dots,H_{i_p}\}$ is a minimally dependent set. That is, $S$ is dependent and $\{H_{i_1},\dots,\hat{H_{i_k}},\dots,H_{i_p}\}$ is independent for any $1\leq k\leq p$.
+\end{definition}
+
+\begin{definition}
+	$S=(H_{i_1},\dots,H_{i_p})\in \tuples$ is a \emph{broken circuit} if there exists some $H_j<\min\{H_{i_1},\dots,H_{i_p}\}$ such that $(S,H_j)$ is a circuit. $S\in\tuples$ is a \emph{\NBC} tuple if it does not contain a broken circuit. Similarly, $e_S$ is a $\emph{\NBC}$ monomial if $S$ is a \NBC-tuple. Both will be referred to as an \NBC.
+\end{definition}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%ORDERINGS
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+Notice the definition of a broken circuit relies on the ordering of the hyperplanes in $\script{A}$. The next step is to extend this ordering to $\script{A}'$ and $\script{A}''$. The extension to $\script{A}'$ is clear. The extension to $\script{A}''$ needs some careful consideration.  A nice property to have would be $\lambda H_i< \lambda H_j \Rightarrow H_i< H_j$. However since we may have that $\lambda H_i=\lambda H_j$ for various $i$ and $j$, this is not guaranteed from any arbitrary ordering. So first we need to choose a nice enough ordering on $\script{A}$.
+
+We may reorder the hyperplanes so that all the $H_i$ that intersect with $H_0$ in the same way are together in the ordering. This is done as follows. First pick representatives for each distinct hyperplane in the restriction, $\lambda H_{k}$. Next partition $\script{A}$ into sets $\script{O}_k:=\{H_l \mid \lambda H_l = \lambda H_k\}$ for each $k$. Now apply any ordering to the partitioning sets $\script{O}_k$ and any ordering on the hyperplanes in the same $\script{O}_k$. Then define $H_i<H_j$ if and only if $\script{O}_i<\script{O}_j$ for all $\script{O}_i\neq\script{O}_j$. By re-indexing if necessary, we may assume our ordering of hyperplanes satisfies $H_0>H_1>H_2>\cdots>H_n$.
+
+\begin{proposition}\label{induced-order}
+	The ordering described above for $\script{A}$ is well defined and induces an order on $\script{A}''$ satisfying $\lambda H_i< \lambda H_j \Rightarrow H_i< H_j$.
+\end{proposition}
+
+\begin{proof}
+	The induced ordering is given by the bijection $\{\script{O}_k\}\to \script{A}''$, $\script{O}_k\mapsto\lambda H_k$. This satisfies the desired property since $\lambda H_i=\lambda H_{i'}$ implies $H_i,H_{i'}\in \script{O}_i$. Therefore, if $H_i<H_j$ then $\script{O}_i<\script{O}_j$ (note $\lambda H_i\neq \lambda H_j$ so $\script{O}_i\neq\script{O}_j$) and so $H_{i'}<H_j$ by construction.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%INITIAL MONOMIALS
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+The next step is to build a basis for $A$. We begin this by defining a graded lexicographic ordering on the elements of $\tuples$ using the ordering from the hyperplanes.
+
+\begin{definition}
+	Let $S=(H_{i_1},\dots,H_{i_p})$ and $T=(H_{j_1},\dots,H_{i_q})$ be standard tuples. Then define $S<T$ if either $|S|<|T|$ or $|S|=|T|$ and $S$ is lexicographically before $T$. Define $()$ to be the minimum element. To compare non-standard tuples, first put them in standard form by rearranging, then compare as above.
+\end{definition}
+
+\begin{remark}
+	The ordering described above is sometimes called ``deglex'',``graded lexicographic'', or ``degree lexicographic.''
+\end{remark}
+
+Why lexicographic order? Later we will want the elements $\partial e_S$ where $S$ is a circuit to have a leading term that is a broken circuit. To get this, we must make sure the leading term is the one with the minimal hyperplane removed, which corresponds to the maximal monomial in $\partial e_S$ with respect to lexicographic ordering.
+
+\begin{remark}
+	In the context of polynomial algebras it is convenient to use graded lexicographic instead of just lexicographic orderings. This is because any element has only a finite number of monomials strictly lower in the ordering, making it easier for computers to make computations in these algebras.
+\end{remark}
+
+This induces an ordering on the elements in $\tuples'$ and by above on $\tuples''$. Moreover, by placing $S,T$ into standard form before comparing them, this order will be a monomial order (definition below).
+
+The next few definitions apply to a more general setting of exterior algebras of a finite dimensional vector space on basis $e_0,\dots,e_n$ (although most of the definitions make sense in the infinite dimensional case also). When reading, it might be useful to think of the general exterior algebra $\script{E}$ as $E$ and the general ideal $J$ as $I$. We adopt the same notation for elements, only in the general setting a tuple $S=(i_1,\dots,i_p)$ is a tuple of subscripts instead of hyperplanes. Here the standard tuples still make sense and still define a basis. As before, the elements $e_S= e_{i_1}\cdots e_{i_p}$ are referred to as monomials.
+
+\begin{definition}
+	For an exterior algebra $\script{E}$ on generators $e_1,\dots,e_n$, a \emph{monomial ordering} is an ordering of all monomials $e_S$ such that $e_S\leq e_T \Rightarrow e_Se_U\leq e_Te_U$ for monomials $e_S,e_T,e_U$ such that $e_Se_U\neq 0 \neq e_Te_U$.
+\end{definition}
+
+\begin{definition}
+	Let $\script{E}$ be an exterior algebra with a monomial order and $J$ be an ideal of $\script{E}$. The \emph{initial ideal} of $J$ is the linear span of $\{\initial(f) \mid f\in J\}$ where $\initial(f)$ is the maximal monomial or \emph{leading term} of $f$. It is denoted as $\initial(J)$.
+\end{definition}
+
+It is easy to see that $\initial(J)$ is an ideal. By the definition of a monomial order, multiplying by an element of $\script{E}$ gives $0$ or preserves the initial monomial.
+
+The following is a basic proposition about initial ideals, but very important for our applications. We only consider the case where $\script{E}$ is finite dimensional, which is acceptable as $E$ and $I$ as above are generated by a finite number of hyperplanes.
+
+\begin{theorem}\label{initial_basis}
+	Let $\script{E}$ be an exterior algebra over a finite dimensional vector space with a monomial order and $J$ be an ideal of $\script{E}$. Then the set of monomials not in $\initial(J)$ form a basis for $\script{E}/J$.
+\end{theorem}
+
+\begin{proof}
+	Suppose some non-zero linear combination of monomials not in $\initial(J)$ was in $J$. Then the initial term of the combination was in $\initial(J)$, a contradiction. Therefore they are independent.
+
+	To show they span, suppose $f\in \script{E}$. We have to find some $f'$ such that $f+J=f'+J$ and $f'$ contains only monomials not in $\initial(J)$. The main idea is to slowly remove monomials that are in $\initial(J)$. Consider the maximal monomial $e$ of $f$ such that $e\in\initial(J)$. There is some $g\in J$ with $\initial(g)=e$. Now consider $f-g$. This differs from $f$ by an element of $J$ and all of its monomials that lie in $\initial(J)$ are strictly lower then $e$. Next consider the maximal monomial of $f-g$ in $\initial(J)$, and again subtract off an element of $J$ with the same leading monomial. Now continue this process until there are no more monomials in $\initial(J)$. Note that this algorithm has to end because there is only a finite number of monomials (up to scalars) in $\script{E}$.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Gr\"obner BASES
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+This theorem will be helpful with the following definition.
+
+\begin{definition}
+	Let $\script{E}$ be an exterior algebra with a monomial order and $J$ be an ideal of $\script{E}$. A \emph{Gr\"obner Basis} for $J$ is a subset $B$ such that $\initial(B)$ generates $\initial(J)$.
+\end{definition}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%BUCHBERGERS CRITERION
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+Next we will prove that $\{\partial e_S \mid S\text{ is a circuit}\}$ is a Gr\"obner basis of the ideal $I$. First we organize $E$ by introducing a new grading.
+
+\begin{definition}\label{defn_flats}
+	A \emph{flat} $X$ of $\script{A}$ is the intersection of a subset of hyperplanes of $\script{A}$. $\lattice = \lattice(\script{A})$ will denote the set of all flats. $\lattice$ is often referred to as the \emph{intersection lattice} of the arrangement $\script{A}$.
+\end{definition}
+
+\begin{notation}
+	Let $E_X$ be the linear span of $\{e_S\in E \mid \cap S = X\}$. Since $E$ has a basis of all monomials, it is clear that $E = \bigoplus_{X\in\lattice}E_X$.
+
+	Let $C\subset E$ be the linear span of $\{e_S\in E \mid \text{$S$ is a \NBC}\}$. Note that $C$ has a basis consisting of monomials so it inherits both gradings from $E$, i.e. $C = \bigoplus_{p\geq 0}C_p$ where $C_p = C\cap E_p$ and $C  =\bigoplus_{X\in\lattice}C_X$ where $C_X = C\cap E_X$.
+\end{notation}
+
+\begin{lemma}\label{lemma_C_flat_grading}
+	For $C$, the grading along the flats is finer then the standard grading. In particular, $C_p = \bigoplus_{Y\in\lattice, \rk Y=p}C_Y$.
+\end{lemma}
+\begin{proof}
+	It is enough to show that $C_X\subseteq C_{\rk X}$. But this follows from the definition of independent. $e_S\in C_X$ means $\cap S=X$ and $S$ is a circuit, hence independent and $|S| = \rk X$. Thus
+	$$
+		C_p = \bigoplus_{\substack{S\text{ \NBC} \\ \rk\cap S = p}} C_{\cap S}.
+	$$
+\end{proof}
+
+\begin{remark}
+	While grading along flats is finer for $C$ it is not in general for $E$. It is possible for to have $|S|=|T|$ while $\rk\cap S\neq \rk\cap T$ and vise-versa.
+\end{remark}
+
+\begin{lemma}\label{lemma_del_C_to_C_injective}
+	The boundary map $\partial:E\to E$ induces a map $\partial:C\to C$ and the restriction to $C_X$ is injective. Moreover, $\partial(C_X)\subseteq C_{\rk X-1}$.
+\end{lemma}
+\begin{proof}
+	For the first statement, if $e_S$ does not contain a broken circuit, then neither does $\partial e_S$ as $\partial e_S$ is a linear combination of sub-tuples of $S$. Hence $\partial(C)\subset C$.
+
+	To show $\partial|_{C_X}$ is injective let $\tuples_X = \{S\in\tuples \mid \cap S = X\}$. Let $H_i$ be the minimal hyperplane appearing in $\tuples_X$. By definition $H_i\supset X$ so for any $S\in \tuples_X$ we have $(\cap S) \cap H_i = X$. 
+	
+	Notice that if $e_S\in C_X$ and $H_i\notin S$, then $\cap (H_i,S)=X=\cap S$ so $(H_i,S)$ is dependent. As $H_i$ was chosen to be minimal in $\tuples_X$, this contradicts $S$ being a \NBC. Therefore $H_i\in S$ for all $e_S\in C_X$. It follows that $e_iC_X = 0$.
+	
+	Now recall the formula $\partial(e_ie_S)  = e_S - e_i\partial(e_S)$. As $\partial$ is a linear map, for any linear combination $c = \sum_{e_S\in C_X}k_S e_S$ we have the same formula $\partial(e_ic)=c-e_i\partial c$. But by above, $e_ic=0$ so this equation becomes $c = e_i\partial c$. This shows if $\partial c=0$ then $c=0$.
+	
+	Finally, as $\partial$ takes $e_S$ to a linear combination of $e_T$ where $T$ is just $S$ without one hyperplane. If $e_S\in C$ then it is independent so $\rk (S\setminus H_i) = \rk S-1$.
+\end{proof}
+
+\begin{lemma}\label{lemma_A_grading_flats}
+	$I$ is graded along the intersection lattice. That is $I = \bigoplus_{X\in\lattice}I_X$ where $I_X = I\cap E_X$. Hence $A$ is similarly graded, $A = \bigoplus_{X\in\lattice}A_X$ where $A_X = E_X/I_X$.
+\end{lemma}
+\begin{proof}
+	It is sufficient to show $I = \bigoplus_{X\in\lattice} I_X$. To do this, we have to show that every element of $I$ decomposes along the $E_X$.
+	
+	First consider a circuit $e_S$ with $\cap S = X$. Then since circuits are minimally dependent we must have $\cap (S\setminus H_i)=X$ for all $H_i\in S$. Thus $\partial e_S\in E_X$.
+	
+	Now we need to look at an arbitrary element of $I$. As all dependent $S$ contain a circuit, $I$ is also generated by $\{\partial e_S \mid S \text{ a circuit}\}$. So an arbitrary element of $I$ is a sum of things of the form $e_T\partial e_S$ for $S$ a circuit and arbitrary $T$. We can rewrite $e_T\partial e_S = \sum e_Te_{S_i} = \sum e_{T\cup S_i}$ where $S_i = S\setminus H_i$. By above, $\cap S_i = \cap S$ so $\cap(T\cup S_i) = (\cap T)\cap (\cap S_i) = (\cap T)\cap (\cap S)$. Hence $e_T\partial e_S \in E_{(\cap T)\cap (\cap S)}$. This shows each part of the sum is contained in some $I_X$.
+\end{proof}
+
+\begin{theorem}\label{lemma_C_to_A_injective}
+	The quotient map $\pi:E\to A$ induces an injection $C\to A$.
+\end{theorem}
+\begin{proof}
+	By \autoref{lemma_A_grading_flats} it is sufficient to check $\pi|_{C_X}$ is injective for all $X\in\lattice$. By definition, $\pi(C_X)\subset A_X$. Now proceed by induction on $r=\rk X$.
+	
+	The base case is when $r = 0$, or $X = V$ (this corresponds to the empty intersection or the empty tuple). Here $\pi|_{C_X}$ is just the identity on the underlying field to itself.
+	
+	For the induction step,  \autoref{lemma_del_C_to_C_injective} gives the diagram
+	\begin{equation*}
+		\begin{tikzcd}
+			C_X \rar{\partial}\dar[swap]{\pi}& C_{r-1}\dar{\pi}
+			\\
+			A_X\rar{\partial} & A_{r-1}
+		\end{tikzcd}
+	\end{equation*}
+	which is commutative. Note \autoref{lemma_del_C_to_C_injective} also says the top map is injective and our induction hypothesis says the right map is injective. Therefore the left map must also be injective.
+\end{proof}
+
+\begin{theorem}\label{nbc-basis}
+	The set $B=\{\partial e_S \mid \text{ $S$ is a standard circuit}\}$ is a Gr\"obner basis of $I$. Moreover, the monomials in $\initial(B)$ are precisely the broken-circuits, so the monomials not in $\initial(I)$ are the \NBC s. Hence by \autoref{initial_basis} the \NBC s form a basis of $E/I=A$.
+\end{theorem}
+
+\begin{proof}
+	To show $B$ is a Gr\"obner basis we have to show $\free{\initial(B)} = \initial(I)$. It is obvious $\free{\initial(B)} \subseteq \initial(I)$ as $B\subseteq I$. So it sufficient to check the reverse containment.
+
+	By \autoref{initial_basis}, the monomials not in $\initial(I)$ form a basis for $A$ under the quotient map $\pi:E\to A$. So by above, the monomials not in $\free{\initial(B)}$ span $A$ under $\pi$. We want to show they are independent. Note by definition of the ordering $\initial(B)$ is exactly the broken circuits so its complement is the \NBC s, $C$. This means $E = \free{\initial(B)}\oplus C$. Thus it remains to check $\pi|_C$ is injective. But this is exactly \autoref{lemma_C_to_A_injective}.
+\end{proof}
+
+\begin{corollary}\label{circuit_OS_iso}
+	The quotient map $E\to A$ restricts to a linear isomorphism $C\to A$.
+\end{corollary}
+
+\begin{remark}
+	$C$ is not a subalgebra since \NBC s are not closed under multiplication.
+\end{remark}
+
+Because $H_0$ is the maximal hyperplane with respect to our ordering, $S$ is broken in $\tuples'$ if and only if it is broken in $\tuples$, for the lesser hyperplane creating the dependency will never be $H_0$. Therefore $C'\subset C$. Consider the map $C\to C''$ given by the restriction of $j:E\to E''$ as before. To show this is well-defined it remains to show $j$ preserves the ``not a broken circuit'' property.
+
+
+
+% % % % % % % % % % % % % % % % % % % %
+
+%EXACT SEQUENCE IN C'->C->C''
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{proposition}
+	If $S$ is a \NBC, then $j(e_S)$ is either $0$ or a \NBC, i.e. $j(C)\subset C''$. Hence $j$ induces a map $C\to C''$.
+\end{proposition}
+\begin{proof}
+	If $H_0\notin S$ we are done by definition of $j$. So assume $H_0\in S$. Similarly, if $H_{i_1}\cap H_0 = H_{i_2}\cap H_0$ for some $H_{i_1},H_{i_2}\in S$ then $j(e_S)=0$, so we may assume $\lambda S$ contains distinct elements or equivalently $|\lambda S| = |S|-1$.
+
+	Suppose $j(e_S)=e_{\lambda S}$ contains a broken circuit. Then there is some hyperplane $H_{i}<\min(S)$ (we may find $H_i\in\tuples$ rather than $\tuples''$ by \autoref{induced-order}) such that $(\lambda S,\lambda H_{i})$ is dependent.
+	
+	Now we claim $(S,H_i)$ is dependent, which contradicts $S$ being a \NBC completing the proof. The reason for the dependency is that because $H_0\in S$, $(\cap S)\cap H_i = (\cap \lambda S)\cap \lambda H_i$. Hence $\rk(S,H_i)+1 = \rk(\lambda S,\lambda H_i)$. Putting these together gives $\rk(S,H_i)+1 = \rk(\lambda S,\lambda H_i) < |\lambda S,\lambda H_i| = |S| < |(S,H_i)|$. This implies $\rk(S,H_i)<|(S,H_i)|$ so it is dependent.
+\end{proof}
+
+\begin{proposition}\label{broken-circuits_surjection}
+	The map $C\to C''$ induced by $j$ is a surjection.
+\end{proposition}
+\begin{proof}
+	Let $T\in\tuples''$ be a \NBC. By definition of $\script{A}''$, there is some $S$ such that $T=\lambda S$. We need to show we can choose such an $S$ as a \NBC.
+	
+	For each plane $H''\in T$, let $H_i$ be the minimal plane in $\script{A}$ such that $\lambda H_i=H''$. Let $S\in\tuples$ be the tuple of these $H_i$ in standard order. This construction shows $T=\lambda S$.
+	
+	Suppose $S$ was a broken circuit. Then there is some $H_p<\min(S)$ such that $(S,H_p)$ is dependent. We will contradict $T$ being a \NBC with the following two claims.
+	
+	First is that $(T,\lambda H_p)$ is dependent as $\cap S = \cap S \cap H_p$ implies $\cap\lambda S = \cap\lambda S \cap \lambda H_p$ or equivalently $\cap T = \cap T\cap\lambda H_p$. Then clearly $\rk (T,\lambda H_p)<|T|$.
+
+	Second is that $\lambda H_p<\min(\lambda S=T)$. This follows because as $S$ has the unique minimal representative $H_i$ for each $H''\in T$ and $H_p<\min(S)$, so it can't be the case that $\lambda H_p= H''$ for any $H''\in T$. If it was the case that $\lambda H_p > H''$ for some $H''\in T$, then by \autoref{induced-order}, $H_p > H$, where $H$ is any hyperplane such that $\lambda H = H''$. This would contradict $H_p<\min(S)$ by the construction of $S$.
+\end{proof}
+
+The last step to showing the sequence of \NBC s $0\to C'\to C\to C''\to 0$ is exact is to check the middle term, i.e. $\ker j = C'$.
+
+\begin{lemma}\label{nbc_lambda_lemma}
+	Let $S_1,S_2\in\tuples$ be \NBC s with $H_0\in S_1,S_2$. Then $\lambda S_1=\lambda S_2 \Rightarrow S_1=S_2$.
+\end{lemma}
+\begin{proof}
+	Suppose $S_1\neq S_2$. By hypothesis, there must be some $H_{i_1}\in S_1$, $H_{i_2}\in S_2$ with $H_{i_1}\neq H_{i_2}$ but $\lambda H_{i_1}= \lambda H_{i_2}$. Without loss of generality, assume $i_1>i_2$. In particular, this means $(H_0,H_{i_1},H_{i_2})$ is dependent in $\tuples$, which means $(H_0,H_{i_1})$ is a broken circuit. Since $(H_0,H_{i_1})$ is contained in $S_1$, this contradicts $S_1$ being a \NBC.
+\end{proof}
+
+\begin{lemma}\label{broken_circuits_ker-img}
+	$\ker j = C'$.
+\end{lemma}
+\begin{proof}
+	It is clear that $C'\subset \ker j$ because no element of $C'$ contains $e_{H_0}$ so $j(C')=0$.
+	
+	For the reverse direction, suppose $\sum c_Se_S\in\ker j$. By definition of $C'$ we may only consider the sum over $S$ such that $H_0\in S$.
+	
+	As an element of $\ker j$, it follows that $\sum c_S e_{\lambda S}=0$. As the monomials $e_S$ are linearly independent, if not all $c_S=0$, then there must be $S_1\neq S_2$ such that $\lambda S_1=\lambda S_2$. But as all $S$ in the sum are distinct \NBC s in $\tuples$ containing $H_0$, this contradicts \autoref{nbc_lambda_lemma}.
+\end{proof}
+
+\begin{corollary}\label{cor_exact_seq_C}
+	The sequence $0\to C'\to C\to C''\to 0$ is exact.
+\end{corollary}
+\begin{proof}
+	Combine the paragraph after \autoref{circuit_OS_iso}, \autoref{broken-circuits_surjection}, and \autoref{broken_circuits_ker-img}.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%EXACT SEQUENCE
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{theorem}\label{OS_exact}
+	The sequence $0\to A'\to A\to A''\to 0$ is exact.
+\end{theorem}
+\begin{proof}
+	As all horizontal maps are induced by the same maps $E'\overset{\iota}{\rightarrow}E\overset{j}{\rightarrow}E''$, the diagram
+	\begin{equation*}
+		\begin{tikzcd}
+			0\rar&C'\dar\rar&C\dar\rar&C''\dar\rar&0
+			\\
+			0\rar&A'\rar&A\rar&A''\rar&0
+		\end{tikzcd}
+	\end{equation*}
+	commutes. The vertical maps are restrictions of the respective projection $E\to E/I=A$. Now exactness of the bottom row follows from \autoref{circuit_OS_iso} and \autoref{cor_exact_seq_C}.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Brieskorn
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Brieskorn Algebra}
+
+The goal of this section is to define the Brieskorn algebra of an arrangement and prove it is isomorphic to $A$ using an exact sequence of the form
+$$
+0\to R'\to R\to R''\to 0.
+$$
+
+From here on, we require that our arrangements sit in some $l$-dimensional vector space $V$ over $\CC$. The reason is that this turns the complement of the hyperplanes into an open subset of complex space. Hence it has the structure of a complex $l$-dimensional manifold. However, it is possible to define the Brieskorn algebra over an arbitrary field using a completely algebraic definition of differential form (usually called ``rational forms'') as in \cite{orlik_terao}.
+
+\begin{definition}
+	For a hyperplane arrangement $\script{A}=\{H_0,\dots,H_n\}$ in a complex vector space $V$, the \emph{complement} $M$ is defined as the set $V\setminus\bigcup H_i$.
+\end{definition}
+
+Before we get to the main definitions and constructions, we need some terminology.
+
+\begin{notation}
+	For each hyperplane $H_i\in\script{A}$, let $\alpha_i:=\alpha_{H_i}$ be a linear form with $\ker\alpha_i=H_i$. Then let $\omega_i:=\omega_{H_i}$ be the corresponding differential form $\frac{1}{2\pi i}\frac{d\alpha_i}{\alpha_i}$. Notice that $\alpha_i$ is only unique up to a scalar multiple but $\omega_i$ is unique. Define $\omega_S := \omega_{i_1}\cdots\omega_{i_p}$ for any tuple $S = (H_{i_1},\dots,H_{i_p})$. Let $\Omega^p$ be the space of all differential $p$-forms on $M$, and $\Omega^*:=\bigoplus_{p\geq 0} \Omega^p$ with the usual ring structure given by the exterior product of differential forms.
+\end{notation}
+
+\begin{remark}
+	The forms $\frac{1}{2\pi i}\frac{d\alpha_i}{\alpha_i}$ represent generators in the de Rham cohomology of the complement $M$. This will be the key to building a map $R\to H^*(M)$ later. These forms should also look familiar. A generator of $H^*(\CC^*)$ is represented by $\frac{1}{2\pi i}\frac{dz}{z}$ and the complement of a single hyperplane is homotopy equivalent to $\CC^*$.
+\end{remark}
+
+\begin{definition}
+	For a complex arrangement $\script{A}$, the \emph{Brieskorn Algebra} of $\script{A}$ is the subalgebra $R$ generated by $\{1,\omega_0,\dots,\omega_n\}\subset\Omega^*$.
+\end{definition}
+
+As before, we need to make sure we have adequate maps $R'\to R$ and $R\to R''$.
+
+% % % % % % % % % % % % % % % % % % % %
+
+%INJECTIVE MAP i:R'\to R
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{proposition}\label{brieskorn_injection}
+	There is a natural inclusion $R'\hookrightarrow R$.
+\end{proposition}
+\begin{proof}
+	This follows from noting that the forms $\omega'_i\in R'$ and $\omega_i\in R$ all can be viewed as rational forms (as they have simple poles) on the complex vector space $V$, and thus $R$ and $R'$ can be viewed as subalgebras of rational forms on $V$.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%SURJECTIVE MAP j:R\to R''
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+The other required map $R\to R''$ is slightly more complicated and requires some complex analysis to define.
+
+
+\begin{lemma}\label{brieskorn_surjection}
+	There exists a linear map $j:R\to R''$ satisfying $\omega_S\mapsto\omega_{\lambda S}$ if $H_0\in S$ and $\omega_S\mapsto 0$ if $H_0\notin S$.
+\end{lemma}
+\begin{proof}
+	Consider the map $R\to\Omega^*(M'')$ given by taking $w_i$ to its Poincare Residue around $H_0$ (see \cite{khesin_wendt}, pg 171). Basically this means taking a form $\omega_S$ and finding the quotient when ``dividing'' by $\omega_0$. This map satisfies the requirements in the claim and hence define a map to $R''$.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%ALGEBRA MAP \gamma: A\to R
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+Now we define the algebra homomorphism $A\to R$.
+
+\begin{notation}
+	Let $a_i$ be the image of $e_i$ under the projection $E\to E/I=A$.
+\end{notation}
+
+\begin{lemma}\label{os_brieskorn_alg_hom}%(Orlik-Solomon, \cite{orlik_solomon}, lemma 5.1)
+	There exists an algebra homomorphism $\gamma:A\to R$ sending $a_i\to \omega_i$. As $\omega_i$ generate $R$, this map is surjective.
+\end{lemma}
+\begin{proof}
+	First define $\nu:E\to R$ by $e_i\mapsto\omega_i$. This is a well defined algebra homomorphism as differential forms satisfy the same relations as exterior products.
+	
+	It remains to show $\nu(I)=0$. As an algebra homomorphism, it is sufficient to show that if $S$ is a standard circuit, then $\nu(\partial e_S)=0$.
+	
+	Let $S=(H_{i_1},\dots,H_{i_p})$ be a standard circuit. Without loss of generality, we may assume $S=(H_1,\dots,H_p)$ in order to simplify notation. As the $H_i$ are dependent, so are their defining linear forms $\alpha_i$. That means there are scalars $c_i$ such that $\sum c_i\alpha_i=0$. Since circuits are minimally dependent, $c_i\neq 0$ for each $i$. Without loss of generality, we may assume $c_i=1$ as scaling the $\alpha_i$ preserve their kernel.
+	
+	Therefore we have $\sum \alpha_i =0 \Rightarrow \sum d\alpha_i =0$. Notice that we can use this to get the following formula for any fixed $j$ with $1\leq j\leq p-1$ (note all sums and products in the following are taken over $i$, ranging from $i=1,\dots,p$, unless otherwise noted):
+	$$
+	0=\sum d\alpha_i =\left(\sum d\alpha_i\right) \left(\prod_{\substack{i\neq j\\i\neq j+1}}d\alpha_i\right) = (-1)^{j-1}\prod_{i\neq j+1}d\alpha_i + (-1)^{j-1}\prod_{i\neq j+1}d\alpha_i.
+	$$
+	Note that both products are over $i$ such that $i\neq j+1$. This is because moving $\alpha_j$ past $\alpha_1\cdots\alpha_{j-1}$ gives the same sign as moving $\alpha_{j+1}$ past $\alpha_1\cdots\alpha_{j-1}$.
+	
+	This implies
+	$$
+	\prod_{i\neq j+1}d\alpha_i = - \prod_{i\neq j}d\alpha_i.
+	$$
+	Let $\mu_j = \frac{1}{\alpha_j}(-1)^{j-1}\prod_{i\neq j}\omega_i$. Using the formula above, we have
+	$$
+	\left(\prod\alpha_i\right)\mu_{j+1} = (-1)^j\prod_{i\neq j+1}d\alpha_i
+	= (-1)^{j-1}\prod_{i\neq j}d\alpha_i = \left(\prod\alpha_i\right)\mu_{j}.
+	$$
+	This shows that all the $\mu_j$ are the same, that is, $\mu_j$ is independent of $j$. Let $\mu$ be this common value.
+
+	Applying this to $\nu$ gives
+	$$
+	\nu(\partial e_S) = \sum_{j=1}^p(-1)^{j-1}\prod_{i\neq j}\omega_i = \sum_{j=1}^p \alpha_j\mu_j
+	=\sum_{j=1}^p\alpha_j\mu = \left(\sum_{j=1}^p\alpha_j\right)\mu.
+	$$
+	But recall $\sum_{j=1}^p\alpha_j=0$ by the dependency of $S$. Therefore $\nu$ is $0$ on $I$ and induces the desired algebra homomorphism.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Exact sequence
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{theorem}\label{BREISKORN_exact}
+	There exists an exact sequence of the form $0\to R'\to R\to R''\to 0$.
+\end{theorem}
+
+\begin{theorem}\label{OS_congruent_BRIESKORN}
+	$A$ is isomorphic to $R$ as $\CC$-algebras.
+\end{theorem}
+
+We can prove \autoref{BREISKORN_exact} and \autoref{OS_congruent_BRIESKORN} simutaneously by induction on $n=|\script{A}|$.
+
+\begin{proof}
+	If $|\script{A}|=0$, then $A$ and $R$ are both $\CC$.
+
+	Using the linear maps from \autoref{brieskorn_injection} and \autoref{brieskorn_surjection}, the algebra homomorphism from \autoref{os_brieskorn_alg_hom} and the exact sequence for $A$ from \autoref{OS_exact}, we can build the following commutative diagram.
+	\begin{equation*}
+		\begin{tikzcd}
+		0\rar & A'\rar\dar{\gamma'} & A\rar\dar{\gamma} & A''\rar\dar{\gamma''} & 0
+		\\
+		0\rar & R'\rar & R\rar & R''\rar & 0
+		\end{tikzcd}
+	\end{equation*}
+	By induction, $\gamma',\gamma''$ are isomorphisms. From \autoref{brieskorn_injection}, the bottom row is exact on the left. Exactness on the right, i.e. the map $R\to R''$ is surjective, follows from the commutativity of the right square.
+	
+	From the definition of the horizontal maps, the composition $R'\to R\to R''$ is $0$. Using the fact that $\gamma$ is onto, a diagram chase shows $\ker (R\to R'')\subset \im (R'\to R)$. Therefore the bottom row is exact. Now the five lemma implies $\gamma$ is an isomorphism.
+\end{proof}
+
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Cohomology
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Cohomology}
+
+The goal of this section is to prove that the de Rham cohomology of $M$ is isomorphic to $R$ under the obvious map $\omega_i\mapsto [\omega_i]$. The proof will rest on an exact sequence of the form
+$$
+0\to H^p(M') \to H^p(M) \to H^{p-1}(M'') \to 0.
+$$
+
+First note that by definition of the restriction $\script{A}''$ it follows that $M'' = M'\cap H_0$ and $M=M'\setminus M''$.
+
+Now consider the pair $(M',M)$ and the corresponding long exact sequence in cohomology
+$$
+\cdots \to H^q(M') \to H^q(M) \to H^{q+1}(M',M) \to H^{q+1}(M') \to \cdots.
+$$
+Our goal will be to replace $H^*(M',M)$ with $H^*(M'')$ using excision and a special case of the Thom isomorphism. The Thom isomorphism will be the cause of the drop in dimension seen above.
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Injective and Surjective maps
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+%GOAL: $H^*(M',M)\cong H^{p-2}(M'')$.
+%
+%PLAN: $H^*(X,X\setminus Y)\cong H^*(\tot(\nu_{Y\subseteq X}),\tot(\nu_{Y\subseteq X})\setminus \tilde{Y})$.
+%
+%TAKE: $X = M'$, $Y=M''$.
+%
+%SHOW: $\nu_{M''\subseteq M'}\cong M''\times \CC$.
+%
+%COMBINE: $H^*(M',M)\cong H^*(M''\times (\CC,\CC^*))$
+%
+%TOHM: $H^{p}(M''\times (\CC,\CC^*))\cong H^{p-2}(M'')$
+
+\begin{notation}
+	For a manifold $X$ and submanifold $Y\subseteq X$, let $\nu_{Y\subseteq X}$ be the normal bundle of $Y$ in $X$ and $\tot\nu_{Y\subseteq X}$ the total space of $\nu_{Y\subseteq X}$. Identify $Y$ with the zero section of $\nu_{Y\subseteq X}$. Let $TX$ denote the tangent bundle to $X$ and identify ${X}$ with the zero section. Then by definition $\nu_{Y\subseteq X} = TX|_{Y}/TY$, where $TX|_{Y} = \iota^*(TX)$ and $\iota:Y\hookrightarrow X$ is the inclusion.
+\end{notation}
+
+
+\begin{lemma}\label{M''_trivial_normal_bundle}
+	The normal bundle $\nu_{M''\subseteq M'}$ is trivial with fiber $\CC$.
+\end{lemma}
+\begin{proof}
+	A general theorem says if a submanifold $Y\subseteq X$ is closed and  a subset $U\subseteq X$ is open, then $\nu_{Y\cap U\subseteq U} = \nu_{Y\subseteq X \mid _{Y\cap U}}$. The intuition behind the theorem is that intersecting with open sets does not change local behavior. For our situation, take $X=V$, an $l$-dimensional $\CC$ vectorspace, $Y = H_0\subseteq V$, and $U = M'$. Since $M'' = M'\cap H_0$, this theorem says $\nu_{M''\subseteq M'} = \nu_{H_0\subseteq V}|_{M''}$. But $H_0$ is a $(l-1)$-dimensional subspace of $V$, so it has a trivial normal bundle with $1$-dimensional fiber $\CC$.
+	%PROOF: $TV = V\times V$, $TH_0 = H_0\times H_0$ (no coordinates necessary, this is as a subbundle not arbitrary bundle). Hence $TV|_{H_0} = H_0\times V$ so $\nu_{H_0\subseteq V} = H_0 \times (V/H_0) = H_0 \times \CC$.
+\end{proof}
+
+\begin{lemma}\label{M',M''_trivial_fiber_pair_bundle}
+	There is a canonical isomorphism $\alpha:H^*(M',M'')\to H^*(M''\times\CC,M''\times\CC^*)$.
+\end{lemma}
+\begin{proof}
+	There is a general theorem that for a manifold $X$ with a closed (in the topological sense, not necessarily compact) submanifold $Y$ there is a canonical isomorphism $H^*(X,X\setminus Y)\cong H^*(\tot(\nu_{Y\subseteq X}),\tot(\nu_{Y\subseteq X})\setminus {Y})$. The proof involves tubular neighbhorhoods, excision, and the intuition that $Y$ in $X$ looks like ${Y}$ in $\nu_{Y\subseteq X}$. 
+	
+	For our case, take $X = M'$ and $Y=M''$. Using \autoref{M''_trivial_normal_bundle}, we have $\nu_{M''\subseteq M'}\setminus{M'}\cong M''\times \CC^*$ since the left side is just the trivial bundle without the zero section. Then with the fact that $M = M'\setminus M''$, the general theorem says
+	$$
+	\alpha: H^*(M',M)\to H^*(M''\times\CC,M''\times\CC^*).
+	$$
+\end{proof}
+
+
+%========================================================
+%
+%========================================================
+%
+%
+%PROOF OF GENERAL THEOREM:
+%
+%$Y\subseteq X$ a closed submanifold, and $\nu=\nu_{Y\subseteq X}$.
+%
+%Let $U$ tubular nbhd of $Y$ in $X$. Find $V$ neighborhood of $\tilde{Y}$ in $\nu$, i.e. neighborhood of zero section $\tilde{Y}$ in the normal bundle. By Gulliman and Pollack, ``Tubular Nieghborhood Theroem'', there is a diffeomorphism $\varphi:U\to V$ taking $Y\mapsto \tilde{Y}$. Thus $\phi^*:H^*(U,U\setminus Y)\to H^*(V,V\setminus\tilde{Y})$ is an isomorphism. Now follow the chain
+%\begin{align*}
+%H^*(X,X\setminus Y) &\cong H^*(U,U\setminus Y) &&\text{ By excision}
+%\\
+%&\cong H^*(V,V\setminus \tilde{Y}) &&\text{ By $\varphi$ above}
+%\\
+%&\cong H^*(\nu,\nu\setminus \tilde{Y}) &&\text{ By excision (backwards)}
+%\end{align*}
+%
+%========================================================
+%
+%========================================================
+
+Since $(M''\times\CC,M''\times\CC^*)$ is a fiber bundle pair with fiber $(\CC,\CC^*)$ the Thom isomorphism $\tau$ in this context (see \cite{hatcher}, pg 441) is an isomorphism
+$$
+\tau:H^p(M''\times\CC,M''\times\CC^*) \to H^{p-2}(M'').
+$$
+
+
+Together these give an isomorphism $\tau\alpha:H^*(M',M)\to H^{*-2}(M'')$. So substituting this into the long exact sequence for the pair given above and we have
+$$
+\cdots \to H^p(M') \to H^p(M) \to H^{p-1}(M'') \to H^{p+1}(M') \to \cdots.
+$$
+
+Taking out one small section of this sequence and adding zeros on the sides we get the following complex (with exactness to be shown later):
+$$
+	0\to H^p(M') \overset{\iota^*}{\rightarrow} H^p(M) \overset{j^*}{\rightarrow} H^{p-1}(M'') \to 0.
+$$
+Here $\iota^*$ is induced from the inclusion $M\subset M'$ and $j^* = \tau\alpha\delta$, $\delta:H^p(M)\to H^{p-1}(M',M)$ is the boundary map given in the long exact sequence, and $\tau,\alpha$ are as above.
+
+\begin{remark}\label{cohom_exact_center}
+	As this sequence was pulled out of the long exact sequence, we have for free that it is exact in the center.
+\end{remark}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%ALGEBRA HOM
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+Now that we have the maps for our sequence, the next step is to build the connecting map $R\to H^*(M)$. For this we will look at the grading of $R$ given by the usual grading of differential forms.
+
+\begin{notation}
+	The grading of $R$ is notated by $R=\bigoplus_{p\geq 0}R_p$ where $R_p=\Omega^p\cap R$.
+\end{notation}
+
+\begin{lemma}\label{alg_hom_R_to_H*(M)}
+	There is a well defined graded algebra homomorphism $\psi: R\to H^*(M)$ sending $\omega_S\mapsto[\omega_S]$.
+\end{lemma}
+\begin{proof}
+	We know there is a well defined natural graded algebra homomorphism $\Omega^*(M)\to H^*(M)$ given by sending a differential form to its cohomology class, $\omega\mapsto[\omega]$. The desired map is the restriction of this map to $R$.
+\end{proof}
+
+% % % % % % % % % % % % % % % % % % % %
+
+%EXACT SEQUENCE
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{lemma}\label{commutativity_psi_i_j}
+	The maps $\iota^*$ and $j^*$ make the diagram
+	\begin{equation*}
+		\begin{tikzcd}
+		 R_p'\rar\dar{\psi'} & R_p\rar\dar{\psi} & R_{p-1}''\dar{\psi''}
+		\\
+		H^p(M')\rar{\iota^*} & H^p(M)\rar{j^*} & H^{p-1}(M'')
+		\end{tikzcd}
+	\end{equation*}
+	commute. The top horizontal maps are the ones defined in the previous section.
+\end{lemma}
+\begin{proof}
+	As $\iota$ is induced from the inclusion $R'\hookrightarrow R$ (the same as the map induced from $M\subset M'$), it satisfies $\iota([\omega_S]) = [\omega_S]$, where the left is viewed in $H^*(M')$ and the right is in $H^*{M}$. This implies $\iota$ commutes with $\psi$.
+
+	By construction, $j^*=\tau\alpha\delta$. It is not hard to see that $\tau\alpha\delta$ has to commute with $\psi$. For example, consider a form $[\omega_S]\in H^*(M)$. Sending through $\delta$ takes this form relative to the compliment of $H_0$. Then $\tau\alpha$ excise out $H_0$, similar to how the residue map $R\to R''$ removed $\omega_{H_0}$. Thus $\tau\alpha\delta([\omega_S]) = [\omega_{\lambda S}]$ meaning the right square commutes. A detailed and comprehensive proof can be found in \cite{orlik_terao}, \cite{sergey}.
+\end{proof}
+
+We now can state the main theorem. The proof will be the exact analogue of \autoref{BREISKORN_exact} and \autoref{OS_congruent_BRIESKORN}.
+
+\begin{theorem}
+	There is an exact sequence $0\to H^p(M')\to H^p(M) \to H^{p-1}(M'')\to 0$ for every $p$.
+\end{theorem}
+
+\begin{theorem}
+	$\psi:R\to H^*(M)$ is an isomorphism of graded $\CC$-algebras.
+\end{theorem}
+
+\begin{proof}\label{BRIESKORN_cong_COHOM}
+	We prove both theorems simultaneously by induction on $|\script{A}|$. If $|\script{A}|=0$ it is true since both algebras are just copies of $\CC$ and $\psi$ is an isomorphism.
+	
+	From \autoref{commutativity_psi_i_j} the diagram
+	$$
+	\begin{tikzcd}
+	0\rar & R_p'\rar\dar{\psi'} & R_p\rar\dar{\psi} & R_{p-1}''\rar\dar{\psi''} & 0
+	\\
+	0\rar & H^p(M')\rar{\iota^*} & H^p(M)\rar{j^*} & H^{p-1}(M'')\rar & 0
+	\end{tikzcd}
+	$$
+	is commutative for every $p$.
+	
+	From the construction of the horizontal maps in \autoref{BREISKORN_exact}, it is clear that they respect the grading. Therefore the top sequence is exact.
+	
+	Because the bottom row came from the long exact sequence, it is exact in the middle. Commutativity of the right square implies $j^*$ is surjective for every $p$. In the long exact sequence the bottom row came from, the map after $j^*$ must be $0$ as $j^*$ is surjective. Which means $\iota^*$ (the next map) is injective for every $p$. Therefore the bottom row is exact.
+	
+	By induction, $\psi',\psi''$ are isomorphisms. Therefore the five lemma implies $\psi$ is an isomorphism.
+\end{proof}
+
+
+% % % % % % % % % % % % % % % % % % % %
+
+%Conclusion
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Conclusion}
+
+Combining \autoref{OS_congruent_BRIESKORN} with Theorem $3.9$ shows $A\cong R\cong H^*(M)$. This is important for a number of reasons.
+
+%(\autoref{BRIESKORN_cong_COHOM})
+
+For one, it shows an explicit relationship between the topology (cohomology ring) and the combinatorics (circuits) of an arrangement $\script{A}$. Further relationships between topological and combinatorial aspects of arrangements is an active area of research.
+
+Another reason this result is important is that it shows the Brieskorn algebra $R$ of an arrangement is ``formal,'' i.e. it is quasi-isomorphic to its cohomology, $H^*(M)$.
+
+
+
+% % % % % % % % % % % % % % % % % % % %
+
+%END
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+% % % % % % % % % % % % % % % % % % % %
+
+%BIB
+
+% % % % % % % % % % % % % % % % % % % % % % % % %
+
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{references}
+
+%\begin{center}
+%\noindent\rule{4cm}{.5pt}
+%\vspace{.25cm}
+%
+%\noindent {\sc \small \myauthor}\\
+%{\small Department of Mathematics, University of Oregon, Eugene OR 97403} \\
+%email: {\tt \myemail}
+%\end{center}
+
+\end{document}
+
+%%% Local Variables: ***
+%%% mode:latex ***
+%%% TeX-command-default: "PDFLaTeX"  ***
+%%% End: ***
+
+
+
+% % % % % % % % % % % % % % % % % % % % % % %OLD % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+%\subsection*{FIX!=================}$\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee\vee$
+%\begin{lemma}
+%	There is a tubular neighborhood $N$ of $M''$ in $M'$ with projection map $N\to M''$ which is a trivial fiber bundle with fiber $\CC$.
+%\end{lemma}
+%\begin{proof}
+%	There is a general theorem of manifolds which says for a manifold $X$ and submanifold $Y\subseteq X$, there is a tubular neighborhood $N$ of $Y$ with a map $N\to Y$ fixing $Y$ and a diffeomorphism $N\to\tot\nu_{Y\subseteq X}$ making the diagram commute.
+%	\begin{equation*}
+%		\begin{tikzcd}
+%			N \arrow{rr}\drar && \tot{\nu_{Y\subseteq X}}\dlar{pr}
+%			\\
+%			&M''&
+%		\end{tikzcd}
+%	\end{equation*}
+%	commute. Here $\nu_{Y\subseteq X}$ is the normal bundle of $Y$ in $X$ and $\tot\nu_{Y\subseteq X}$ is the total space of $\nu_{Y\subseteq X}$. Thus the existence of the desired tubular neighborhood will follow from proving $M''$ has a trivial normal bundle as a submanifold of $M'$.
+%	
+%	Another general theorem says if a submanifold $Y\subseteq X$ is closed and  a subset $U\subseteq X$ is open, then $\nu_{Y\cap U\subseteq U} = \nu_{Y\subseteq X \mid _{Y\cap U}}$ (this is not hard to see as intersecting with an open set does not change local behavior). In our case, we have $X = \CC^l, Y = H_0,$ and $U = M'$. Since $M'' = M'\cap H_0$, this theorem says $\nu_{M''\subseteq M'} = \nu_{H_0\subseteq \CC^l}|_{M''}$. So it is sufficient to check that $\nu_{H_0\subseteq \CC^l}$ is trivial.
+%	
+%	By definition, $\nu_{H_0\subseteq \CC^l} = T\CC^l|_{H_0}/TH_0$. Clearly $\CC^l$ has trivial tangent bundle $T\CC^l \cong \CC^l\times\CC^l$. Similarly, the linear subspace $H_0$ also has a trivial tangent bundle which is diffeomorphic to the fiber bundle of the linear projection onto $H_0$. We identify the trivial tangent bundle of $H_0$ as $\CC^{l-1}\times\CC^{l-1}$. So $T\CC^l|_{H_0}/TH_0 \cong H_0 \times \CC$.
+%\end{proof}
+%
+%\begin{lemma}
+%	There is a tubular neighborhood $N_0$ of $M''$ in $M'$ such that the projection map $N_0\to M''$ is a trivial fiber bundle with fiber $\CC^*$.
+%\end{lemma}
+%\begin{proof}
+%	Set $N_0 = N \cap M=N\setminus M''$. Since $N\to M''$ fixed $H_0$ and had fiber $\CC$, by removing $H_0$, the new map $N_0\to M''$ will have fiber $\CC^*$.
+%\end{proof}
+%
+%\begin{corollary}\label{N,N_0_cong_M''times(C,C^*)}
+%	The pair $(N,N_0)$ is homeomorphic to $M''\times(\CC,\CC^*)$, hence $H^*(N,N_0) \cong H^*(M''\times(\CC,\CC^*))$.
+%\end{corollary}
+%\begin{proof}
+%	?????????
+%	
+%	``Both restrictions of trivial bundle'' - Sergey
+%	
+%	???????????
+%	
+%	GUES?
+%	
+%	$N$ was constructed out of the trivial normal bundle for $M''$ in $M'$ and $N_0$ was the restriction of this to $N\setminus M''$.
+%	
+%	???????
+%	
+%\end{proof}
+%
+%
+%
+%\autoref{N,N_0_cong_M''times(C,C^*)} means $(N,N_0)$ is a fiber bundle pair over $M''$ with fiber $(\CC,\CC^*)$ so the Thom isomorphism $\tau$ in this context (see \cite{hatcher}, pg 441) is an isomorphism
+%$$
+%\tau:H^p(N,N_0) \to H^{p-2}(M'').
+%$$
+%
+%Now let $U=M'\setminus N$. As $N$ was a tubular neighborhood, open in $M'$, $U$ is a closed in $M'$. Actually, $U\subset M$ as it does not intersect $H_0$. As $M$ is open, this means we can apply excision. Notice that $M'\setminus U = N$ by construction of $U$ and $M\setminus U = M\cap (M'\setminus U) = M\cap N = N_0$. So excision gives the isomorphism
+%$$
+%\alpha:H^*(M',M)\to H^*(N,N_0).
+%$$
+%
+%Together these give an isomorphism $\tau\alpha:H^*(M',M)\to H^{*-2}(M'')$. So substituting this into the long exact sequence for the pair given above and we have
+%$$
+%\cdots \to H^p(M') \to H^p(M) \to H^{p-1}(M'') \to H^{p+1}(M') \to \cdots.
+%$$
+%
+%$\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge\wedge$
+%\subsection*{END-FIX?=================}
