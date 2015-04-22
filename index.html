@@ -18,21 +18,22 @@
     });
   </script>
   <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  <script src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
+  <!--script src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
   <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
   <script>sagecell.makeSagecell({"inputLocation": ".sage"});</script>
-  <link rel="stylesheet" type="text/css" href="https://sagecell.sagemath.org/static/sagecell_embed.css">
+  <link rel="stylesheet" type="text/css" href="https://sagecell.sagemath.org/static/sagecell_embed.css"-->
 </head>
 
 <body>
   <div class="row">
     <div class="large-12 columns">
-      <div class="nav-bar right">
-       <ul class="button-group">
+      <div class="nav-bar button-bar right">
+       <ul class="navbar button-group">
+         <li><a href="index.html" class="button">Home</a></li>
          <li><a href="#" class="button">CV</a></li>
          <li><a href="#" class="button">Teaching</a></li>
          <li><a href="#" class="button">Projects</a></li>
-         <li><a href="#" class="button">Notes</a></li>
+         <li><a href="notes.html" class="button">Notes</a></li>
         </ul>
       </div>
       <h1>Travis Scholl</h1>
@@ -48,7 +49,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row about">
     <hr>
     <div class="large-8 columns">
       <h4>About</h4>
@@ -64,13 +65,13 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row work">
     <hr>
     <div class="large-12 columns">
       <h4>Work</h4>
       <p>Some links that might be related to my work.</p>
 
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-4" data-clearing>
+      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-4 text-center" data-clearing>
         <li>
           <a class="th [radius]" href="img/curve.png">
             <img src="img/curve.png" alt="Elliptic Curve">
@@ -83,7 +84,7 @@
         </li>
         <li>
           <a class="th [radius]" href="img/cayley_mobius_transformation.gif">
-            <img src="img/cayley_mobius_transformation.gif" alt="Mobius Transform">
+            <img src="img/mobius.gif" alt="Mobius Transform">
           </a>
         </li>
         <li>
@@ -98,94 +99,91 @@
   <!--div class="sage">
     <script type="text/x-sage">1+2</script>
   </div-->
-
-  <div class="row">
+  <!--contact-->
+  <div class="row contact">
     <hr>
     <h4>Contact Me</h4>
+    <div class="large-12 columns">
+      <div class="row">
 
-    <!--contact-->
-    <div class="row">
-      <div class="large-3 columns">
-        <div class="row">
-          <div class="small-2 columns">
-            <i class="fa fa-envelope-o fa-2x"></i>
-          </div>
-          <div class="small-10 columns">
-            <div class="labelicon labeltext">
-              <script>document.write('<'+'a'+' '+'h'+'r'+'e'+'f'+'='+"'"+'m'+
-                'a'+'&'+'#'+'1'+'0'+'5'+';'+'l'+'&'+'#'+'1'+'1'+'6'+';'+'o'+
-                '&'+'#'+'5'+'8'+';'+'t'+'%'+'7'+'3'+'c'+'h'+'o'+'&'+'#'+'1'+
-                '0'+'8'+';'+'l'+'2'+'&'+'#'+'6'+'4'+';'+'u'+'&'+'#'+'1'+'1'+
-                '9'+';'+'%'+'2'+'E'+'e'+'d'+'u'+"'"+'>'+'&'+'#'+'1'+'1'+'6'+
-                ';'+'s'+'c'+'h'+'o'+'l'+'l'+'2'+'&'+'#'+'6'+'4'+';'+'&'+'#'+
-                '1'+'1'+'7'+';'+'w'+'&'+'#'+'4'+'6'+';'+'e'+'d'+'u'+'<'+'/'+
-                'a'+'>');
-              </script>
-              <noscript>
-                [Turn on JavaScript to see the email address]
-              </noscript>
-              <!--email obfuscation by http://www.albionresearch.com/misc/obfuscator.php-->
+        <div class="large-3 medium-6 small-12 columns">
+          <div class="row">
+            <div class="small-2 columns">
+              <i class="fa fa-envelope-o fa-2x"></i>
+            </div>
+            <div class="small-10 columns">
+              <div class="labelicon labeltext">
+                <script>document.write('<'+'a'+' '+'h'+'r'+'e'+'f'+'='+"'"+'m'+
+                  'a'+'&'+'#'+'1'+'0'+'5'+';'+'l'+'&'+'#'+'1'+'1'+'6'+';'+'o'+
+                  '&'+'#'+'5'+'8'+';'+'t'+'%'+'7'+'3'+'c'+'h'+'o'+'&'+'#'+'1'+
+                  '0'+'8'+';'+'l'+'2'+'&'+'#'+'6'+'4'+';'+'u'+'&'+'#'+'1'+'1'+
+                  '9'+';'+'%'+'2'+'E'+'e'+'d'+'u'+"'"+'>'+'&'+'#'+'1'+'1'+'6'+
+                  ';'+'s'+'c'+'h'+'o'+'l'+'l'+'2'+'&'+'#'+'6'+'4'+';'+'&'+'#'+
+                  '1'+'1'+'7'+';'+'w'+'&'+'#'+'4'+'6'+';'+'e'+'d'+'u'+'<'+'/'+
+                  'a'+'>');
+                </script>
+                <noscript>
+                  [Turn on JavaScript to see the email address]
+                </noscript>
+                <!--email obfuscation by http://www.albionresearch.com/misc/obfuscator.php-->
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="large-3 columns">
-        <div class="row">
-          <div class="small-2 columns">
-            <i class="fa fa-key fa-2x"></i>
-          </div>
-          <div class="small-10 columns">
-            <div class="labelicon labeltext">
-              <a href="EBBE2108E86B934D45E1382A0DF9DE326F5093A0.asc">PGP</a>
+        <div class="large-3 medium-6 small-12 columns">
+          <div class="row">
+            <div class="small-2 columns">
+              <i class="fa fa-key fa-2x"></i>
+            </div>
+            <div class="small-10 columns">
+              <div class="labelicon labeltext">
+                <a href="EBBE2108E86B934D45E1382A0DF9DE326F5093A0.asc">PGP</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="large-3 columns">
-        <div class="row">
-          <div class="small-2 columns">
-            <i class="fa fa-institution fa-2x"></i>
-          </div>
-          <div class="small-10 columns">
-            <div class="labelicon labeltext">
-              <a href="https://www.math.washington.edu/">UW Math</a>
+        <div class="large-3 medium-6 small-12 columns">
+          <div class="row">
+            <div class="small-2 columns">
+              <i class="fa fa-institution fa-2x"></i>
+            </div>
+            <div class="small-10 columns">
+              <div class="labelicon labeltext">
+                <a href="https://www.math.washington.edu/">UW Math</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="large-3 columns">
-        <div class="row">
-          <div class="small-2 columns">
-            <i class="fa fa-building fa-2x"></i>
-          </div>
-          <div class="small-10 columns">
-            <div class="labelicon labeltext">
-              <a href="https://www.washington.edu/">UW</a>
+        <div class="large-3 medium-6 small-12 columns">
+          <div class="row">
+            <div class="small-2 columns">
+              <i class="fa fa-building fa-2x"></i>
+            </div>
+            <div class="small-10 columns">
+              <div class="labelicon labeltext">
+                <a href="https://www.washington.edu/">UW</a>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
+
+      <br>
+      <br>
+
+      <div class="row" style="text-align:center;">
+        <a class="th" href="img/pgp.jpg">
+          <img src="img/pgp.jpg" style="max-width:400px;min-width:200px;" alt="pgp qr">
+        </a>
+      </div>
+
     </div>
-    <!--/contact-->
-
-    <br>
-    <br>
-
-    <!--pgp-->
-    <div class="row" style="text-align:center;">
-      <ul class="clear-thumbs small-block-grid-1" data-clearing>
-        <li>
-          <a class="th [radius]" href="img/pgp.jpg">
-            <img src="img/pgp.jpg" width="50%" alt="pgp qr">
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!--/pgp-->
   </div>
+  <!--/contact-->
   <footer class="row">
       <div class="large-12 columns">
         <hr/>
