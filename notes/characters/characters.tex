@@ -136,7 +136,9 @@
 \author{\sc \myauthor }
 \maketitle
 
-*These notes were taken from a course by Ralph Greenburg on counting points over curves over finite fields.
+\begin{abstract}
+	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields. It also overlaps with \cite[Ch. VI]{serre2012course}.
+\end{abstract}
 
 \section{Characters}
 \hfill
@@ -261,7 +263,7 @@ There is a natural action of $\FF_q$ on $\hat{\FF_q}$. Given $b\in \FF_q$ let $m
 \end{proof}
 
 \begin{cor}\label{cor:altDescFqHat}
-	$$\hat{\FF_q} = \{\psi_b \st b\in\FF_q \}.$$
+	For any non-trivial $\psi\in\hat{\FF_q}$ we have $\hat{\FF_q} = \{\psi_b \st b\in\FF_q \}$.
 \end{cor}
 \begin{excer}
 	Prove \autoref{cor:altDescFqHat}.
@@ -282,12 +284,8 @@ $$
 $$
 
 \begin{warn}\label{warn:extensionsOfChars}
-	Note that $\widetilde{\chi_0}$ is extended differently! This will make things easier later. Also it's nice that it is still a constant function.
+	Note that $\widetilde{\chi_0}$ is extended differently! This will make things easier later. Also it's nice that it is still a constant function. Also be careful because $\widetilde{\chi}$ may not necessarily lie in $\hat{\FF_q}$ because it is not additive. However, $\widetilde{\chi}$ is still multiplicative so $\widetilde{\chi}(ab) = \widetilde{\chi}(a)\widetilde{\chi}(b)$ for all $a,b\in\FF_q$.
 \end{warn}
-
-\begin{rem}
-	Notice that $\widetilde{\chi}$ is still multiplicative! That is, $\widetilde{\chi}(ab) = \widetilde{\chi}(a)\widetilde{\chi}(b)$ for all $a,b\in\FF_q$.
-\end{rem}
 
 Note that the extension $\widetilde{\chi}$ is a $\CC$-valued function on $\FF_q$ so that $\widetilde{\chi}\in\sF_{\FF_q}$. So we can apply \autoref{thm:fourierseries} which says $\widetilde{\chi}$ can be written as a linear combination of the $\psi\in\hat{\FF_q}$. So by \autoref{cor:altDescFqHat} we have
 $$
@@ -295,7 +293,7 @@ $$
 $$
 for some fixed non-trivial $\psi\in\hat{\FF_q}$.
 
-\begin{excer}
+\begin{excer}\label{ex:c_0ForChi}
 	In the notation above, show $c_0$ is $0$ if $\chi\neq\chi_0$ and $1$ otherwise.
 	\begin{hint}
 		See \autoref{warn:extensionsOfChars}.
@@ -305,11 +303,46 @@ for some fixed non-trivial $\psi\in\hat{\FF_q}$.
 \begin{defn}
 	A \emph{Gauss sum} is the sum of a multiplicative character times an additive one. Specifically, given $\chi\in\hat{\FF_q^*}$ and $\psi\in\hat{\FF_q}$, then define the Gauss sum to be
 	$$
-	\gamma(\chi,\psi) = \sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\psi_b(a)}.
+	\gamma(\chi,\psi) = \sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\psi(a)}.
 	$$
 \end{defn}
 
-%TODO finish
+\begin{thm}
+	Let $\chi\in\hat{\FF_q^*}$ and $\psi\in\hat{\FF_q}$. If $\psi$ and $\chi$ are non-trivial then $\left|\gamma(\chi,\psi)\right| = \sqrt{q}$.
+\end{thm}
+\begin{proof}
+	From \autoref{thm:fourierseries} and \autoref{cor:altDescFqHat} we can write $\widehat{\chi} = \sum_{b\in\FF_q}c_b\psi_b$ for some coefficients $c_a\in\CC$.
+	
+	\begin{claim}
+		$|c_b| = |c_d|$ for any $b,d$.
+	\end{claim}
+	
+	Now unwinding definitions we have
+	\begin{align*}
+		\gamma(\chi,\psi)
+		&= \sum_{a\in\FF_q}\sum_{b\in\FF_q}c_b\psi_b(a)\overline{\psi(a)}
+		\\
+		&= \sum_{b\in\FF_q}c_b\sum_{a\in\FF_q}\psi_b(a)\overline{\psi(a)}
+		\\
+		&= \sum_{b\in\FF_q}c_b|\FF_q|\free{\psi_b,\psi}
+		\\
+		&=
+		c_1q
+	\end{align*}
+	
+	It remains to show $|c_1| = \frac{1}{\sqrt{q}}$. But
+	
+	\begin{align*}
+		c_1 = \free{\chi,\psi_1}
+	\end{align*}
+	
+	????
+	
+	??????
+	
+	???
+\end{proof}
+
 
 %TODO example: Guass sum theory about legrndre symbol
 
@@ -320,6 +353,10 @@ for some fixed non-trivial $\psi\in\hat{\FF_q}$.
 \section{Inflation and Restriction}
 
 %TODO write
+
+
+\bibliographystyle{alpha}
+\bibliography{references}
 
 
 \begin{center}
