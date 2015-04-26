@@ -18,6 +18,10 @@
     });
   </script>
   <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <link href="vendor/lightbox.css" rel="stylesheet" />
+  <script src="vendor/lightbox.min.js"></script>
+
   <!--script src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
   <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
   <script>sagecell.makeSagecell({"inputLocation": ".sage"});</script>
@@ -25,21 +29,24 @@
 </head>
 
 <body>
+
+  <!--header-->
   <div class="row">
     <div class="large-12 columns">
       <div class="nav-bar button-bar right">
        <ul class="navbar button-group">
          <li><a href="index.html" class="button">Home</a></li>
-         <li><a href="#" class="button">CV</a></li>
-         <li><a href="#" class="button">Teaching</a></li>
-         <li><a href="#" class="button">Projects</a></li>
+         <li><a href="http://www.math.washington.edu/~tscholl2/125_summer_14/" class="button">Teaching</a></li>
          <li><a href="notes.html" class="button">Notes</a></li>
+         <li><a href="#" class="button">CV</a></li>
+         <li><a href="projects.html" class="button">Projects</a></li>
         </ul>
       </div>
       <h1>Travis Scholl</h1>
       <hr/>
     </div>
   </div>
+  <!--/header-->
 
   <div class="hero">
     <div class="row">
@@ -73,7 +80,7 @@
 
       <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-4 text-center" data-clearing>
         <li>
-          <a class="th [radius]" href="img/curve.png">
+          <a data-lightbox="curve" data-title="A supersingular elliptic curve" class="th [radius]" href="img/curve.png">
             <img src="img/curve.png" alt="Elliptic Curve">
           </a>
         </li>
@@ -83,12 +90,12 @@
           </a>
         </li>
         <li>
-          <a class="th [radius]" href="img/cayley_mobius_transformation.gif">
+          <a data-lightbox="CayleyTransform" data-title="Mobius Transformation" class="th [radius]" href="img/mobius.gif">
             <img src="img/mobius.gif" alt="Mobius Transform">
           </a>
         </li>
         <li>
-          <a class="th [radius]" href="img/abby.jpg">
+          <a data-lightbox="Dog" data-title="My parents dog Abby" class="th [radius]" href="img/abby.jpg">
             <img src="img/abby.jpg" alt="Dog">
           </a>
         </li>
@@ -96,16 +103,12 @@
     </div>
   </div>
 
-  <!--div class="sage">
-    <script type="text/x-sage">1+2</script>
-  </div-->
   <!--contact-->
   <div class="row contact">
     <hr>
     <h4>Contact Me</h4>
     <div class="large-12 columns">
       <div class="row">
-
         <div class="large-3 medium-6 small-12 columns">
           <div class="row">
             <div class="small-2 columns">
@@ -184,6 +187,8 @@
     </div>
   </div>
   <!--/contact-->
+
+  <!--footer-->
   <footer class="row">
       <div class="large-12 columns">
         <hr/>
@@ -196,5 +201,7 @@
         </div>
       </div>
   </footer>
+  <!--/footer-->
+
 </body>
 </html>

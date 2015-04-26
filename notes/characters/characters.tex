@@ -73,53 +73,49 @@
 
 \theoremstyle{plain}
 
-\newaliascnt{theoremcounter}{counter}
-\newtheorem{thm}[theoremcounter]{Theorem}
-\aliascntresetthe{theoremcounter}
-\newcommand{\theoremcounterautorefname}{Theorem}
-\newaliascnt{propositioncounter}{counter}
-\newcommand{\propositioncounterautorefname}{Proposition}
-\newtheorem{prop}[propositioncounter]{Proposition}
-\aliascntresetthe{propositioncounter}
-\newaliascnt{lemmacounter}{counter}
-\newcommand{\lemmacounterautorefname}{Lemma}
-\newtheorem{lem}[lemmacounter]{Lemma}
-\aliascntresetthe{lemmacounter}
-\newaliascnt{corollarycounter}{counter}
-\newcommand{\corollarycounterautorefname}{Corollary}
-\newtheorem{cor}[corollarycounter]{Corollary}
-\aliascntresetthe{corollarycounter}
-
+\newaliascnt{theoremCounter}{counter}
+\newtheorem{thm}[theoremCounter]{Theorem}
+\aliascntresetthe{theoremCounter}
+\newcommand{\theoremCounterautorefname}{Theorem}
+\newaliascnt{propositionCounter}{counter}
+\newcommand{\propositionCounterautorefname}{Proposition}
+\newtheorem{prop}[propositionCounter]{Proposition}
+\aliascntresetthe{propositionCounter}
+\newaliascnt{lemmaCounter}{counter}
+\newcommand{\lemmaCounterautorefname}{Lemma}
+\newtheorem{lem}[lemmaCounter]{Lemma}
+\aliascntresetthe{lemmaCounter}
+\newaliascnt{corollaryCounter}{counter}
+\newcommand{\corollaryCounterautorefname}{Corollary}
+\newtheorem{cor}[corollaryCounter]{Corollary}
+\aliascntresetthe{corollaryCounter}
 
 \theoremstyle{definition}
 
-\newaliascnt{definitioncounter}{counter}
-\newtheorem{defn}[definitioncounter]{Definition}
-\aliascntresetthe{definitioncounter}
-\newcommand{\definitioncounterautorefname}{Definition}
-\newaliascnt{examplecounter}{counter}
-\newtheorem{ex}[examplecounter]{Example}
-\aliascntresetthe{examplecounter}
-\newcommand{\examplecounterautorefname}{Example}
-\newaliascnt{exercisecounter}{counter}
-\newtheorem{excer}[exercisecounter]{Exercise}
-\aliascntresetthe{exercisecounter}
-\newcommand{\exercisecounterautorefname}{Exercise}
-\newaliascnt{warniningcounter}{counter}
-\newtheorem{warn}[warniningcounter]{Warning}
-\aliascntresetthe{warniningcounter}
-\newcommand{\warniningcounterautorefname}{Warning}
+\newaliascnt{definitionCounter}{counter}
+\newtheorem{defn}[definitionCounter]{Definition}
+\aliascntresetthe{definitionCounter}
+\newcommand{\definitionCounterautorefname}{Definition}
+\newaliascnt{exampleCounter}{counter}
+\newtheorem{ex}[exampleCounter]{Example}
+\aliascntresetthe{exampleCounter}
+\newcommand{\exampleCounterautorefname}{Example}
+\newaliascnt{exerciseCounter}{counter}
+\newtheorem{excer}[exerciseCounter]{Exercise}
+\aliascntresetthe{exerciseCounter}
+\newcommand{\exerciseCounterautorefname}{Exercise}
+\newaliascnt{warniningCounter}{counter}
+\newtheorem{warn}[warniningCounter]{Warning}
+\aliascntresetthe{warniningCounter}
+\newcommand{\warniningCounterautorefname}{Warning}
 
 \theoremstyle{remark}
 
-\newaliascnt{remarkcounter}{counter}
-\newtheorem{rem}[remarkcounter]{Remark}
-\aliascntresetthe{remarkcounter}
-\newcommand{\remarkcounterautorefname}{Remark}
-%\newaliascnt{notationcounter}{counter}
-%\newtheorem{nota}[notationcounter]{Notation}
-%\aliascntresetthe{notationcounter}
-%\newcommand{\notationcounterautorefname}{Notation}
+\newaliascnt{remarkCounter}{counter}
+\newtheorem{rem}[remarkCounter]{Remark}
+\aliascntresetthe{remarkCounter}
+\newcommand{\remarkCounterautorefname}{Remark}
+\newtheorem*{claim}{Claim}
 
 \newtheorem*{hint}{Hint}
 
@@ -137,7 +133,7 @@
 \maketitle
 
 \begin{abstract}
-	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields. It also overlaps with \cite[Ch. VI]{serre2012course}.
+	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields. It also overlaps with \cite[Ch. VI]{serre2012course} and \cite{washington1997introduction}.
 \end{abstract}
 
 \section{Characters}
@@ -289,15 +285,33 @@ $$
 
 Note that the extension $\widetilde{\chi}$ is a $\CC$-valued function on $\FF_q$ so that $\widetilde{\chi}\in\sF_{\FF_q}$. So we can apply \autoref{thm:fourierseries} which says $\widetilde{\chi}$ can be written as a linear combination of the $\psi\in\hat{\FF_q}$. So by \autoref{cor:altDescFqHat} we have
 $$
-\widetilde{\chi} = \sum_{a\in\FF_q}c_a\psi_a
+\widetilde{\chi} = \sum_{b\in\FF_q}c_b\psi_b
 $$
 for some fixed non-trivial $\psi\in\hat{\FF_q}$.
 
 \begin{excer}\label{ex:c_0ForChi}
-	In the notation above, show $c_0$ is $0$ if $\chi\neq\chi_0$ and $1$ otherwise.
-	\begin{hint}
-		See \autoref{warn:extensionsOfChars}.
-	\end{hint}
+	Let $\chi\in\widehat{\FF_q^*}$ and fix some non-trivial $\psi\in\widehat{\FF_q}$. By above we can write $\widetilde{\chi} = \sum_{b\in\FF_q}c_b\psi_b$.
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		In the notation above, show
+		$$
+			c_0 =
+			\begin{cases}
+				0 &\text{if $\chi\neq\chi_0$}
+				\\
+				1 &\text{if $\chi = \chi_0$}
+			\end{cases}
+		$$
+		\begin{hint}
+			See \autoref{warn:extensionsOfChars} and compute $\free{\widetilde{\chi},\psi_0}$. The proof of \autoref{lem:ortholemma} may be helpful.
+		\end{hint}
+
+		\item
+		Show $\free{\widetilde{\chi},\widetilde{\chi}} = \sum |c_b|^2$.
+		\begin{hint}
+			Notice $\free{\cdot,\cdot}$ is a Hermitian inner product on $\sF_{\FF_q}$.
+		\end{hint}
+	\end{enumerate}
 \end{excer}
 
 \begin{defn}
@@ -307,20 +321,58 @@ for some fixed non-trivial $\psi\in\hat{\FF_q}$.
 	$$
 \end{defn}
 
-\begin{thm}
+There are many cool things one can do with Gauss sums. Here is a small application where we compute the absolute value.
+
+\begin{thm}\label{thm:gausssumsqtq}
 	Let $\chi\in\hat{\FF_q^*}$ and $\psi\in\hat{\FF_q}$. If $\psi$ and $\chi$ are non-trivial then $\left|\gamma(\chi,\psi)\right| = \sqrt{q}$.
 \end{thm}
 \begin{proof}
 	From \autoref{thm:fourierseries} and \autoref{cor:altDescFqHat} we can write $\widehat{\chi} = \sum_{b\in\FF_q}c_b\psi_b$ for some coefficients $c_a\in\CC$.
-	
-	\begin{claim}
-		$|c_b| = |c_d|$ for any $b,d$.
-	\end{claim}
-	
+
+	First we will show $|c_{b_1}| = |c_{b_2}|$ for any non-zero $b_1,b_2\in\FF_q$. Recall that $\widetilde{\chi}$ is multiplicative, so for any $b\neq 0$ in $\FF_q$ we can write
+	\begin{align*}
+		c_b
+		&= \free{\widetilde{\chi},\psi_b}
+		\\
+		&= \sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\psi_b(a)}
+		\\
+		&= \sum_{a\in\FF_q}\widetilde{\chi}(ab)\widetilde{\chi}(b^{-1})\overline{\psi_1(ba)}
+		\\
+		&= \sum_{a\in\FF_q}\widetilde{\chi}(ab)\widetilde{\chi}(b^{-1})\overline{\psi_1(ba)}
+		\\
+		&= \widetilde{\chi}(b^{-1})\sum_{a\in\FF_q}\widetilde{\chi}(ab)\overline{\psi_1(ba)}
+		\\
+		&= \widetilde{\chi}(b^{-1})\free{\widetilde{\chi},\psi_1}
+		\\
+		&= \widetilde{\chi}(b^{-1})c_1
+	\end{align*}
+	Since $\widetilde{\chi}(b^{-1})$ is a root of unity it follows $|c_b| = |c_1|$.
+
+
+	Now we can show $|c_b| = \frac{1}{\sqrt{q}}$. Using \autoref{ex:c_0ForChi} we have
+	$$
+	\free{\widetilde{\chi},\widetilde{\chi}} = \sum_{b\in\FF_q} |c_b|^2 = (q-1)|c_1|^2
+	$$
+	and as $\chi$ is a character for $\FF_q^*$ we have
+	\begin{align*}
+		1 = \free{\chi,\chi}
+		&= \frac{1}{|\FF_q^*|}\sum_{a\in\FF_q^*}\chi(a)\overline{\chi(a)}
+		\\
+		&= \frac{1}{q-1}\sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\widetilde{\chi}(a)}
+		\\
+		&= \frac{q}{q-1}\free{\widetilde{\chi},\widetilde{\chi}}
+	\end{align*}
+	Note: the two inner products above are for different character groups!
+
+	Together these inequalities show
+	$$
+	|c_1| = \frac{1}{\sqrt{q}}
+	$$
+	\noindent
 	Now unwinding definitions we have
 	\begin{align*}
 		\gamma(\chi,\psi)
-		&= \sum_{a\in\FF_q}\sum_{b\in\FF_q}c_b\psi_b(a)\overline{\psi(a)}
+		&= \sum_{a\in\FF_q}\left(\sum_{b\in\FF_q}c_b\psi_b(a)\right)\overline{\psi(a)}
 		\\
 		&= \sum_{b\in\FF_q}c_b\sum_{a\in\FF_q}\psi_b(a)\overline{\psi(a)}
 		\\
@@ -329,30 +381,86 @@ for some fixed non-trivial $\psi\in\hat{\FF_q}$.
 		&=
 		c_1q
 	\end{align*}
-	
-	It remains to show $|c_1| = \frac{1}{\sqrt{q}}$. But
-	
-	\begin{align*}
-		c_1 = \free{\chi,\psi_1}
-	\end{align*}
-	
-	????
-	
-	??????
-	
-	???
+	which with above finishes the proof.
+\end{proof}
+
+\begin{excer}
+	Find the absolute value of the Gauss sum $\gamma(\chi,\psi)$ in the following cases:
+	\begin{enumerate}[label=$\bullet$]
+		\item $\chi = \chi_0$, $\psi \neq \psi_0$
+		\item $\chi \neq \chi_0$, $\psi = \psi_0$
+		\item $\chi = \chi_0$, $\psi = \psi_0$
+	\end{enumerate}
+	\begin{hint}
+		\hfill
+		\begin{enumerate}[label=$\bullet$]
+			\item $0$
+			\item $0$
+			\item $q$
+		\end{enumerate}
+	\end{hint}
+\end{excer}
+
+\section{A Theorem of Gauss}
+
+Another example of Gaussian sums comes from a theorem of Gauss.
+
+\begin{defn}
+	Let $p$ be an odd prime. Define a map $\ZZ \to \{-1,0,1\}$ by
+	$$
+	a \mapsto \left(\frac{a}{p}\right) =
+	\begin{cases}
+		1  &\text{if $p\not\mid a$ and $a$ is a square mod $p$}
+		\\
+		-1 &\text{if $p\not\mid a$ and $a$ is not a square mod $p$}
+		\\
+		0  &\text{if $p\mid a$}
+	\end{cases}
+	$$
+	It's not hard to see this is a non-trivial character on $\FF_p^*$ extended to $\FF_p$. It is called the \emph{Legendre symbol}.
+\end{defn}
+
+Now consider the map $\FF_p \to \CC*$ given by $a\mapsto e^{2\pi i a / p}$. It's not hard to see this is a non-trivial additive character of $\FF_p$.
+
+\begin{thm}[Quadratic Gauss Sum]\label{thm:gausssumreciprocity}
+	$$
+	\sum_{a=0}^{p-1} \left(\frac{a}{p}\right)e^{2\pi i a/p}
+	=
+	\begin{cases}
+		\sqrt{p} &\text{if $p\equiv 1\mod{4}$}
+		\\
+		\sqrt{-p} &\text{if $p\equiv 3\mod{4}$}.
+	\end{cases}
+	$$
+\end{thm}
+\begin{proof}
+	See \cite[Ch. 6]{ireland2013classical}.
 \end{proof}
 
 
-%TODO example: Guass sum theory about legrndre symbol
-
-%TODO Planchevel's theorem
-
-%TODO example: |\gamma(\chi,\psi)| = \sqrt{q}
-
 \section{Inflation and Restriction}
 
-%TODO write
+
+Next we look at the relation between characters on groups and their quotient groups.
+
+Let $A$ be a finite abelian group and $B$ a subgroup of $A$. Given a character $\chi\in\hat{A/B}$ it extends to a character on $\hat{A}$ by precomposing with the quotient map $A \to A/B$.
+
+\begin{defn}\label{def:inflation}
+	Let $\pi:A \to A/B$ be the canonical map and $\psi\in\hat{A/B}$. Then the \emph{inflation} of $\psi$ is the map $\inf(\psi) = \psi\circ\pi \in \hat{A}$. Note $\inf:\hat{A/B} \to\hat{A}$ is indeed a homomorphism.
+\end{defn}
+
+\begin{defn}\label{def:restriction}
+	Let $\chi\in\hat{A}$. Then the \emph{restriction} of $\chi$ is the map $\res{B} = \chi|_B\in\hat{B}$. Note $\res:\hat{A} \to \hat{B}$ is indeed a homomorphism.
+\end{defn}
+
+\begin{excer}
+	Show $\inf:\hat{A/B} \to\hat{A}$ is injective and $\res:\hat{A}\to\hat{B}$ is surjective. Then prove we have an exact sequence
+	$$
+	\begin{tikzcd}
+		0 \rar & \hat{A/B} \rar{\inf} & \hat{A} \rar{\res} & \hat{B} \rar & 0.
+	\end{tikzcd}
+	$$
+\end{excer}
 
 
 \bibliographystyle{alpha}
