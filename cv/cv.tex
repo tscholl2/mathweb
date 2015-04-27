@@ -1,1 +1,297 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				CV template by Bianca Viray					%
+%	This file may be used and modified however you wish		%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[12pt]{article}
+\usepackage{graphicx,url}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc} % needed to allow bold smallcaps
+
+% Color comments!
+\usepackage[usenames,dvipsnames]{color} % needed to make heading bars gray
+
+\oddsidemargin = -20pt
+\topmargin =-20pt
+\headheight = 18pt
+\textheight = 620pt %preferred height
+\textwidth = 495pt %preferred width
+
+\parskip=.3pt plus 1pt
+
+%%%%%%%%%%%%%%%%%%%%%%%    Header commands    %%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\cfoot{}                                     % no footers (in pagestyle fancy)
+\fancyheadoffset{6mm}                        % extends line over gray heading bars
+\lhead{{\noindent{\large{Travis Scholl}}}}   % running left heading
+\rhead{{\thepage}}							 % running right heading
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%    Section commands    %%%%%%%%%%%%%%%%%
+\newcommand{\sectionheading}[1]
+{
+\bigskip %insert space before beginning section
+\noindent
+\hspace{-6.5mm}\textcolor{Gray}{\rule[.75mm]{21.5mm}{1mm}} % make Gray line
+\hspace{.2mm}	% insert space between line and section name
+{\large{\textbf{\textsc{#1}}}} % make section large font and bold smallcaps
+}
+
+\newenvironment{date_section}
+	{
+	\vspace{-1ex}
+	\leftmargini = 15ex
+		\begin{itemize}[
+			labelsep = *,
+			labelwidth = 9ex,
+			% leftmargin = 10ex,
+			labelindent = 0ex,
+			itemindent = !,
+			font=\normalfont,
+			align=parleft
+		]{}
+		\itemsep=-1.5mm
+	}
+	{\end{itemize}\vspace{-2ex}}
+
+% To be used as
+%		\yearmo{2013}{Jun.}
+% or	\yearmo{2013}{Fall}
+% or 	\yearmo{}{2013}, etc.
+\newcommand{\yearmo}[2]{
+	\item[
+		{\makebox[1ex][r]{#1}}
+		\hspace{1ex}
+		{\makebox[1ex][l]{#2} }
+		] }
+
+% To be used as
+%		\yearmo{2010}{2013}
+% or	\yearmo{2010}{}
+\newcommand{\yearrange}[2]{
+	\item[
+		{\makebox[1ex][r]{#1}}
+		--
+		{\makebox[1ex][l]{#2} }
+		] }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\thispagestyle{empty}
+
+	\centerline{{\LARGE \textbf{Travis Scholl}}}
+
+	\vspace{3mm}
+
+	\begin{center}
+		\begin{tabular}[c]{lll} %really only need 2 columns, extra one is to
+				 				% fix alignment
+			\phantom{aaaaaaaaa} % hack to have break between columns align with
+								% break between first name and last name
+			& University of Washington
+				& \url{tscholl2@uw.edu} \\
+ 			& Department of Mathematics
+				& \texttt{www.math.washington.edu/$\sim$tscholl2}\\
+ 			& Seattle, WA 98195, USA
+				& Last Updated: \today
+		\end{tabular}
+	\end{center}
+
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Employment}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{date_section}
+
+			\yearrange{2013}{} Graduate Student,  University of Washington
+
+			\yearrange{2013}{2014} Contract Web Designer, Virginia Tech
+
+			\yearrange{2012}{2013} Math Librarian, University of Oregon
+
+			\yearrange{2007}{2013} Private Tutor
+
+		\end{date_section}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Education}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{date_section}
+
+			\yearrange{2013}{}
+			Ph.D. Mathematics, University of Washngton, Seattle
+
+			\yearrange{2011}{2013}
+			B.S.\phantom{A}
+			Mathematics, University of Oregon, Eugene
+
+			\yearrange{2009}{2011}
+			\phantom{A.A.A} Washington University in St. Louis, St. Louis
+
+			\yearrange{2008}{2009}
+			\phantom{A.A.A} Portland State University, Portland
+
+			\yearrange{2007}{2008}
+			\phantom{A.A.A} Portland Community College, Portland
+
+		\end{date_section}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Research Interests}%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+        \vspace{1ex}
+
+		\noindent\hspace{17mm} Number theory, algebraic geometry, and
+		cryptography.
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Awards and grants}%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{date_section}
+            \yearrange{2013}{2012}
+                Academic Excellence Award, from UW
+			\yearrange{2013}{2015}
+				ARCS Fellowship, from UW
+			\yearrange{2013}{2018}
+				Academic Merit Award, from UW
+
+			\yearrange{2012}{2013}
+				DeCou Scholarship, from UO
+
+			\yearrange{2011}{2012}
+				John Julifs Scholarship, from UO
+
+			\yearrange{2011}{2012}
+				General University Scholarship, from UO
+
+		\end{date_section}
+
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	\sectionheading{Publications}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%		\vspace{-2ex}
+%
+%		\begin{enumerate}[itemsep=-1mm, leftmargin=24mm]
+%
+%			\item
+%			%TODO
+%
+%			\item
+%			{Arithmetic of del Pezzo surfaces of degree $4$ and vertical Brauer
+%			groups.}\\ (with Anthony V\'arilly-Alvarado.)
+%			\textit{Advances in Mathematics} \textbf{255} (2014), 153--181.
+%
+%		\end{enumerate}
+
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Seminars and Colloquia}%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{date_section}
+
+			\yearmo{2014}{Jul.} %July 7 2014
+			\emph{Supersingular Elliptic Curves}
+				University of Washington,
+				Algebraic Geometry Club
+
+			\yearmo{2014}{Feb.} %February 11 2014
+			\emph{Modular Curves}
+				University of Washington,
+				Algebraic Geometry Club
+
+		\end{date_section}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Professional Presentations}%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{date_section}
+
+
+			\yearmo{2009}{} %June 2009
+			\emph{Math Education}
+				Larsen, S., Caughman, J., Yannotta, M.,
+				Johnson, E., Rutherford, F., Scholl, T.
+				(2009). Teaching Abstract Algebra for
+				Understanding. A special session at The
+				Mathematics Association of America MathFest
+				Conference. Portland, OR.
+
+			\yearmo{2011}{} %? 2011
+			\emph{Modular Curves}
+				Larsen, S., Johnson, E., Scholl, T. (2011).
+				Putting Research to Work: Web-Based Instructor
+				Support Materials for an Inquiry Oriented
+				Abstract Algebra Curriculum. Fourteenth Special
+				Interest Group of the Mathematical Association
+				of America on Research in Undergraduate
+				Mathematics Education Conference on Research
+				in Undergraduate Mathematics Education.
+				Portland, OR.
+
+		\end{date_section}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Teaching}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		\begin{date_section}
+
+			\yearmo{}{2014}%{Summer}
+				Math 125: Calculus II
+
+		\end{date_section}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\sectionheading{Outreach}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+			\begin{date_section}
+
+				\yearmo{}{2015}
+					Volunteer,
+					Julia Robinson Math Fetsival,
+					University of Washington
+
+				\yearmo{}{2015}
+					Sage Workshop Leader,
+					Math Day,
+					University of Washington
+
+				\yearmo{}{2014}
+					Volunteer,
+					Math Day,
+					University of Washington
+
+				\yearmo{}{2010}
+					Assistant Consular,
+					Rotarian Youth Leadership Camp,
+					Cottage Grove, OR
+
+			\end{date_section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %todo
