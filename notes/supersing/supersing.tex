@@ -3,16 +3,21 @@
 \usepackage{amsmath,amssymb,amsthm,amsfonts,amscd,tikz} %usual symbols, theorems, etc
 \usepackage{tikz-cd} %diagrams
 \usepackage{multicol} %columns
-\usepackage{enumerate} %lists
+\usepackage{enumerate}
 \usepackage{hyperref} %links, references
+\usepackage{aliascnt} %copies counters but with new labels --- for autoref
 \usepackage{graphicx} %pictures
 \usepackage{subcaption} %subfigures - use minipage
 \usetikzlibrary{arrows,matrix,calc,decorations.pathmorphing} %curved arrows
 \usepackage{mathabx} %more symbols
-\usepackage{sagetex} %for sage input
 \usepackage{mathrsfs} %super curly letters
 \usepackage{bbm} %quaternions
-\usepackage{microtype}
+\usepackage{microtype} %supposedly makes things nicer, ask Peter
+\usepackage[margin=1in]{geometry} %margins
+\usepackage{wrapfig} %wraps figures/tables in text
+\usepackage{cite} %citations
+\usepackage{url}
+
 
 \newcommand{\mytitle}{Supersingular Elliptic Curves}
 \newcommand{\myauthor}{Travis Scholl}
@@ -71,13 +76,7 @@
 \newcommand{\End}{\operatorname{End}}
 \newcommand{\ord}{\operatorname{ord}}
 \newcommand{\ns}{\operatorname{ns}}
-\newcommand{\D}{\,d}
-%into command like interior multiplication in jacks book
-\newcommand{\into}{\scalebox{0.8}{$\mathrel{
-\raisebox{-.25em}{\reflectbox{\rotatebox[origin=c]{0}{$-$}}}
-\hspace*{-0.435em}
-\raisebox{.05em}{\reflectbox{\rotatebox[origin=c]{90}{$-$}}}
-}$}}
+
 
 %more margins
 \setlength{\oddsidemargin}{.5in}
@@ -115,8 +114,9 @@
 \markboth{\hfill \mytitle \hfill}{\hfill \myauthor \hfill}
 
 \begin{document}
-\title{\bfseries\sffamily \mytitle}
+\title{\bfseries\mytitle}
 \author{\sc \myauthor }
+\date{July 7, 2014}
 \maketitle
 
 \begin{abstract}
@@ -125,8 +125,8 @@
 
 \section{Elliptic Curves Over Fields}
 
-\begin{defn}[Silverman III.3, p 59]
-	An \emph{elliptic curve} is a smooth curve (projective variety of dimension 1, Silverman II.1) of genus 1 together together with a point on the curve.
+\begin{defn}[{\cite[III.3, p 59]{silverman1}}]
+	An \emph{elliptic curve} is a smooth curve (projective variety of dimension 1) of genus 1 together together with a point on the curve.
 \end{defn}
 
 We will slowly go through each word in the definition to see what it means.
@@ -203,12 +203,12 @@ Let $C$ be a smooth curve. Then by Proposition II.1.2 (finite number of poles/ze
 
 Define $l(D) = \dim \mathscr{L}(D)$ where $\mathscr{L}(D) = \{f\in\overline{K}(C)\setminus\{0\} \st \div(f) \geq -D \}\cup\{0\}$. We can think of $\mathscr{L}(D)$ to be the space of rational functions on $C$ whose poles at every point are not worse than the corresponding coefficient in $D$.
 
-\begin{thm}[Riemann-Roch, II.5.4]
+\begin{thm}[Riemann-Roch, {\cite[II.5.4]{silverman1}}]
 	There exists an integer $g\geq 0$ called the genus of $C$, such that for every divisor $D\in\Div C$,
 	$$
 	l(D) - l(K_C - D) = \deg D - g + 1
 	$$
-	where $K_C$ is a canonical divisor on $C$ (see II.4.4).
+	where $K_C$ is a canonical divisor on $C$ (see \cite[II.4.4]{silverman1}).
 \end{thm}
 
 \begin{prob}
@@ -216,12 +216,12 @@ Define $l(D) = \dim \mathscr{L}(D)$ where $\mathscr{L}(D) = \{f\in\overline{K}(C
 \end{prob}
 \begin{proof}
 	We will show $l(D)\leq \deg D + 1$ whenever $\deg D \geq 0$ by induction on $\deg D$.
-
+	
 	\begin{enumerate}
 		\item[Base:] If $\deg D = 0$ then show only constant functions work. Suppose a function had a root. Then it also has a pole somewhere.
-
+		
 		\item[Induction:] Use the following fact:
-
+		
 		$$
 		\div(f) = \div(g) \Rightarrow f=cg \ ,\quad \text{some constant $c$}.
 		$$
@@ -258,9 +258,9 @@ Note that a map $\phi$ between curves induces a homomorphism on the group of div
 \end{lem}
 \begin{proof} %a jumble of different propositions special purposed for this
 	The reverse direction is trivial.
-
+	
 	The Riemann-Roch theorem tells us $l((Q)) - l(K_C-(Q)) = \deg (Q)$. Also $\deg(K_C) = 2g-2 = 0$. So $\deg K_C-D<0$ which implies $l(K_C-(Q))=0$. This is because any non-constant function either has no roots/poles, or some roots/poles. Thus $\div(f)$ can not be effective (meaning the coefficient at every point is non-negative) unless it is $0$. Hence $\curly{L}(K_C-(Q))=0 \Rightarrow l(K_C-(Q))=0$. So we have that $l((Q))=\deg (Q) = 1$. Note that $\curly{L}((Q))$ already contains constant functions because $\div(c) = 0\geq -(Q)$. What this means is that $\curly{L}((Q))=\overline{K}$, i.e. it is only constant functions.
-
+	
 	By hypothesis $(P)-(Q)$ is principle so there is some $f\in\overline{K}^*(C)$ such that $\div(f) = (P) - (Q)$. Then in particular $f\in\curly{L}$. So by above $f\in\overline{K}$. This implies $\div(f) = 0 \Rightarrow (P)=(Q) \Rightarrow P=Q$.
 \end{proof}
 
@@ -291,7 +291,7 @@ $$
 	It is easy to see every curve $E/K$ has a minimal Weierstrass model because $v$ is discrete.
 \end{rem}
 
-One can show the minimal equation is unique up to a certain change of coordinates, see VII.2 Proposition 1.3.
+One can show the minimal equation is unique up to a certain change of coordinates, see \cite[VII.2 Prop. 1.3]{silverman1}.
 
 \begin{defn} %VII.2
 	Given an elliptic curve $E/K$ and a minimal Weirstrass equation, define a curve $\tilde{E}/k$ to be the \emph{reduction of $E$ modulo $\pi$} given by the equation
@@ -306,7 +306,7 @@ Here $x\mapsto\tilde{x}$ is the map $R\to R/\pi R$. Again, the equation for $\ti
 
 \begin{rem}
 	There is a map $E\to\tilde{E}$ which is just the restriction of a reduction map $\PP^2(K)\to\PP^2(k)$. In general, given any homogeneous coordinate $[x_0,\dots,x_n]$ we can find representatives such that all $x_i\in R$ and one of them is a unit.
-
+	
 	To see this, let $n = \max|v(x_i)|$. Then consider $[\pi^nx_0,\dots,\pi^nx_n]$. Because $v(\pi^nx_0)=v(\pi^n)+v(x_0)$ it will be non-negative by construction and one of them will be $0$. So all will live in $R$ and one is a unit. Choosing these coordinates defines a reduction map $\PP^n(K)\to\PP^n(k)$.
 \end{rem}
 
@@ -321,7 +321,7 @@ As stated, the reduced curve \emph{may not necessarily be an elliptic curve}. Si
 	$E$ has good reduction at $\pi$ if and only if $\min v(\Delta)>0$ where the minimum is taken over all models/Weierstrass equations with integer coefficients representing $E$.
 \end{prop}
 \begin{proof}
-	Being non-singular is the same as $\Delta\neq 0$ by Proposition III.1.4(a). Now use the fact that $x\mapsto\tilde{x}$ is a ring homomorphism and $\Delta$ is an algebraic combination of the coefficients.
+	Being non-singular is the same as $\Delta\neq 0$ by \cite[Prop. III.1.4(a)]{silverman1}. Now use the fact that $x\mapsto\tilde{x}$ is a ring homomorphism and $\Delta$ is an algebraic combination of the coefficients.
 \end{proof}
 
 So in the case of $\QQ$, a curve has good reduction at $p$ if there is a model whose discriminant is not divisible by $p$, i.e. $p\not\mid\Delta$ or $v(\Delta) = 0$.
@@ -338,7 +338,7 @@ So in the case of $\QQ$, a curve has good reduction at $p$ if there is a model w
 	\end{pmatrix}
 	$$
 	have maximal rank (rank $1$) at points on the curves. This shows the curves on non-singular. In fact it is easy to see this holds over $\FF_p$ for any $p\neq 2,3$. Actually $E_2$ also works over $\FF_2$, but $E_1$ does not.
-
+	
 	Next we want to see $E_1\cong E_2$. To see this, just notice
 	\begin{align*}
 		y^2 + y = x^3
@@ -352,7 +352,7 @@ So in the case of $\QQ$, a curve has good reduction at $p$ if there is a model w
 		\left(8y+4\right)^2 = (4x)^3 + 16.
 	\end{align*}
 	So the inverse change of coordinates $(x,y)\mapsto \left(\frac{x}{4},\frac{y-4}{8}\right)$ takes $E_2$ to $E_1$.
-
+	
 	Notice this does \emph{not} work mod $2$! These are two forms representing the same abstract variety over $\QQ$. The problem is that they don't necessary work well with the same primes. Notice that $E_1$ has bad reduction at $2$ while $E_2$ has good reduction at $2$. In fact, $E_2$ has good reduction at every prime except $3$. $E_2$ is actually the minimal model so the elliptic curve has good reduction at all primes except $3$.
 \end{ex}
 
@@ -367,7 +367,8 @@ This makes the next question come naturally: When can I use the same model for m
 \section{Supersingular}
 
 \begin{defn} %V.3.1, p. 137
-	Let $K$ be a perfect field of characteristic $p$ and $E/K$ an elliptic curve. We say $E$ is \emph{supersingular} if one of the following conditions holds (they are equivalent by Theorem of M. Deuring):
+	Let $K$ be a perfect field of characteristic $p$ and $E/K$ an elliptic curve. We say $E$ is \emph{supersingular} if one of the following conditions holds
+	\footnote{\url{http://en.wikipedia.org/wiki/Supersingular\_elliptic\_curve}}:
 	\begin{enumerate}[(i)]
 		\item $E[p^r]=0$ for one (all) $r\geq 1$.
 		\item $\hat{\phi}_r$ (the dual of the $p^r$-power Frobenius map $\phi_r:E\to E^{(p^r)}$) is (purely) inseparable for one (all) $r\geq 1$.
@@ -404,18 +405,18 @@ This makes the next question come naturally: When can I use the same model for m
 	\hfill
 	\begin{enumerate}[$\bullet$]
 		\item $y^2+y=x^3+x+1$ over $\FF_2$. Just checking there is only one point on this curve: $(0 : 1 : 0)$. Hence it is supersingular. The two torsion is trivial (there is one point so the group is trivial).
-
+		
 		\item The curve $y^2=x^3+1$ over $\FF_5$ has 6 points:
 		$$
 		(0 : 1 : 0), (0 : 1 : 1), (0 : 4 : 1), (2 : 2 : 1), (2 : 3 : 1), (4 : 0 : 1).
 		$$
 		Hence it is supersingular. The group of points is isomorphic to $\ZZ/6\ZZ$ (by the ``abelian\_group'' command in sage).
-
+		
 		\item The curve $y^2 = x^3 + x$ over $\FF_7$ has 8 points. The group is isomorphic to $\ZZ/8\ZZ$ and hence is supersingular.
 	\end{enumerate}
 \end{ex}
 
-\section{SES}
+\section{A Short Exact Sequence}
 
 Notation: Given a curve (possible singular) $E/K$, let $E_{\ns}$ be the set of non-singular points and $E_{\ns}(K)$ be the set of non-singular points of $E(K)$.
 
@@ -424,7 +425,7 @@ Notation: Given a curve (possible singular) $E/K$, let $E_{\ns}$ be the set of n
 \end{prop}
 \begin{proof}
 	First show the given point $O$, which is usually given as the point at infinity $[0,1,0]$ is non-singular (look at hommogeneous equation).
-
+	
 	Now move a singular point to $(0,0)$. Write down the equation, and notice partials can not vanish else where.
 \end{proof}
 
@@ -433,7 +434,7 @@ Notation: Given a curve (possible singular) $E/K$, let $E_{\ns}$ be the set of n
 \end{prop}
 \begin{proof}
 	Recall that the composition law to add points takes the line between them. If a line intersects the singular point, it is counted twice. Hence that would be a total of $4$ intersections (two from the points defining the line and two from the singular point). This is a contradiction (Bezout's Theorem).
-
+	
 	Now use some special maps to show inverses work.
 \end{proof}
 
@@ -464,7 +465,7 @@ So in particular $E_1$ is the kernel of the reduction and $E_0$ is the points wi
 Next we want to describe $E_1$.
 
 \begin{prop} %VII.2.2
-	Let $E/K$ be given by a minimal Weierstrass equation, let $\hat{E}/R$ be the formal group associated to $E$ (see IV.2.2.3), and let $w(z)\in R[[x]]$ be the power series from (IV.1.1). Then the map
+	Let $E/K$ be given by a minimal Weierstrass equation, let $\hat{E}/R$ be the formal group associated to $E$ (\cite[IV.2.2.3]{silverman1}), and let $w(z)\in R[[x]]$ be the power series from \cite[IV.1.1]{silverman1}. Then the map
 	$$
 	\hat{E}(\script{M}) \to E_1(K),\quad
 	z\mapsto\left(\frac{z}{w(z)},-\frac{1}{w(z)}\right)
@@ -479,6 +480,9 @@ $$
 
 Lucas will discuss $\hat{E}(\script{M})$.
 
+
+\bibliographystyle{alpha}
+\bibliography{references}
 
 \begin{center}
 \noindent\rule{4cm}{.5pt}

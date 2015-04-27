@@ -1,0 +1,479 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,amsfonts,amscd,tikz} %usual symbols, theorems, etc
+\usepackage{tikz-cd} %diagrams
+\usepackage{multicol} %columns
+\usepackage{enumitem} %makes description more flexible
+\usepackage{hyperref} %links, references
+\usepackage{aliascnt} %copies counters but with new labels --- for autoref
+\usepackage{graphicx} %pictures
+\usepackage{subcaption} %subfigures - use minipage
+\usetikzlibrary{arrows,matrix,calc,decorations.pathmorphing} %curved arrows
+\usepackage{mathabx} %more symbols
+\usepackage{mathrsfs} %super curly letters
+\usepackage{bbm} %quaternions
+\usepackage{microtype} %supposedly makes things nicer, ask Peter
+\usepackage[margin=1in]{geometry} %margins
+\usepackage{wrapfig} %wraps figures/tables in text
+\usepackage{cite} %citations
+%\usepackage{sage} %new! sage tex package
+
+
+%GENERAL SYMBOLS
+\newcommand{\BB}[1]{\mathbb{#1}} %bold face
+\newcommand{\script}[1]{\mathcal{#1}} %curvy
+\newcommand{\curly}[1]{\mathscr{#1}} %extra curvy
+\newcommand{\cat}[1]{\textbf{\emph{#1}}} %bold
+\renewcommand{\frak}[1]{\mathfrak{#1}} %gothic
+\newcommand{\del}[1]{\frac{\partial}{\partial{#1}}} %single derivative vector d/dx
+\newcommand{\ddel}[2]{\frac{\partial{#1}}{\partial{#2}}} %dy/dx
+\newcommand{\floor}[1]{{\lfloor #1 \rfloor}} %flooor
+\newcommand{\free}[1]{\left\langle#1\right\rangle} %nice brackets
+
+%SPECIFIC SYMBOLS
+\newcommand{\CC}{\BB{C}}
+\newcommand{\RR}{\BB{R}}
+\newcommand{\NN}{\BB{N}}
+\newcommand{\QQ}{\BB{Q}}
+\newcommand{\ZZ}{\BB{Z}}
+\newcommand{\PP}{\BB{P}}
+\renewcommand{\AA}{\BB{A}} %\AA is a non-ascii acented A, weird
+\newcommand{\HH}{\BB{H}}
+\newcommand{\DD}{\BB{D}}
+\newcommand{\TT}{\BB{T}}
+\newcommand{\FF}{\BB{F}}
+\newcommand{\RP}{\RR\PP}
+\newcommand{\CP}{\CC\PP}
+\renewcommand{\SS}{\BB{S}} %\SS is a silly non-ascii letter "SS".
+\newcommand{\sF}{\script{F}}
+\newcommand{\sG}{\script{G}}
+\renewcommand{\O}{\script{O}}
+\newcommand{\st}{\mid}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\supp}{\operatorname{Supp}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\chr}{\operatorname{char}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\res}{\operatorname{res}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\renewcommand{\hat}{\widehat}
+
+%counter for things
+\newtheorem{counter}{plzplzplzplzplzplzdontuseme}[section]
+
+\theoremstyle{plain}
+
+\newaliascnt{theoremCounter}{counter}
+\newtheorem{thm}[theoremCounter]{Theorem}
+\aliascntresetthe{theoremCounter}
+\newcommand{\theoremCounterautorefname}{Theorem}
+\newaliascnt{propositionCounter}{counter}
+\newcommand{\propositionCounterautorefname}{Proposition}
+\newtheorem{prop}[propositionCounter]{Proposition}
+\aliascntresetthe{propositionCounter}
+\newaliascnt{lemmaCounter}{counter}
+\newcommand{\lemmaCounterautorefname}{Lemma}
+\newtheorem{lem}[lemmaCounter]{Lemma}
+\aliascntresetthe{lemmaCounter}
+\newaliascnt{corollaryCounter}{counter}
+\newcommand{\corollaryCounterautorefname}{Corollary}
+\newtheorem{cor}[corollaryCounter]{Corollary}
+\aliascntresetthe{corollaryCounter}
+
+\theoremstyle{definition}
+
+\newaliascnt{definitionCounter}{counter}
+\newtheorem{defn}[definitionCounter]{Definition}
+\aliascntresetthe{definitionCounter}
+\newcommand{\definitionCounterautorefname}{Definition}
+\newaliascnt{exampleCounter}{counter}
+\newtheorem{ex}[exampleCounter]{Example}
+\aliascntresetthe{exampleCounter}
+\newcommand{\exampleCounterautorefname}{Example}
+\newaliascnt{exerciseCounter}{counter}
+\newtheorem{excer}[exerciseCounter]{Exercise}
+\aliascntresetthe{exerciseCounter}
+\newcommand{\exerciseCounterautorefname}{Exercise}
+\newaliascnt{warniningCounter}{counter}
+\newtheorem{warn}[warniningCounter]{Warning}
+\aliascntresetthe{warniningCounter}
+\newcommand{\warniningCounterautorefname}{Warning}
+
+\theoremstyle{remark}
+
+\newaliascnt{remarkCounter}{counter}
+\newtheorem{rem}[remarkCounter]{Remark}
+\aliascntresetthe{remarkCounter}
+\newcommand{\remarkCounterautorefname}{Remark}
+\newtheorem*{claim}{Claim}
+
+\newtheorem*{hint}{Hint}
+
+
+%page style, title page, custom variables
+\newcommand{\mytitle}{Introduction to Characters}
+\newcommand{\myauthor}{Travis Scholl}
+\newcommand{\myemail}{tscholl2@uw.edu}
+\date{April 23, 2015}
+
+
+\begin{document}
+\title{\bfseries\sffamily \mytitle}
+\author{\sc \myauthor }
+\maketitle
+
+\begin{abstract}
+	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields. It also overlaps with \cite[Ch. VI]{serre2012course} and \cite{washington1997introduction}.
+\end{abstract}
+
+\section{Characters}
+\hfill
+
+This section will define the basic objects required for studying characters. Much of this theory can be generalized but for simplicity we will stick to the ``hands on'' approach.
+
+\begin{defn}
+	Let $A$ be a finite abelian group. The \emph{dual} of $A$ to be the group $\hat{A} = \Hom(A,\CC^*)$, that is the group of homomorphisms $A \to \CC^*$. This is also called the \emph{Pontryagin dual}. Elements $\chi\in\hat{A}$ are examples of \emph{characters}. In this group the trivial character $\chi_0$ is the map sending $A$ to $1$.
+\end{defn}
+
+\begin{excer}\label{ex:charbasics}
+	Prove that
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $\chi\in\hat{A}$. Show the image $\chi(A)$ is contained in the set of roots of unity:
+		$$
+			\chi(A) \subseteq \{z\in\CC \st z^n=1 \text{ for some $n\in\ZZ^+$}\}.
+		$$
+		\item For any fixed $A$, there exists an isomorphism $\hat{A} \cong A$.
+		\item There is a canonical isomorphism $\hat{\hat{A}} \cong A$, i.e. the ``double dual'' functor is naturally isomorphic to the identity functor on the category of finite abelian groups.
+	\end{enumerate}
+	\begin{hint}
+		Use the structure theorem for finite abelian groups. If $A$ is a product of cyclic groups $\ZZ/n\ZZ$, then maps out of $A$ are uniquely determined by where a generator in each component go. Notice that there is a unique cyclic subgroup of order $n$ in $\CC^*$.
+	\end{hint}
+\end{excer}
+
+\begin{defn}\label{InnerProduct}
+	Let $\sF_A$ denote the vector space of $\CC$-valued functions on $A$. Note that $\hat{A} \subset \sF_A$. We give an inner product to $\sF_A$ by defining
+	$$
+	\free{f,g} = \frac{1}{|A|}\sum_{a\in A}f(a)\overline{g(a)}
+	$$
+\end{defn}
+
+\begin{rem}
+	The inner product defined in \autoref{InnerProduct} can also be interpreted as an integral. We could instead write $\int_Af_1\overline{f_2}d\mu_A$ where $\mu_A$ is a normalized Haar measure on $A$. In this case this just means any singleton $\{a\}$ has measure $\frac{1}{|A|}$ so that the measure of $A$ is normalized to $1$.
+\end{rem}
+
+\begin{excer}\label{ex:dimsF_A}
+	Show $\dim_\CC\sF_A = |A|$.
+	\begin{hint}
+		Note that $\sF_A$ is arbitrary set-theoretic functions. So they are uniquely defined only by their value on each point in $A$.
+	\end{hint}
+\end{excer}
+
+\begin{thm}[\emph{Fourier Series}]\label{thm:fourierseries}
+	The elements $\chi\in\hat{A}$ form an orthogonal basis for $\sF_A$.
+
+	If $f\in\sF_A$ then $f = \sum\limits_{\chi\in\hat{A}}c_{\chi}\chi$.
+\end{thm}
+
+\begin{rem}
+	This should remind of you Fourier series you might have seen in analysis. Just note that the map $\RR\to\CC^*$ given by $x\mapsto e^{2\pi i n x}$ for some fixed $n\in\ZZ$ is a character. Use this to compare with the standard Fourier series.
+\end{rem}
+
+Before proving \autoref{thm:fourierseries}, we first prove a very helpful lemma.
+
+\begin{lem}\label{lem:ortholemma}
+	If $\chi\in\hat{A}$ then
+	$$
+	\frac{1}{|A|}\sum_{a\in A}\chi(a) =
+	\begin{cases}
+		1 &\text{if $\chi=\chi_0$}
+		\\
+		0 &\text{if $\chi\neq\chi_0$.}
+	\end{cases}
+	$$
+\end{lem}
+\begin{proof}
+	Let $d$ be the order of $\chi$ so that $\chi^d = \chi_0$. Then $\chi(A)$ is exactly the $d^{th}$ roots of unity (each with multiplicity $|A|/d$). The sum of the $d$th roots of unity is $0$ unless $d=1$, in which case $\chi=\chi_0$ and we have $\sum_{a\in A}\chi(a) = |A|$.
+\end{proof}
+
+
+\begin{proof}[Proof of \autoref{thm:fourierseries}]
+	By \autoref{ex:dimsF_A} it is sufficient to show that the $\chi$ are orthogonal since then they will form an independent set of the same size as the dimension.
+
+	Let $\chi_1,\chi_2\in\hat{A}$. By \autoref{ex:charbasics} we know the image of any $\chi\in\hat{A}$ is contained in the roots of unity. Hence $\overline{\chi(a)} = \chi(a)^{-1}$ for any $a\in A$. Using this and the previous lemma we can write
+	\begin{align*}
+		\free{\chi_1,\chi_2} &= \frac{1}{|A|}\sum_{a\in A}\chi_1(a)\overline{\chi_2(a)}
+		\\
+		&= \frac{1}{|A|}\sum_{a\in A}\chi_1(a)\left(\chi_2(a)\right)^{-1}
+		\\
+		&= \frac{1}{|A|}\sum_{a\in A}\left(\chi_1\chi_2^{-1}\right)(a)
+		\\
+		&=
+		\begin{cases}
+			1 &\text{if $\chi_1=\chi_2$}
+			\\
+			0 &\text{if $\chi_1\neq\chi_2$.}
+		\end{cases}
+	\end{align*}
+\end{proof}
+
+\autoref{thm:fourierseries} gives an expansion of any element $f\in\sF_A$ into a linear combination $\sum_{\chi\in\hat{A}}c_\chi\chi$. But the coefficients $c_\chi$ in the theorem can be calculated via the inner product. Fix $\psi\in\hat{A}$ and consider the inner product with $\psi$ as follows
+\begin{align*}
+	\free{f,\psi} &= \free{\sum_{\chi\in\hat{A}}c_\chi\chi,\psi}
+	\\
+	&= c_\chi\sum_{\chi\in\hat{A}}\free{\chi,\psi}
+	\\
+	&= c_\psi
+\end{align*}
+which shows
+\begin{equation}
+	c_\psi = \frac{1}{|A|}\sum_{a\in A}f(a)\psi^{-1}(a).
+\end{equation}
+
+\section{Gauss Sums}
+\hfill
+
+In the previous section we considered characters as group homomorphisms into $\CC^*$. In this section we expand our objects from finite abelian groups $A$ to finite fields $\FF_q$ where $q$ is some prime power. The extra structure allows us to talk about \emph{additive characters} (homomorphisms on $\FF_q$ with the additive structure) and \emph{multiplicative characters} (homomorphisms on $\FF_q^*$).
+
+There is a natural action of $\FF_q$ on $\hat{\FF_q}$. Given $b\in \FF_q$ let $m_b:\FF_q\to \FF_q$ be the multiplication by $b$ map. This is a group homomorphism with respect to the additive structure. Then for $\psi\in\hat{\FF_q}$ define $b\cdot\psi = \psi_b = \psi\circ m_b$. It's clear this is again a character.
+
+\begin{prop}
+	 Let $\psi$ be a non-trival character in $\hat{\FF_q}$. For any $b_1,b_2\in\FF_q$, if $b_1\neq b_2$ then $\psi_{b_1}\neq \psi_{b_2}$.
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\psi_{b_1} = \psi_{b_2} \quad&\Leftrightarrow\quad \psi(b_1a) = \psi(b_2a) \quad\forall a\in\FF_q
+		\\
+		&\Leftrightarrow\quad \psi((b_1 - b_2)a) = 1 \quad\forall a\in\FF_q
+	\end{align*}
+	Now $(b_1 - b_2)a$ varies over all of $\FF_q$ since $b_1\neq b_2$. Since $\psi$ is non-trivial it follows that $\psi_{b_1}\neq\psi_{b_2}$.
+\end{proof}
+
+\begin{cor}\label{cor:altDescFqHat}
+	For any non-trivial $\psi\in\hat{\FF_q}$ we have $\hat{\FF_q} = \{\psi_b \st b\in\FF_q \}$.
+\end{cor}
+\begin{excer}
+	Prove \autoref{cor:altDescFqHat}.
+\end{excer}
+
+Next we want to consider multiplicative characters, i.e. $\hat{\FF_q^*}$, and relate them to additive ones. Given $\chi\in\hat{\FF_q^*}$ we extend it to a map $\widetilde{\chi}:\FF_q \to \CC$ as follows. If $\chi\neq\chi_0$ then
+$$
+\widetilde{\chi}(a) =
+\begin{cases}
+	\chi(a) &\text{if $a\neq 0$}
+	\\
+	0 &\text{if $a=0$}
+\end{cases}
+$$
+and if $\chi = \chi_0$ then we extend it by
+$$
+\widetilde{\chi_0}(a) = 1 \quad \forall a\in\FF_q.
+$$
+
+\begin{warn}\label{warn:extensionsOfChars}
+	Note that $\widetilde{\chi_0}$ is extended differently! This will make things easier later. Also it's nice that it is still a constant function. Also be careful because $\widetilde{\chi}$ may not necessarily lie in $\hat{\FF_q}$ because it is not additive. However, $\widetilde{\chi}$ is still multiplicative so $\widetilde{\chi}(ab) = \widetilde{\chi}(a)\widetilde{\chi}(b)$ for all $a,b\in\FF_q$.
+\end{warn}
+
+Note that the extension $\widetilde{\chi}$ is a $\CC$-valued function on $\FF_q$ so that $\widetilde{\chi}\in\sF_{\FF_q}$. So we can apply \autoref{thm:fourierseries} which says $\widetilde{\chi}$ can be written as a linear combination of the $\psi\in\hat{\FF_q}$. So by \autoref{cor:altDescFqHat} we have
+$$
+\widetilde{\chi} = \sum_{b\in\FF_q}c_b\psi_b
+$$
+for some fixed non-trivial $\psi\in\hat{\FF_q}$.
+
+\begin{excer}\label{ex:c_0ForChi}
+	Let $\chi\in\widehat{\FF_q^*}$ and fix some non-trivial $\psi\in\widehat{\FF_q}$. By above we can write $\widetilde{\chi} = \sum_{b\in\FF_q}c_b\psi_b$.
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		In the notation above, show
+		$$
+			c_0 =
+			\begin{cases}
+				0 &\text{if $\chi\neq\chi_0$}
+				\\
+				1 &\text{if $\chi = \chi_0$}
+			\end{cases}
+		$$
+		\begin{hint}
+			See \autoref{warn:extensionsOfChars} and compute $\free{\widetilde{\chi},\psi_0}$. The proof of \autoref{lem:ortholemma} may be helpful.
+		\end{hint}
+
+		\item
+		Show $\free{\widetilde{\chi},\widetilde{\chi}} = \sum |c_b|^2$.
+		\begin{hint}
+			Notice $\free{\cdot,\cdot}$ is a Hermitian inner product on $\sF_{\FF_q}$.
+		\end{hint}
+	\end{enumerate}
+\end{excer}
+
+\begin{defn}
+	A \emph{Gauss sum} is the sum of a multiplicative character times an additive one. Specifically, given $\chi\in\hat{\FF_q^*}$ and $\psi\in\hat{\FF_q}$, then define the Gauss sum to be
+	$$
+	\gamma(\chi,\psi) = \sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\psi(a)}.
+	$$
+\end{defn}
+
+There are many cool things one can do with Gauss sums. Here is a small application where we compute the absolute value.
+
+\begin{thm}\label{thm:gausssumsqtq}
+	Let $\chi\in\hat{\FF_q^*}$ and $\psi\in\hat{\FF_q}$. If $\psi$ and $\chi$ are non-trivial then $\left|\gamma(\chi,\psi)\right| = \sqrt{q}$.
+\end{thm}
+\begin{proof}
+	From \autoref{thm:fourierseries} and \autoref{cor:altDescFqHat} we can write $\widehat{\chi} = \sum_{b\in\FF_q}c_b\psi_b$ for some coefficients $c_a\in\CC$.
+
+	First we will show $|c_{b_1}| = |c_{b_2}|$ for any non-zero $b_1,b_2\in\FF_q$. Recall that $\widetilde{\chi}$ is multiplicative, so for any $b\neq 0$ in $\FF_q$ we can write
+	\begin{align*}
+		c_b
+		&= \free{\widetilde{\chi},\psi_b}
+		\\
+		&= \sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\psi_b(a)}
+		\\
+		&= \sum_{a\in\FF_q}\widetilde{\chi}(ab)\widetilde{\chi}(b^{-1})\overline{\psi_1(ba)}
+		\\
+		&= \sum_{a\in\FF_q}\widetilde{\chi}(ab)\widetilde{\chi}(b^{-1})\overline{\psi_1(ba)}
+		\\
+		&= \widetilde{\chi}(b^{-1})\sum_{a\in\FF_q}\widetilde{\chi}(ab)\overline{\psi_1(ba)}
+		\\
+		&= \widetilde{\chi}(b^{-1})\free{\widetilde{\chi},\psi_1}
+		\\
+		&= \widetilde{\chi}(b^{-1})c_1
+	\end{align*}
+	Since $\widetilde{\chi}(b^{-1})$ is a root of unity it follows $|c_b| = |c_1|$.
+
+
+	Now we can show $|c_b| = \frac{1}{\sqrt{q}}$. Using \autoref{ex:c_0ForChi} we have
+	$$
+	\free{\widetilde{\chi},\widetilde{\chi}} = \sum_{b\in\FF_q} |c_b|^2 = (q-1)|c_1|^2
+	$$
+	and as $\chi$ is a character for $\FF_q^*$ we have
+	\begin{align*}
+		1 = \free{\chi,\chi}
+		&= \frac{1}{|\FF_q^*|}\sum_{a\in\FF_q^*}\chi(a)\overline{\chi(a)}
+		\\
+		&= \frac{1}{q-1}\sum_{a\in\FF_q}\widetilde{\chi}(a)\overline{\widetilde{\chi}(a)}
+		\\
+		&= \frac{q}{q-1}\free{\widetilde{\chi},\widetilde{\chi}}
+	\end{align*}
+	Note: the two inner products above are for different character groups!
+
+	Together these inequalities show
+	$$
+	|c_1| = \frac{1}{\sqrt{q}}
+	$$
+	\noindent
+	Now unwinding definitions we have
+	\begin{align*}
+		\gamma(\chi,\psi)
+		&= \sum_{a\in\FF_q}\left(\sum_{b\in\FF_q}c_b\psi_b(a)\right)\overline{\psi(a)}
+		\\
+		&= \sum_{b\in\FF_q}c_b\sum_{a\in\FF_q}\psi_b(a)\overline{\psi(a)}
+		\\
+		&= \sum_{b\in\FF_q}c_b|\FF_q|\free{\psi_b,\psi}
+		\\
+		&=
+		c_1q
+	\end{align*}
+	which with above finishes the proof.
+\end{proof}
+
+\begin{excer}
+	Find the absolute value of the Gauss sum $\gamma(\chi,\psi)$ in the following cases:
+	\begin{enumerate}[label=$\bullet$]
+		\item $\chi = \chi_0$, $\psi \neq \psi_0$
+		\item $\chi \neq \chi_0$, $\psi = \psi_0$
+		\item $\chi = \chi_0$, $\psi = \psi_0$
+	\end{enumerate}
+	\begin{hint}
+		\hfill
+		\begin{enumerate}[label=$\bullet$]
+			\item $0$
+			\item $0$
+			\item $q$
+		\end{enumerate}
+	\end{hint}
+\end{excer}
+
+\section{A Theorem of Gauss}
+
+Another example of Gaussian sums comes from a theorem of Gauss.
+
+\begin{defn}
+	Let $p$ be an odd prime. Define a map $\ZZ \to \{-1,0,1\}$ by
+	$$
+	a \mapsto \left(\frac{a}{p}\right) =
+	\begin{cases}
+		1  &\text{if $p\not\mid a$ and $a$ is a square mod $p$}
+		\\
+		-1 &\text{if $p\not\mid a$ and $a$ is not a square mod $p$}
+		\\
+		0  &\text{if $p\mid a$}
+	\end{cases}
+	$$
+	It's not hard to see this is a non-trivial character on $\FF_p^*$ extended to $\FF_p$. It is called the \emph{Legendre symbol}.
+\end{defn}
+
+Now consider the map $\FF_p \to \CC*$ given by $a\mapsto e^{2\pi i a / p}$. It's not hard to see this is a non-trivial additive character of $\FF_p$.
+
+\begin{thm}[Quadratic Gauss Sum]\label{thm:gausssumreciprocity}
+	$$
+	\sum_{a=0}^{p-1} \left(\frac{a}{p}\right)e^{2\pi i a/p}
+	=
+	\begin{cases}
+		\sqrt{p} &\text{if $p\equiv 1\mod{4}$}
+		\\
+		\sqrt{-p} &\text{if $p\equiv 3\mod{4}$}.
+	\end{cases}
+	$$
+\end{thm}
+\begin{proof}
+	See \cite[Ch. 6]{ireland2013classical}.
+\end{proof}
+
+
+\section{Inflation and Restriction}
+
+
+Next we look at the relation between characters on groups and their quotient groups.
+
+Let $A$ be a finite abelian group and $B$ a subgroup of $A$. Given a character $\chi\in\hat{A/B}$ it extends to a character on $\hat{A}$ by precomposing with the quotient map $A \to A/B$.
+
+\begin{defn}\label{def:inflation}
+	Let $\pi:A \to A/B$ be the canonical map and $\psi\in\hat{A/B}$. Then the \emph{inflation} of $\psi$ is the map $\inf(\psi) = \psi\circ\pi \in \hat{A}$. Note $\inf:\hat{A/B} \to\hat{A}$ is indeed a homomorphism.
+\end{defn}
+
+\begin{defn}\label{def:restriction}
+	Let $\chi\in\hat{A}$. Then the \emph{restriction} of $\chi$ is the map $\res{B} = \chi|_B\in\hat{B}$. Note $\res:\hat{A} \to \hat{B}$ is indeed a homomorphism.
+\end{defn}
+
+\begin{excer}
+	Show $\inf:\hat{A/B} \to\hat{A}$ is injective and $\res:\hat{A}\to\hat{B}$ is surjective. Then prove we have an exact sequence
+	$$
+	\begin{tikzcd}
+		0 \rar & \hat{A/B} \rar{\inf} & \hat{A} \rar{\res} & \hat{B} \rar & 0.
+	\end{tikzcd}
+	$$
+\end{excer}
+
+
+\bibliographystyle{alpha}
+\bibliography{references}
+
+
+\begin{center}
+\noindent\rule{4cm}{.5pt}
+\vspace{.25cm}
+
+\noindent {\sc \small \myauthor}\\
+{\small Department of Mathematics, University of Washington, Seattle WA 98195} \\
+email: {\tt \myemail}
+\end{center}
+
+\end{document}
