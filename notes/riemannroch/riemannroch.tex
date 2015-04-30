@@ -46,9 +46,11 @@
 \newcommand{\CP}{\CC\PP}
 \renewcommand{\SS}{\BB{S}} %\SS is a silly non-ascii letter "SS".
 \newcommand{\sF}{\script{F}}
+\newcommand{\sL}{\script{L}}
 \newcommand{\sG}{\script{G}}
 \renewcommand{\O}{\script{O}}
 \newcommand{\st}{\mid}
+\renewcommand{\div}{\operatorname{div}} %\div is a silly '%'
 \newcommand{\im}{\operatorname{Im}}
 \newcommand{\re}{\operatorname{Re}}
 \newcommand{\rank}{\operatorname{rank}}
@@ -90,6 +92,7 @@
 \newtheorem{cor}[corollaryCounter]{Corollary}
 \aliascntresetthe{corollaryCounter}
 
+
 \theoremstyle{definition}
 
 \newaliascnt{definitionCounter}{counter}
@@ -108,6 +111,10 @@
 \newtheorem{warn}[warniningCounter]{Warning}
 \aliascntresetthe{warniningCounter}
 \newcommand{\warniningCounterautorefname}{Warning}
+\newaliascnt{factCounter}{counter}
+\newtheorem{fact}[factCounter]{Fact}
+\aliascntresetthe{factCounter}
+\newcommand{\factCounterautorefname}{Fact}
 
 \theoremstyle{remark}
 
@@ -133,13 +140,94 @@
 \maketitle
 
 \begin{abstract}
-	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields.
+	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields. As usual, any mistakes should be due to me.
 \end{abstract}
 
 \section{Motivation: Riemann Manifolds}
 \hfill
 
+Let $X$ be a connected, compact Riemann surface, $f$ a non-zero meromorphic function on $X$, and $P$ a point in $X$.
 
+\begin{defn}
+	Let $\ord_P f$ be the \emph{order vanishing of $f$ at $P$}. In particular,
+	$$
+	\ord_P f =
+	\begin{cases}
+		\text{order vanishing} &\text{if $f$ is holomorphic at $P$}
+		\\
+		-(\text{order of the pole}) &\text{if $f$ has a pole at $P$}
+	\end{cases}
+	$$
+\end{defn}
+
+Recall the standard fact from the theory of compact Riemann surfaces.
+
+\begin{fact}\label{divffinitedegree}
+	If $f\neq 0$ then $\ord_P f = 0$ for all but finitely many points $P$.
+\end{fact}
+
+Next we define divisors and the divisor class group for $X$.
+
+\begin{defn}\label{divisors}
+	The \emph{divisors} of $X$ are formal $\ZZ$-linear combinations of points, i.e. $\sum_{P\in X}a_P P$ for some $a_P\in\ZZ$ and for all but finitely many $P$ we have $a_P=0$.
+
+	Given a divisor $D = \sum_{P\in X}a_P P$ define the \emph{degree} of $D$ to be $\deg(D) = \sum_{P\in X} a_P$. This is finite by definition.
+
+	For a non-zero meromorphic function $f$ define the \emph{divisor of $f$} to be
+	$$
+	\div f = \sum_{P\in X} (\ord_P f)P.
+	$$
+	Divisors of the form $\div f$ for some $f$ are called \emph{principle divisors}.
+\end{defn}
+
+Another useful fact from general compact Riemann surfaces will allow us to define the class group.
+
+\begin{fact}\label{degdivf=0}
+	If $f$ is a non-zero meromorphic function on $X$, then $\deg(\div f) = 0$, i.e. the number of zeros equals the number of poles counting multiplicity.
+\end{fact}
+
+\begin{defn}\label{classgp}
+	The \emph{divisor class group} of $X$ is
+	$$
+	\frac{\text{Group of degree $0$ divisors}}{\text{Group of principle divisors}}.
+	$$
+\end{defn}
+
+Note that the divisor class group is well defined by \autoref{degdivf=0}. Next we want to use divisors to count classes of functions.
+
+\begin{defn}
+	Let $D = \sum_{P\in X}a_P$ be a divisor. We say $D$ is \emph{effective} if $D \geq 0$ meaning $a_P\geq 0$ for all $P$. Then define
+	$$
+	\sL(D) = \left\{ f \st \div f + D \text{ is effective} \right\}\cup\{0\}.
+	$$
+	By \autoref{sLvectorspace} $\sL(D)$ is a vector space over $\CC$. Define $\ell(D)$ to be $\dim_{\CC}\sL(D)$.
+\end{defn}
+
+\begin{excer}\label{sLvectorspace}
+	Show that $\sL(D)$ is a complex vector space under the usual scaling action on functions. The work will be in showing that it is closed under addition. This requires some basic complex analysis.
+	\begin{hint}
+		Consider what happens to the poles and zeros of functions when you add them. Use the power series representations since you only have to look locally.
+	\end{hint}
+\end{excer}
+
+\begin{fact}\label{falwayshasazero}
+	A non-constant meromorphic function $f$ on $X$ has at least one zero and one pole.
+\end{fact}
+
+\begin{ex}\label{key}
+	Let $D_0$ be the zero divisor, i.e. $D_0 = \sum_{P\in X}0\cdot P$. By \autoref{falwayshasazero}, $\sL(D_0)$ consists of only constant functions so $\ell(D_0) = 1$.
+\end{ex}
+
+\begin{prop}
+	If $\deg D = 0$ then $\sL(D) = \{f \st \div f = -D\}\cup\{0\}$ and $\ell(D)$ is either $0$ or $1$.
+\end{prop}
+\begin{proof}
+	Since $\deg D = 0$ we have by definition $\sL(D) = \{f \st \div f \geq -D\}\cup\{0\}$. If $\div f > -D$ then $\deg \div f > \deg - D = 0$, contradicting \autoref{degdivf=0}. The second statement follows from the fact that given two meromorphic functions $f,g$ with $\div f = \div g$ then $\frac{f}{g}$ is a well defined meromorphic function on $X$ with no zeros or poles. Hence it must be constant and so $\ell(D) \leq 1$.
+\end{proof}
+
+\begin{rem}
+	If $X$ has positive genus, then $\ell(D)$ is rarely $1$ in the previous proposition. If $X$ has genus $0$ then $\ell(D) = 1$ for every divisor of degree $0$. This follows from the fact that the divisor class group is trivial. The idea is that $X \cong \PP^1(\CC)$, the Riemann sphere. Meromorphic functions on $\PP^1(\CC)$ are just rational polynomials and we can describe any finite set of zeros and poles.
+\end{rem}
 
 \bibliographystyle{alpha}
 \bibliography{references}
