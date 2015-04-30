@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm,amsfonts,amscd,tikz} %usual symbols, theorems, etc
+\usepackage{tikz-cd} %diagrams
+\usepackage{multicol} %columns
+\usepackage{enumitem} %makes description more flexible
+\usepackage{hyperref} %links, references
+\usepackage{aliascnt} %copies counters but with new labels --- for autoref
+\usepackage{graphicx} %pictures
+\usepackage{subcaption} %subfigures - use minipage
+\usetikzlibrary{arrows,matrix,calc,decorations.pathmorphing} %curved arrows
+\usepackage{mathabx} %more symbols
+\usepackage{mathrsfs} %super curly letters
+\usepackage{bbm} %quaternions
+\usepackage{microtype} %supposedly makes things nicer, ask Peter
+\usepackage[margin=1in]{geometry} %margins
+\usepackage{wrapfig} %wraps figures/tables in text
+\usepackage{cite} %citations
+%\usepackage{sage} %new! sage tex package
+
+
+%GENERAL SYMBOLS
+\newcommand{\BB}[1]{\mathbb{#1}} %bold face
+\newcommand{\script}[1]{\mathcal{#1}} %curvy
+\newcommand{\curly}[1]{\mathscr{#1}} %extra curvy
+\newcommand{\cat}[1]{\textbf{\emph{#1}}} %bold
+\renewcommand{\frak}[1]{\mathfrak{#1}} %gothic
+\newcommand{\del}[1]{\frac{\partial}{\partial{#1}}} %single derivative vector d/dx
+\newcommand{\ddel}[2]{\frac{\partial{#1}}{\partial{#2}}} %dy/dx
+\newcommand{\floor}[1]{{\lfloor #1 \rfloor}} %flooor
+\newcommand{\free}[1]{\left\langle#1\right\rangle} %nice brackets
+
+%SPECIFIC SYMBOLS
+\newcommand{\CC}{\BB{C}}
+\newcommand{\RR}{\BB{R}}
+\newcommand{\NN}{\BB{N}}
+\newcommand{\QQ}{\BB{Q}}
+\newcommand{\ZZ}{\BB{Z}}
+\newcommand{\PP}{\BB{P}}
+\renewcommand{\AA}{\BB{A}} %\AA is a non-ascii acented A, weird
+\newcommand{\HH}{\BB{H}}
+\newcommand{\DD}{\BB{D}}
+\newcommand{\TT}{\BB{T}}
+\newcommand{\FF}{\BB{F}}
+\newcommand{\RP}{\RR\PP}
+\newcommand{\CP}{\CC\PP}
+\renewcommand{\SS}{\BB{S}} %\SS is a silly non-ascii letter "SS".
+\newcommand{\sF}{\script{F}}
+\newcommand{\sG}{\script{G}}
+\renewcommand{\O}{\script{O}}
+\newcommand{\st}{\mid}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\supp}{\operatorname{Supp}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\chr}{\operatorname{char}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\res}{\operatorname{res}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\renewcommand{\hat}{\widehat}
+
+%counter for things
+\newtheorem{counter}{plzplzplzplzplzplzdontuseme}[section]
+
+\theoremstyle{plain}
+
+\newaliascnt{theoremCounter}{counter}
+\newtheorem{thm}[theoremCounter]{Theorem}
+\aliascntresetthe{theoremCounter}
+\newcommand{\theoremCounterautorefname}{Theorem}
+\newaliascnt{propositionCounter}{counter}
+\newcommand{\propositionCounterautorefname}{Proposition}
+\newtheorem{prop}[propositionCounter]{Proposition}
+\aliascntresetthe{propositionCounter}
+\newaliascnt{lemmaCounter}{counter}
+\newcommand{\lemmaCounterautorefname}{Lemma}
+\newtheorem{lem}[lemmaCounter]{Lemma}
+\aliascntresetthe{lemmaCounter}
+\newaliascnt{corollaryCounter}{counter}
+\newcommand{\corollaryCounterautorefname}{Corollary}
+\newtheorem{cor}[corollaryCounter]{Corollary}
+\aliascntresetthe{corollaryCounter}
+
+\theoremstyle{definition}
+
+\newaliascnt{definitionCounter}{counter}
+\newtheorem{defn}[definitionCounter]{Definition}
+\aliascntresetthe{definitionCounter}
+\newcommand{\definitionCounterautorefname}{Definition}
+\newaliascnt{exampleCounter}{counter}
+\newtheorem{ex}[exampleCounter]{Example}
+\aliascntresetthe{exampleCounter}
+\newcommand{\exampleCounterautorefname}{Example}
+\newaliascnt{exerciseCounter}{counter}
+\newtheorem{excer}[exerciseCounter]{Exercise}
+\aliascntresetthe{exerciseCounter}
+\newcommand{\exerciseCounterautorefname}{Exercise}
+\newaliascnt{warniningCounter}{counter}
+\newtheorem{warn}[warniningCounter]{Warning}
+\aliascntresetthe{warniningCounter}
+\newcommand{\warniningCounterautorefname}{Warning}
+
+\theoremstyle{remark}
+
+\newaliascnt{remarkCounter}{counter}
+\newtheorem{rem}[remarkCounter]{Remark}
+\aliascntresetthe{remarkCounter}
+\newcommand{\remarkCounterautorefname}{Remark}
+\newtheorem*{claim}{Claim}
+
+\newtheorem*{hint}{Hint}
+
+
+%page style, title page, custom variables
+\newcommand{\mytitle}{Riemann-Roch Theorem}
+\newcommand{\myauthor}{Travis Scholl}
+\newcommand{\myemail}{tscholl2@uw.edu}
+\date{April 23, 2015}
+
+
+\begin{document}
+\title{\bfseries\sffamily \mytitle}
+\author{\sc \myauthor }
+\maketitle
+
+\begin{abstract}
+	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields.
+\end{abstract}
+
+\section{Motivation: Riemann Manifolds}
+\hfill
+
+
+
+\bibliographystyle{alpha}
+\bibliography{references}
+
+
+\begin{center}
+\noindent\rule{4cm}{.5pt}
+\vspace{.25cm}
+
+\noindent {\sc \small \myauthor}\\
+{\small Department of Mathematics, University of Washington, Seattle WA 98195} \\
+email: {\tt \myemail}
+\end{center}
+
+\end{document}
