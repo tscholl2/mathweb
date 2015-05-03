@@ -135,12 +135,12 @@
 
 
 \begin{document}
-\title{\bfseries\sffamily \mytitle}
+\title{\sffamily \mytitle}
 \author{\sc \myauthor }
 \maketitle
 
 \begin{abstract}
-	*These notes were taken from a course by Ralph Greenburg in Spring 2015 \cite{ralphscourse} on counting points on varieties over finite fields. As usual, any mistakes should be due to me.
+	*These notes were taken from a course by Ralph Greenburg in Spring 2015 on counting points on varieties over finite fields. As usual, any mistakes should be due to me. References include \cite{soren1996}, \cite{ireland2013classical}, \cite{ralphscourse}, and \cite{serre2012course}.
 \end{abstract}
 
 \section{Motivation: Riemann Manifolds}
@@ -200,7 +200,7 @@ Note that the divisor class group is well defined by \autoref{degdivf=0}. Next w
 	$$
 	\sL(D) = \left\{ f \st \div f + D \text{ is effective} \right\}\cup\{0\}.
 	$$
-	By \autoref{sLvectorspace} $\sL(D)$ is a vector space over $\CC$. Define $\ell(D)$ to be $\dim_{\CC}\sL(D)$.
+	By \autoref{sLvectorspace} $\sL(D)$ is a vector space over $\CC$. Define $\ell(D)$ to be $\dim_{\CC}\sL(D)$. It's a fact that $\ell (D)$ is finite.
 \end{defn}
 
 \begin{excer}\label{sLvectorspace}
@@ -225,9 +225,100 @@ Note that the divisor class group is well defined by \autoref{degdivf=0}. Next w
 	Since $\deg D = 0$ we have by definition $\sL(D) = \{f \st \div f \geq -D\}\cup\{0\}$. If $\div f > -D$ then $\deg \div f > \deg - D = 0$, contradicting \autoref{degdivf=0}. The second statement follows from the fact that given two meromorphic functions $f,g$ with $\div f = \div g$ then $\frac{f}{g}$ is a well defined meromorphic function on $X$ with no zeros or poles. Hence it must be constant and so $\ell(D) \leq 1$.
 \end{proof}
 
-\begin{rem}
+\begin{rem}\label{rem:functionsonP1}
 	If $X$ has positive genus, then $\ell(D)$ is rarely $1$ in the previous proposition. If $X$ has genus $0$ then $\ell(D) = 1$ for every divisor of degree $0$. This follows from the fact that the divisor class group is trivial. The idea is that $X \cong \PP^1(\CC)$, the Riemann sphere. Meromorphic functions on $\PP^1(\CC)$ are just rational polynomials and we can describe any finite set of zeros and poles.
 \end{rem}
+
+\begin{fact}
+	Let $\sF$ be the field of meromorphic functions on $X$. Then $\sF$ is a finite extension of $\CC(z)$. In particular, we may think of $\sF$ as $\CC(z,w)$ where $w$ satisfies some polynomial in $\CC(z,w)$.
+\end{fact}
+
+\begin{rem}
+	The fact above is one of the key components in showing an equivalence of categories between algebraic curves, function fields, and compact Riemann surfaces. This equivalence allows us to transfer the theory over to function fields and thus give a completely algebraic description of everything. In this setting one can prove the analogous Riemann-Roch theorem in more generality. This will be used in proving the rationality of the Zeta function for curves over finite fields. However, moving from algebraically closed to finite fields si a bit tricky.
+\end{rem}
+
+\section{The Main Result}
+
+We can now state the main theorem modulo a definition or two.
+
+\begin{thm}\label{thm:riemannroch}
+	For any divisor $D$ we have
+	$$
+	\ell(D) - \ell(K-D) = \deg D + 1 - g
+	$$
+	where $K$ is the \emph{canonical divisor} and $g$ is the \emph{genus}.
+\end{thm}
+\begin{proof}
+	See \cite{hartshorne1977algebraic}.
+\end{proof}
+
+One can take the theorem as ``there exists such a $K$ and $g$'' or one can define them before hand. The definitions can be technical. However, in a few special cases intuition will guide us or it won't matter.
+
+It's a fact that $\ell(K) = g$. Then applying \autoref{thm:riemannroch} we have
+$$
+\ell(K) - \ell(0) = \deg K + 1 - g
+\quad\Rightarrow\quad
+\deg K = 2g - 2
+$$
+which should remind you of the Euler characteristic from topology.
+
+\subsection{1-Forms}
+
+One forms are differential forms on $X$. We won't do anything very technical but we will do some examples to build intuition.
+
+\begin{ex}
+	Let $X$ be the Riemann sphere, $\CC\cup\{\infty\}$. On $\CC$ we have the usual differential $\omega = dz$. The divisor associated to the differential is the divisor of the function in front in some sense. In this case we have $dz = 1\cdot dz$ so it has no zeros or poles on $\CC$. However, to check what happens at $\infty$ we have to change coordinates and consider $d\frac{1}{z} = -\frac{1}{z^2}dz$. At $0$ this has a pole of order $2$. Hence the divisor associated to $\omega$ is $-2\cdot\infty$. It turns out $K = \div\omega$ and so $\deg K = -2 = 2g-2$ which means $g=0$, the usual result from topology.
+\end{ex}
+
+\begin{ex}
+	Let $X = \CC/L$ for some lattice $L$. Note that $dz$ is translation invariant by $L$, i.e. $d(z+\lambda) = dz$ for any $\lambda\in L$. It follows that it defines a one-form $\omega$ on $X$. Moreover, it is holomorphic everywhere by translation so $\div\omega = 0$ and hence $\deg(\div \omega) = 2g - 2 = 0$ so $g = 1$. This checks out because Elliptic curves over $\CC$ are always of the form $\CC/L$ for some lattice $L$ and Elliptic curves have genus $1$. Topologically, we know $\CC/L$ is a torus and hence has one hole.
+\end{ex}
+
+\begin{excer}
+	If $\deg D < 0$ then $\div f + D < 0$.
+	\begin{hint}
+		Proof by contradiction using \autoref{falwayshasazero}.
+	\end{hint}
+\end{excer}
+
+\subsection{Translation to Algebra}
+
+Now consider again the case where $X$ is the Riemann sphere, which means $g=0$. Let $D$ be a divisor of degree $0$. Then by \autoref{thm:riemannroch}, $\ell(D) = 1$. Recall $\sL(D) = \{f\in\sF\st\div f + D \geq 0\}\cup\{0\}$. But as we saw before this condition is the same as $\div f = -D$. As this space is $1$-dimensional, \emph{there exists} a meromorphic function $f$ with $\div f = -D$. So all degree $0$ divisors are principle! We had already seen this fact in \autoref{rem:functionsonP1}.
+
+Now let $g$ be arbitrary. We can run a similar argument if $\deg D > 2g-2$.
+
+\begin{prop}\label{prop:ellofnP}
+	If $P\in X$ then $\ell(n\cdot P) = n + 1 - g$ if $n > 2g-2$.
+\end{prop}
+\begin{proof}
+	Exercise.
+\end{proof}
+
+\begin{rem}
+	The content of \autoref{prop:ellofnP} is about the number of functions which are holomorphic everywhere except possibly at $P$ where they have a pole of order at worst $n$.
+\end{rem}
+
+Suppose $n > 2g-2$. Then by \autoref{prop:ellofnP} we know $\sL((n+1)P) \supsetneq\sL(nP)$. In particular, this means there exists some $f\in\sF^*$ such that $\ord_Pf = -(n+1)$. Since there also exists a $g\in\sF^*$ with $\ord_Pg = -n$ their ration will have a pole of order $1$ at $P$, i.e. there exists some $h$ such that $\ord_P h = 1$.
+
+\begin{defn}
+	For $P\in X$ define $R_P = \{f\in\sF\st \ord_Pf\geq 0\}$. This is the ring of meromorphic functions which are holomorphic at $P$. Note that $R_P$ is a local ring with maximal ideal $m_P = \{f\in\sF \st \ord_Pf > 0\}$. It's easy to see $m_P$ is the kernel of the ``evaluation at $P$'' map on $R_P$.
+\end{defn}
+
+\begin{prop}
+	Let $\pi\in\sF$ such that $\ord_P\pi = 1$. Then $m_P = \pi R_P = (\pi)$.
+\end{prop}
+\begin{proof}
+	Exercise.
+	\begin{hint}
+		Choose any $g\in m_P$ and consider dividing by $\pi$.
+	\end{hint}
+\end{proof}
+
+\begin{cor}
+	$R_P$ is a discrete valuation ring (DVR).
+\end{cor}
+
+This gives us the map to get from algebra from Riemann surface theory. It is a fact that $\overline{k}[x]$ is a Dedekind domain. Let $R$ be its integral closure in $\overline{k}(x,y)$ where $y$ is algebraic over $\overline{k}(x)$. A general fact from algebra says $R$ is still a Dedekind domain. If $P$ is any non-zero prime in $R$, then $R_P$ is a DVR with maximal ideal $PR_P$. So we can define $\ord_P f$ for any $f\in \overline{k}(x,y)$ just as before. So we can still define divisors in the same way.
 
 \bibliographystyle{alpha}
 \bibliography{references}
