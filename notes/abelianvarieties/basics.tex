@@ -1,0 +1,418 @@
+\documentclass[11pt]{article}
+
+\include{macros}
+
+\newcommand{\mytitle}{Abelian Varieties - The Basics}
+\newcommand{\myauthor}{Travis Scholl}
+\newcommand{\myemail}{tscholl2@uw.edu}
+
+\begin{document}
+\title{\mytitle}
+\author{\sc \myauthor }
+\maketitle
+% \date{April 23, 2015}
+
+\begin{abstract}
+	These are my summary notes from the first two sections from Milne's notes \cite{milneAV} on Abelian varieties.
+\end{abstract}
+
+\section{Definition}
+
+The goal of this section is to motivate the definition of an abelian variety. The main example of a variety with the structure of an abelian group is an elliptic curve. This is the kind of object we want to generalize. First, we recall some of the various definitions of elliptic curves.
+
+\begin{defn}[From {\cite[Ch.~1.3-1.4]{diamondshurman}}]\label{def:ec_tori}
+	An \emph{elliptic curve} over $\CC$ is the complex tori $\CC/\Lambda = \{z+\Lambda \st z\in\CC\}$ where $\Lambda$ a lattice (a rank $2$ $\ZZ$-submodule such that $\RR\Lambda = \CC$).
+\end{defn}
+
+\begin{defn}[From {\cite[Ch.~III.3]{silverman1}}]\label{def:ec_genus}
+	An \emph{elliptic curve} over a field $k$ is a nonsingular projective curve $E$ of genus $1$ with a specified point $\O\in E(k)$.
+	%should be able to switch curve (=variety dim 1) with separated, reduced, and finite type.
+\end{defn}
+
+\begin{defn}[From {\cite[Defn.~6.1.25]{liu2006algebraic}}]\label{def:ec_weirstras}
+	An \emph{elliptic curve} is a smooth projective curve $E$ over $k$ isomorphic to a closed subvariety of $\PP_k^2$ defined by a polynomial (homogenized) of the form
+	$$
+	y^2 + a_1xy + a_3y = x^3 + a_2x^2 + a_4x + a_6
+	$$
+	together with the specified point $\O = (0:1:0)$.
+\end{defn}
+
+\begin{defn}[From {\cite[Pg.~1]{milneAV}}]\label{def:ec_gp}
+	An \emph{elliptic curve} is a nonsingular projective curve together with a group structure defined by regular maps.
+\end{defn}
+%curve includes variety includes reduced and separated
+
+The first three definitions are very standard and you probably have seen. However, the fourth one may be slightly new.
+
+\begin{prop}\label{ec:defs:equiv}
+	The previous definitions of an elliptic curve are all the same.
+\end{prop}
+\begin{proof}
+	A sketch of this proof is in \cite[Pg.~1]{milneAV}, \cite[Ch.~II]{milneEC}, and for the complex case \cite[Ch.~1.3]{diamondandshurman} is very readable. We will focus on the less standard directions.
+	\begin{enumerate}
+		\item[$(4)\Rightarrow(2)$] Let $E$ be a nonsingular projective curve over a field $k$ with a group structure defined by regular maps. We need to show the genus $g$ of $E$ is $1$.
+		
+		Consider the sheaf of differentials $\Omega_E=\Omega_{E/k}$. This is locally free of rank one by \cite[Thm.~II.8.15]{hartshorne} (here we are using\footnote{Here we are using the assumption that $E$ is nonsingular, and projective to get irreducible, separated, and finite type. We may assume $k=\overline{k}$ for this because it's enough to show something is invertible after a faithfully flat base change.} non-singular and projective).
+		
+		By \autoref{lem:omegaTinvariant}
+		$\Omega_E \cong \pi^*e^*\Omega_E$ where $\pi:E \to k$ is the structure map and $e:k \to E$ is the identity element in the group structure. But $e^*\Omega_E$ is free since is a locally free sheaf on $k$, so it follows that it's pull back $\pi^*(e^*\Omega_E)$ is free and hence $\Omega_E$ is free of rank $1$. Hence
+		$$
+		g := \dim\Gamma(\Omega_E,E) = \dim\Gamma(\O_E,E) = 1
+		$$
+		The last equality follows since $E$ is projective.
+	
+		\item[$(2)\Rightarrow(4)$](See also \cite[Ch.~III.3]{silverman1}) Let $E$ be a non-singular projective curve of genus $1$ with a specified point $\O\in E(k)$. We need to define a group structure on $E$ defined by regular maps. Let $\Pic^0(E)$ be the quotient of degree zero divisors by principle divisors. Consider the map
+		$$
+		\kappa:E(k) \to \Pic^0(E) \quad\text{ defined by }\quad P \mapsto [P] - [\O]
+		$$
+		Recall that the Riemann-Roch theorem says $l(D) - l(K_E - D) = \deg D - g + 1 = \deg D$ where $K_E$ is a canonical divisor on $E$. By hypothesis on $E$, we have $g=1$ and it follows that $\deg K_E = 0$ and $l(K_E) = 1$ (in fact, it turns out on an elliptic curve that $K_E \sim 0$).
+		
+		If $P\neq \O$ and $P\mapsto 0$ then $[P] \sim [\O]$. But this implies $E\approx \PP^1$ by a Hartshorne exercise or Silverman (specifically \cite[Ex.~II.2.5]{silverman1}) which contradicts the genus of $E$ being $1$. Therefore the map $\kappa$ is injective.
+		
+		Let $D\in \Div^0(E)$. We need to show there is some $P$ such that $[P] - [\O] \sim [D]$. Note $\deg(D+\O) = 1$ so by Riemann-Roch $l(D+\O) - l(K_E - (D + \O)) = 1$. But $\deg (K_E - (D+\O)) = -1$ so $l(K_E - (D+\O)) = 0$ and therefore $l(D+\O) = 1$. Hence there is some non-zero $f\in K(E)$ such that $\Div f \geq -D - \O$. But $\deg(\Div f) = 0$ and $\deg (-D - \O) = -1$. It follows that $\Div f = -D - \O + P$ for some $P\in E(k)$. This is because $\Div f + D + \O$ is effective and degree $1$. Therefore the map $\kappa$ is surjective.
+		
+		Now we can define the group structure on $E$ via $\kappa$. It turns out the group operations are rational functions. One way to see this is to identify the operation with the usual chord and tangent formulas.
+	\end{enumerate}
+\end{proof}
+
+\begin{lem}\label{lem:omegaTinvariant}{\footnote{See \url{http://www.math.ru.nl/~bmoonen/BookAV/BasGrSch.pdf}}}
+	Let $G$ be a group scheme over $S$ with structure map $\pi:G\to S$ and identity $e:S\to G$. Then there is an isomorphism
+	$$
+	\Omega_G \cong \pi^*e^*\Omega_G
+	$$
+\end{lem}
+\begin{proof}
+	Let $G\times G / G$ represent $G\times G$ as a $G$ scheme with structure map $p_2$. Define $\tau:G\times G \to G\times G$ by $(m,p_2)$. That is, we define $\tau$ by the diagram
+	$$
+	\begin{tikzcd}
+		G \times G \drar[dotted]{\tau} \ar[bend left]{drr}{p_2} \ar[bend right]{ddr}{m}
+		\\
+		& G\times G \rar{p_2} \dar{p_1} & G \dar
+		\\
+		& G \rar & S
+	\end{tikzcd}
+	$$
+	Note that $\tau$ is an automorphism of $G\times G$ as a $G$-scheme. This is easy to see since on the functor of points $\tau$ is the map $(a,b) \mapsto (ab,b)$.
+	
+	Now the sheaf of differentials plays well with base change (see \cite[Prop.~6.1.24a]{liu2006algebraic}). It follows that $\tau^*\Omega_{G\times G/G} \cong \Omega_{G\times G/G}$ (by writing a base changing $G\times G/G$ to itself along the identity and replacing the top map with $\tau$, this will still be cartesian). It also follows that $\Omega_{G\times G/G} \cong p_1^*\Omega_G$ since this is a base change of $G/S$ to $G\times G/G$.
+	Putting these facts together gives
+	$$
+		\Omega_{G\times G/G}
+		\cong \tau^*\Omega_{G\times G/G}
+		\cong \tau^*p_1^*\Omega_G
+		= (p_1\circ\tau)^*\Omega_G
+		= m^*\Omega_G.
+	$$
+
+	Next define $\phi:G \to G\times G$ given by $(e\circ\pi,id)$. That is, we define $\phi$ by the diagram
+	$$
+	\begin{tikzcd}
+		G  \drar[dotted]{\phi} \ar[bend left]{drr}{id} \dar[swap]{\pi}
+		\\
+		S \drar[swap]{e} & G\times G \rar{p_2} \dar{p_1} & G \dar
+		\\
+		& G \rar & S
+	\end{tikzcd}
+	$$
+	Now on one hand since $m\circ\phi = id$ we have
+	$$
+	\phi^*\Omega_{G\times G/G}
+	\cong \phi^*m^*\Omega_G
+	\cong \Omega_G
+	$$
+	while on the other hand
+	$$
+	\phi^*\Omega_{G\times G/G}
+	\cong \phi^*p_1^*\Omega_G
+	\cong \pi^*e^*\Omega_G.
+	$$
+\end{proof}
+
+So which definition do we want to use? The one which generalizes the easiest is \autoref{def:ec_gp}. So we will use this.
+
+\begin{defn}\label{def:av}
+	An \emph{abelian variety} is a connected complete group variety.
+\end{defn}
+
+Here a ``group variety'' is a group object in the category of varieties. All our varieties will be over a field $k$.
+
+\begin{rem}
+	Here \emph{complete} means universally closed, i.e. $V$ is complete if for any other variety $W$ the map $V\times_k W \to W$ is closed. In this setting you can interchange ``complete'' with ``proper'' since varieties by our definition will be separated and finite type over $k$.
+\end{rem}
+
+
+\section{Properties}
+
+Using this simple definition we get some easy consequences for free.
+
+\begin{prop}
+	Abelian varieties are non-singular.
+\end{prop}
+\begin{proof}[Sketch]
+	As a variety, it has an open non-singular locus. This can be translated around via the group operation.
+\end{proof}
+
+\begin{prop}
+	Abelian varieties are irreducible.
+\end{prop}
+\begin{proof}[Sketch]
+	Milne's definition of non-singular means it lies in a single irreducible component.
+\end{proof}
+
+\begin{prop}
+	Abelian varieties are geometrically connected.
+\end{prop}
+\begin{proof}[Sketch]
+	See \cite[Ex.~3.2.11a]{liu2006algebraic} which says if $X/k$ is connected and finite type, then $X$ is geometrically connected. The sketch is that a connected component $C_{\overline{k}}$ of $X_{\overline{k}}$. Because everything is finite type it will be defined over a finite Galois extension $k'$. Note $\overline{k}/k'$ is faithfully flat so $C_{k'}$ is a connected component of $X_{k'}$.
+	
+	Now the Galois group $\Gal(k'/k)$ acts transitively on the connected components of $X_{k'}$ but it also fixes $X_{k'}(k)$. Since this is non-empty, there is only one connected component.
+\end{proof}
+
+There is another very important property of abelian varieties.
+
+\begin{lem}[Rigidity Theorem]
+	Suppose $X$ is complete and $X\times Y$ is geometrically irreducible. Let $\alpha:X\times Y \to Z$ be a morphism and suppose
+	$$
+	\alpha(\{x_0\}\times Y) = \{z_0\} = \alpha(X\times\{y_0\})
+	$$
+	Then $\alpha(X\times Y) = \{z_0\}$.
+\end{lem}
+\begin{proof}[Sketch]
+	By the hypothesis on $X$, $\pi:X\times Y \to Y$ is closed. Recall that the image of a complete (or proper over $k$) and connected variety into an affine variety is a point.
+	
+	Let $U$ be an affine neighborhood of $z_0$. From the first fact, it follows $W = \pi\circ\alpha^{-1}(Z\setminus U)$ is closed in $Y$. This set is non-empty because $y_0\notin W$ (as every tuple with $y_0$ is contained in $U$). Now for any $y\in Y\setminus W$ we have $X\approx X\times\{y\} \to Z$ maps to a point by the second fact. Since $(x_0,y)$ is in this set, this point is $z_0$. Hence $\alpha$ is constant on $X\times(Y\setminus W)$. This is open, and hence dense in $X\times Y$. Since $Z$ is separated, $\alpha$ agrees with this constant map on all of $X\times Y$.
+\end{proof}
+
+\begin{prop}
+	Every morphism between abelian varieties can be factored into a group homomorphism and a translation.
+\end{prop}
+\begin{proof}
+	Let $\varphi:X \to Y$ be a morphism of abelian varieties. Up to a translation we may assume it sends $0\mapsto 0$.
+	
+	Let $m_X:X\times X \to X$ and $m_Y:Y\times Y\to Y$ be the respective multiplication maps. Consider the difference $\varphi\circ m_X - m_Y\circ\varphi\times\varphi$. It's easy to see this takes $\{0\}\times X \to \{0\}$ and $X\times\{0\} \to \{0\}$. So by the Rigidity lemma, this difference is the constant map which means exactly that this map is a homomorphism.
+\end{proof}
+
+\begin{prop}
+	Abelian varieties are abelian. 
+\end{prop}
+\begin{proof}
+	The inverse map is a morphism which sends $0\mapsto 0$ so by the previous proposition, it's a group homomorphism.
+\end{proof}
+
+The last fact is somewhat remarkable, and the proof will be sketched next week.
+
+\begin{prop}
+	Abelian varieties are projective.
+\end{prop}
+\begin{proof}
+	Wait for Bharath's talk.
+\end{proof}
+
+\section{Analytic Abelian Varieties}
+
+Let $A$ be an abelian variety over $\CC$. If you are unfamiliar with the analytification functor, note that $A$ is projective so it admits a closed embedding into $\PP^n_\CC$. After identifying $\PP^n(\CC)$ as a complex manifold in the usual way we can give $A(\CC)$ a complex manifold structure via this embedding. It turns out $A$ is a compact connected complex manifold. In fact, $A(\CC)$ has a rather simple complex structure.
+
+\begin{thm}\label{av_cmplx_tori}
+	$A(\CC)$ is a complex torus.
+\end{thm}
+\begin{proof}
+\hfill
+\begin{description}
+	\item[Exponential Map:]
+		%exp map
+		Let $G$ be any real Lie group. Recall the exponential map which sends the tangent space $\exp: T_eG \to G$ via one-parameter subgroups. That is, $v$ maps to the point given by the end point of a path through $e$ with direction $v$ and flows for $|v|$ time. The main fact that we will use is that this map is smooth and the derivative at $0$ is basically the identity map $T_eG \to T_eG$, so in particular it is a local diffeomorphism.
+	\item[Surjective:]
+		%surjective
+		All the theory extends to the complex case. So there exists a group homomorphism
+		$$
+		\exp T_0A(\CC) \to A(\CC)
+		$$
+		To prove the theorem note that this map is a local homeomorphism near $0$. Because $\exp$ is also a group homomorphism, the image $H$ is a connected subgroup of $A(\CC)$ containing a neighborhood of the identity. Translating this neighborhood around via elements of $H$ show that $H$ is open in $A(\CC)$. Because $H$ is open, so are it's cosets. Which implies $H$ is closed. By hypothesis $A(\CC)$ is connected so $\exp$ is surjective.
+	\item[Kernel:]
+		Since $\exp$ is a local isomorphism, $0$ is a isolated point in $\ker$. Therefore the $\ker$ is a discrete subgroup of a $2r$-dimensional real vector space. An argument from number theory shows this implies $\ker$ is a lattice, that is $\ker \approx \ZZ e_1 + \cdots \ZZ e_r$ for some vectors $e_i$. Moreover, the compactness of $A(\CC)$ implies $\ker$ is a full lattice so that $r = 2g$.
+\end{description}
+\end{proof}
+
+\begin{warn}
+	The converse to \autoref{av_cmplx_tori} is \emph{not} true in general. That is, not every $\CC^g/L$ is isomorphic to the analytification of an abelian variety. However, when $g=1$ it is true as these are elliptic curves.
+\end{warn}
+
+\begin{ex}[See {\cite[Pg.~104]{siegel2008analytic}}]
+	Suppose $X = \CC^2/L$ came from some abelian variety $A(\CC)$. Note the function field of $A$ has transcendence degree $2$ over $\CC$, so this implies $\CC(X)$ contains non-constant meromorphic functions (these are meromorphic in two variables).
+	
+	We will give an example of a lattice $L$ such that there are no non-constant $L$-invariant meromorphic functions on $\CC^2$ which by above shows that $X$ does not come from an abelian variety.
+	
+	Let $L$ be the lattice spanned by the columns of the period matrix
+	$$
+	C = 
+	\begin{pmatrix}
+		1&0&\sqrt{-2}&\sqrt{-5}
+		\\
+		0&1&\sqrt{-3}&\sqrt{-7}
+	\end{pmatrix}.	
+	$$
+	Note these vectors are $\RR$-linearly independent so they do in fact generate a full lattice in $\CC^2$.
+	
+	We will prove by contradiction that the transcendence degree $s$ of $\CC(X)/\CC$ must be $0$.
+	
+	\begin{description}
+		\item[$(s=2):$]
+			Suppose that $\CC(X)$ has transcendence degree $2$. A consequence of the hypothesis is that there exists a matrix $A$ made up of integral multiples of $\pi i$ such that 1) $A$ is non-singular,  2) $CA^{-1}C^T = 0$, and  3) $\overline{C}A^{-1}C^T < 0$ (i.e. negative definite).
+			
+			Let $B = \pi i A^{-1}$ so that $B$ has rational values. From the second condition, looking at the value of $CBC^{T}$ in the first row and second column we find
+			$$
+			\begin{pmatrix}
+				1 & 0 & \sqrt{-2} & \sqrt{-5}
+			\end{pmatrix}
+			B
+			\begin{pmatrix}
+				1 \\ 0 \\ \sqrt{-3} \\ \sqrt{-7}
+			\end{pmatrix}
+			=
+			b_{12} + b_{13}\sqrt{-3} + b_{14}\sqrt{-7} - b_{23}\sqrt{-2} - b_{24}\sqrt{-5} + b_{34}(\sqrt{14} - \sqrt{15})
+			=
+			0
+			$$
+			But $b_{ij}\in\QQ$ so this implies that $B = 0$ and hence contradicts (1).
+		
+		\item[$(s=1):$]
+			Suppose that $\CC(X)$ has transcendence degree $1$. One can show that this implies up to a linear transformation all functions are dependent on $z_1$ only. This linear transformation basically replaces $z = (z_1,z_2)$ with $Q^{-1}z$ where
+			$$
+			Q = \begin{pmatrix}
+				\alpha & \beta
+				\\
+				\gamma & \delta
+			\end{pmatrix}.
+			$$
+			After making this substitution, the new period lattice is given by projecting $QC$ onto the first copy of $\CC$. This gives us
+			$$
+			C_1 =
+			\left(
+				\alpha,\beta,\alpha\sqrt{-2} + \beta\sqrt{-3}, \alpha\sqrt{-5} + \beta\sqrt{-7}
+			\right)
+			$$
+			If this is a period matrix, it must generate a two dimensional lattice. Let $\omega_1,\omega_2$ be a basis for this lattice so that all the above points are integer combinations of the $\omega_i$. In particular
+			\begin{align*}
+				\alpha &= p_1\omega_1 + p_2 \omega_2
+				\\
+				\beta &= q_1\omega_1 + q_2 \omega_2
+				\\
+				\alpha\sqrt{-2} + \beta\sqrt{-3} &= r_1\omega_1 + r_2 \omega_2
+				\\
+				\alpha\sqrt{-5} + \beta\sqrt{-7} &= s_1\omega_1 + s_2 \omega_2
+			\end{align*}
+			Some slick linear algebra using that $1,\sqrt{-2},\sqrt{-3},\sqrt{-5},\sqrt{-7}$ are all $\QQ$-independent shows that every 2-row minor of
+			$$
+			\begin{pmatrix}
+				p_1 & p_2
+				\\
+				q_1 & q_2
+				\\
+				r_1 & r_2
+				\\
+				s_1 & s_2
+			\end{pmatrix}
+			$$
+			has determinate $0$ which contracts that two of the complex numbers from $C_1$ must be independent over $\RR$.
+	\end{description}
+\end{ex}
+
+\section{Riemann Forms}
+
+Even though not every complex tori is an abelian variety, there is a necessary and sufficient condition to test whether it is. First some linear algebra. Let $V$ be a complex vector space.
+
+\begin{lem}
+	There is a bijection between real-valued (i.e. view $V$ as a real vector space) alternating bilinear forms $E:V\times V \to \RR$ and Hermitian forms $H:V\times\overline{V} \to \RR$. The correspondence is given by
+	\begin{align*}
+		H(v,w) &= E(iv,w) + iE(v,w)
+		\\
+		E(v,w) &= \im H(v,w)
+	\end{align*}
+\end{lem}
+\begin{proof}
+	Note that alternating and skew-symmetric are equivalent in characteristic $0$.
+	\begin{enumerate}
+		\item[$(\Rightarrow):$] Suppose $E$ is a real-valued alternating bilinear form on $V$. Let $J$ be the $\RR$-linear map on $V$ given by multiplication by $i$. Note that $J$ is skew-symmetric. If we choose a basis $z_1,\dots,z_n$ for $V$ over $\CC$ then $x_1,y_1,\dots,x_n,y_n$ is a basis for $V$ over $\RR$. In this basis multiplication by $i$ is a block matrix with blocks of the form
+		$$
+		\begin{pmatrix}
+			0 & -1
+			\\
+			1 & 0
+		\end{pmatrix}.
+		$$
+		Note that $(JE)^T = E^TJ^T = (-E)(-J) = EJ$. Define $H$ as above. It' clear $H$ is $\RR$-linear so it's enough to show what happens when we scale by $i$ in each slot. Plugging into the formula and equating real and imaginary parts, it's enough to show
+		$$
+		E(iv,iw) = -E(v,w)
+		\quad\text{ and }\quad
+		E(v,iw) = -E(iv,w)
+		$$
+		These follow from a quick basis calculation
+		$$
+		E(iv,iw) = (Jv)^TEJw = v^TJ^TEJw = v^TJJ^TEw = v^T(-1)Ew = -E(v,w)
+		$$
+		and
+		$$
+		E(v,iw) = v^TEJw = v^TJEw = v^T(-J)^TEw = -(Jv)^TEw = -E(iv,w).
+		$$
+		
+		\item[$(\Leftarrow):$] Suppose $H$ is a Hermitian form. Then it's imaginary component is clearly a skew-symmetric as $H(v,w) = \overline{H(w,v)}$.
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Let $L$ be a lattice in $\CC^g$, a \emph{Riemann form} is an alternating bilinear form $E:L \times L \to \ZZ$ such that
+	\begin{enumerate}[(a)]
+		\item $E_\RR(iv,iw) = E_\RR(v,w)$
+		\item The associated Hermitian form is positive definite.
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}
+	Let $X = \CC^g/L$ be a complex torus. Then $X$ is \emph{polarizable} if it admits a Riemann form.
+\end{defn}
+
+\begin{thm}\label{thm:polarizable}
+	A complex torus $X$ is of the form $A(\CC)$ if and only if it is polarizable.
+\end{thm}
+
+The proof is sketched in \cite[Thm.~2.8]{milneAV}.
+
+\begin{ex}
+	Let $X$ be the complex torus $\CC/\ZZ+ i\ZZ$, or better known as $y^2 = x^3 - x$. This has a Riemann form given by
+	$$
+	E(x+iy,x'+iy') = x'y - xy'
+	$$
+	It's easy to check this is an alternating bilinear form which takes $L\times L \to \ZZ$. 
+	
+	Now notice
+	$$
+	E_\RR(i(x+iy),i(x'+iy')) = (-y')x - (-y)x' = x'y - xy' = E(x+iy,x'+iy')
+	$$
+	so it satisfies the first property of being a Rieman form.
+	
+	Moreover, the associated Hermitian form is
+	$$
+	H(z,z') = z\overline{z}'
+	$$
+	which is clearly positive definite.
+\end{ex}
+
+\begin{rem}
+	Let $L$ be a lattice. Then an integer-valued alternating bilinear form on $L$ is the same as a linear map $\bigwedge^2 L\to \ZZ$. If $L$ has rank $2$, i.e. the abelian variety has genus $1$, then $\bigwedge^2 L$ has rank $1$ which means $\bigwedge^2 L \approx \ZZ$. So in particular, all integer-valued alternating bilinear forms on $L$ are multiples of a generating form defined up to a sign.
+\end{rem}
+
+
+\bibliographystyle{alpha}
+\bibliography{references}
+
+
+\begin{center}
+\noindent\rule{4cm}{.5pt}
+\vspace{.25cm}
+
+\noindent {\sc \small \myauthor}\\
+{\small Department of Mathematics, University of Washington, Seattle WA 98195} \\
+email: {\tt \myemail}
+\end{center}
+
+\end{document}
