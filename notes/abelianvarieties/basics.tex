@@ -18,14 +18,14 @@
 
 \section{Definition}
 
-The goal of this section is to motivate the definition of an abelian variety. The main example of a variety with the structure of an abelian group is an elliptic curve. This is the kind of object we want to generalize. First, we recall some of the various definitions of elliptic curves.
+The goal of this section is to motivate the definition of an abelian variety. The main example of a variety with a group structure is an elliptic curve. First, we recall some of the various definitions of elliptic curves.
 
 \begin{defn}[From {\cite[Ch.~1.3-1.4]{diamondshurman}}]\label{def:ec_tori}
 	An \emph{elliptic curve} over $\CC$ is the complex tori $\CC/\Lambda = \{z+\Lambda \st z\in\CC\}$ where $\Lambda$ a lattice (a rank $2$ $\ZZ$-submodule such that $\RR\Lambda = \CC$).
 \end{defn}
 
 \begin{defn}[From {\cite[Ch.~III.3]{silverman1}}]\label{def:ec_genus}
-	An \emph{elliptic curve} over a field $k$ is a nonsingular projective curve $E$ of genus $1$ with a specified point $\O\in E(k)$.
+	An \emph{elliptic curve} over a field $k$ is a smooth projective curve $E$ of genus $1$ with a specified point $\O\in E(k)$.
 	%should be able to switch curve (=variety dim 1) with separated, reduced, and finite type.
 \end{defn}
 
@@ -48,30 +48,33 @@ The first three definitions are very standard and you probably have seen. Howeve
 	The previous definitions of an elliptic curve are all the same.
 \end{prop}
 \begin{proof}
-	A sketch of this proof is in \cite[Pg.~1]{milneAV}, \cite[Ch.~II]{milneEC}, and for the complex case \cite[Ch.~1.3]{diamondandshurman} is very readable. We will focus on the less standard directions.
+	A sketch of this proof is in \cite[Pg.~1]{milneAV}, \cite[Ch.~II]{milneEC}, and for the complex case \cite[Ch.~1.3]{diamondshurman} is very readable. We will focus on one equivalence.
 	\begin{enumerate}
-		\item[$(4)\Rightarrow(2)$] Let $E$ be a nonsingular projective curve over a field $k$ with a group structure defined by regular maps. We need to show the genus $g$ of $E$ is $1$.
+		\item[$(4)\Rightarrow(2)$] Let $E$ be a smooth projective curve over a field $k$ with a group structure defined by regular maps. We need to show the genus $g$ of $E$ is $1$.
 		
-		Consider the sheaf of differentials $\Omega_E=\Omega_{E/k}$. This is locally free of rank one by \cite[Thm.~II.8.15]{hartshorne} (here we are using\footnote{Here we are using the assumption that $E$ is nonsingular, and projective to get irreducible, separated, and finite type. We may assume $k=\overline{k}$ for this because it's enough to show something is invertible after a faithfully flat base change.} non-singular and projective).
+		Consider the sheaf of differentials $\Omega_E=\Omega_{E/k}$. This is locally free of rank one by \cite[Prop.~6.2.2]{liu2006algebraic}.
 		
 		By \autoref{lem:omegaTinvariant}
-		$\Omega_E \cong \pi^*e^*\Omega_E$ where $\pi:E \to k$ is the structure map and $e:k \to E$ is the identity element in the group structure. But $e^*\Omega_E$ is free since is a locally free sheaf on $k$, so it follows that it's pull back $\pi^*(e^*\Omega_E)$ is free and hence $\Omega_E$ is free of rank $1$. Hence
+		$\Omega_E \cong \pi^*e^*\Omega_E$ where $\pi:E \to k$ is the structure map and $e:k \to E$ is the identity element in the group structure on $E$. But $e^*\Omega_E$ is free since is a locally free sheaf on $k$, so the pull back $\pi^*(e^*\Omega_E)$ is free and hence $\Omega_E$ is free of rank $1$.
+		
+		This implies that the canonical divisor has degree $0$, which by Riemann-Roch shows $g = 1$.
+		Alternatively,
 		$$
 		g := \dim\Gamma(\Omega_E,E) = \dim\Gamma(\O_E,E) = 1
 		$$
-		The last equality follows since $E$ is projective.
+		The last equality follows since $E$ is projective, see \cite[Thm.~I.3.4]{hartshorne}.
 	
-		\item[$(2)\Rightarrow(4)$](See also \cite[Ch.~III.3]{silverman1}) Let $E$ be a non-singular projective curve of genus $1$ with a specified point $\O\in E(k)$. We need to define a group structure on $E$ defined by regular maps. Let $\Pic^0(E)$ be the quotient of degree zero divisors by principle divisors. Consider the map
+		\item[$(2)\Rightarrow(4)$](See also \cite[Ch.~III.3]{silverman1}) Let $E$ be a nonsingular projective curve of genus $1$ with a specified point $\O\in E(k)$. We need to define a group structure on $E$ defined by regular maps. Let $\Pic^0(E)$ be the quotient of degree zero divisors by principle divisors. Consider the map
 		$$
 		\kappa:E(k) \to \Pic^0(E) \quad\text{ defined by }\quad P \mapsto [P] - [\O]
 		$$
-		Recall that the Riemann-Roch theorem says $l(D) - l(K_E - D) = \deg D - g + 1 = \deg D$ where $K_E$ is a canonical divisor on $E$. By hypothesis on $E$, we have $g=1$ and it follows that $\deg K_E = 0$ and $l(K_E) = 1$ (in fact, it turns out on an elliptic curve that $K_E \sim 0$).
+		Recall that the Riemann-Roch theorem says $l(D) - l(K_E - D) = \deg D - g + 1 = \deg D$ where $K_E$ is a canonical divisor on $E$. By hypothesis on $E$, we have $g=1$ and it follows that $\deg K_E = 0$ and $l(K_E) = 1$ (actually on an elliptic curve that $K_E \sim 0$).
 		
-		If $P\neq \O$ and $P\mapsto 0$ then $[P] \sim [\O]$. But this implies $E\approx \PP^1$ by a Hartshorne exercise or Silverman (specifically \cite[Ex.~II.2.5]{silverman1}) which contradicts the genus of $E$ being $1$. Therefore the map $\kappa$ is injective.
+		If $P\neq \O$ and $P\mapsto 0$ then $[P] \sim [\O]$. But this implies $E\approx \PP^1$ by a Hartshorne exercise or \cite[Ex.~II.2.5]{silverman1} which contradicts the genus of $E$ being $1$. Therefore the map $\kappa$ is injective.
 		
 		Let $D\in \Div^0(E)$. We need to show there is some $P$ such that $[P] - [\O] \sim [D]$. Note $\deg(D+\O) = 1$ so by Riemann-Roch $l(D+\O) - l(K_E - (D + \O)) = 1$. But $\deg (K_E - (D+\O)) = -1$ so $l(K_E - (D+\O)) = 0$ and therefore $l(D+\O) = 1$. Hence there is some non-zero $f\in K(E)$ such that $\Div f \geq -D - \O$. But $\deg(\Div f) = 0$ and $\deg (-D - \O) = -1$. It follows that $\Div f = -D - \O + P$ for some $P\in E(k)$. This is because $\Div f + D + \O$ is effective and degree $1$. Therefore the map $\kappa$ is surjective.
 		
-		Now we can define the group structure on $E$ via $\kappa$. It turns out the group operations are rational functions. One way to see this is to identify the operation with the usual chord and tangent formulas.
+		Now we can define the group structure on $E$ via $\kappa$. It turns out the group operations are regular functions. One way to see this is to identify the operation with the usual chord and tangent formulas.
 	\end{enumerate}
 \end{proof}
 
@@ -134,29 +137,40 @@ So which definition do we want to use? The one which generalizes the easiest is 
 	An \emph{abelian variety} is a connected complete group variety.
 \end{defn}
 
-Here a ``group variety'' is a group object in the category of varieties. All our varieties will be over a field $k$.
+Here a ``group variety'' is a group object in the category of varieties. All our varieties will be over a field $k$. They will be for sure finite type and separated. They should probably be geometrically reduced.
+
+\begin{warn}\label{warn:geomred}
+	We need varieties to be \emph{geometrically reduced} if we want abelian varieties to be smooth. For example consider the group scheme $\mu_p$ given by $\FF_p[x]/(x^p - 1)$ which picks out $p$th roots. This is finite type, irreducible (the only prime ideal of $\FF_p[x]$ containing $(x-1)^p$ is $(x-1)$) and separated (stacks project Lemma 38.7.3 or exercise in AWS notes). However, it is not smooth since $\frac{d}{dx}(x^p - 1) = 0$. This is because it is not a separable extension of fields. Separable extension of fields is equivalent to geometrically reduced, see Stacks project, specifically see:
+	
+	Lemma 32.20.7 \url{http://stacks.math.columbia.edu/tag/056V}]
+	
+	Let X be a scheme over a field k. If X is locally of finite type and geometrically reduced over k then X contains a dense open which is smooth over k.
+\end{warn}
 
 \begin{rem}
 	Here \emph{complete} means universally closed, i.e. $V$ is complete if for any other variety $W$ the map $V\times_k W \to W$ is closed. In this setting you can interchange ``complete'' with ``proper'' since varieties by our definition will be separated and finite type over $k$.
 \end{rem}
-
 
 \section{Properties}
 
 Using this simple definition we get some easy consequences for free.
 
 \begin{prop}
-	Abelian varieties are non-singular.
+	Abelian varieties should be smooth.
 \end{prop}
 \begin{proof}[Sketch]
-	As a variety, it has an open non-singular locus. This can be translated around via the group operation.
+	First base change to $\overline{k}$. As a variety (see \autoref{warn:geomred}), it should have a non-empty open smooth locus. It can be translated around via the group operation.
 \end{proof}
+
+\begin{warn}\label{warn:smoothvnonsing}
+	Be careful with definitions. Some authors use ``\emph{nonsingular}'' to mean ``\emph{smooth}''. A definition of abelian variety should include smooth. The previous proposition fails if variety's can have an empty nonsingular locus. For example, a purely inseparable field extension has empty nonsingular locus. Also see \autoref{warn:geomred}. Smooth and nonsingular are different notions. Smooth (flat and geometrically regular fibers) is relative and nonsingular (locally noetherian and regular) is intrinsic.
+\end{warn}
 
 \begin{prop}
 	Abelian varieties are irreducible.
 \end{prop}
 \begin{proof}[Sketch]
-	Milne's definition of non-singular means it lies in a single irreducible component.
+	Connected and smooth implies irreducible, though this is not necessarily obvious or trivial. To show this, first show smooth implies regular (see \cite[4.3.32]{liu2006algebraic}) and then show regular local rings are domains. Finally, recall a point in two distinct irreducible components has non-trivial zero divisors in its local ring.
 \end{proof}
 
 \begin{prop}
@@ -165,12 +179,16 @@ Using this simple definition we get some easy consequences for free.
 \begin{proof}[Sketch]
 	See \cite[Ex.~3.2.11a]{liu2006algebraic} which says if $X/k$ is connected and finite type, then $X$ is geometrically connected. The sketch is that a connected component $C_{\overline{k}}$ of $X_{\overline{k}}$. Because everything is finite type it will be defined over a finite Galois extension $k'$. Note $\overline{k}/k'$ is faithfully flat so $C_{k'}$ is a connected component of $X_{k'}$.
 	
-	Now the Galois group $\Gal(k'/k)$ acts transitively on the connected components of $X_{k'}$ but it also fixes $X_{k'}(k)$. Since this is non-empty, there is only one connected component.
+	Now the Galois group $\Gal(k'/k)$ acts transitively on the connected components of $X_{k'}$ but it also fixes the identity point, so (by the orbit stabilizer theorem) there is only one connected component.
 \end{proof}
 
-There is another very important property of abelian varieties.
+\begin{prop}
+	Abelian varieties are rigid.
+\end{prop}
 
-\begin{lem}[Rigidity Theorem]
+What we mean is that abelian varieties satisfy the hypothesis of the following.
+
+\begin{lem}[Rigidity Lemma]
 	Suppose $X$ is complete and $X\times Y$ is geometrically irreducible. Let $\alpha:X\times Y \to Z$ be a morphism and suppose
 	$$
 	\alpha(\{x_0\}\times Y) = \{z_0\} = \alpha(X\times\{y_0\})
@@ -178,9 +196,11 @@ There is another very important property of abelian varieties.
 	Then $\alpha(X\times Y) = \{z_0\}$.
 \end{lem}
 \begin{proof}[Sketch]
+	It's enough to prove in the case $k = \overline{k}$.
+
 	By the hypothesis on $X$, $\pi:X\times Y \to Y$ is closed. Recall that the image of a complete (or proper over $k$) and connected variety into an affine variety is a point.
 	
-	Let $U$ be an affine neighborhood of $z_0$. From the first fact, it follows $W = \pi\circ\alpha^{-1}(Z\setminus U)$ is closed in $Y$. This set is non-empty because $y_0\notin W$ (as every tuple with $y_0$ is contained in $U$). Now for any $y\in Y\setminus W$ we have $X\approx X\times\{y\} \to Z$ maps to a point by the second fact. Since $(x_0,y)$ is in this set, this point is $z_0$. Hence $\alpha$ is constant on $X\times(Y\setminus W)$. This is open, and hence dense in $X\times Y$. Since $Z$ is separated, $\alpha$ agrees with this constant map on all of $X\times Y$.
+	Let $U$ be an affine neighborhood of $z_0$. Note that $W = \pi\circ\alpha^{-1}(Z\setminus U)$ is closed in $Y$. This set is non-empty because $y_0\notin W$ (as every tuple with $y_0$ is contained in $U$). Now for any $y\in Y\setminus W$ we have $X\approx X\times\{y\} \to Z$ maps to a point by the second fact. Since $(x_0,y)$ is in this set, this point is $z_0$. Hence $\alpha$ is constant on $X\times(Y\setminus W)$. This is open, and hence dense in $X\times Y$. Since $Z$ is separated, $\alpha$ agrees with this constant map on all of $X\times Y$.
 \end{proof}
 
 \begin{prop}
@@ -210,7 +230,7 @@ The last fact is somewhat remarkable, and the proof will be sketched next week.
 
 \section{Analytic Abelian Varieties}
 
-Let $A$ be an abelian variety over $\CC$. If you are unfamiliar with the analytification functor, note that $A$ is projective so it admits a closed embedding into $\PP^n_\CC$. After identifying $\PP^n(\CC)$ as a complex manifold in the usual way we can give $A(\CC)$ a complex manifold structure via this embedding. It turns out $A$ is a compact connected complex manifold. In fact, $A(\CC)$ has a rather simple complex structure.
+Let $A$ be an abelian variety over $\CC$. If you are unfamiliar with the analytification functor, note that $A$ is projective so it admits a closed embedding into $\PP^n_\CC$. After identifying $\PP^n(\CC)$ as a complex manifold in the usual way we can give $A(\CC)$ a complex manifold structure via this embedding. It turns out $A$ is a compact connected complex manifold. Moreover we have the following.
 
 \begin{thm}\label{av_cmplx_tori}
 	$A(\CC)$ is a complex torus.
@@ -229,100 +249,150 @@ Let $A$ be an abelian variety over $\CC$. If you are unfamiliar with the analyti
 		$$
 		To prove the theorem note that this map is a local homeomorphism near $0$. Because $\exp$ is also a group homomorphism, the image $H$ is a connected subgroup of $A(\CC)$ containing a neighborhood of the identity. Translating this neighborhood around via elements of $H$ show that $H$ is open in $A(\CC)$. Because $H$ is open, so are it's cosets. Which implies $H$ is closed. By hypothesis $A(\CC)$ is connected so $\exp$ is surjective.
 	\item[Kernel:]
-		Since $\exp$ is a local isomorphism, $0$ is a isolated point in $\ker$. Therefore the $\ker$ is a discrete subgroup of a $2r$-dimensional real vector space. An argument from number theory shows this implies $\ker$ is a lattice, that is $\ker \approx \ZZ e_1 + \cdots \ZZ e_r$ for some vectors $e_i$. Moreover, the compactness of $A(\CC)$ implies $\ker$ is a full lattice so that $r = 2g$.
+		Since $\exp$ is a local isomorphism, $0$ is a isolated point in $\ker$. Therefore the $\ker$ is a discrete subgroup of a $2r$-dimensional real vector space. One can show this implies $\ker$ is a lattice (using the pigeonhole principle), that is $\ker \approx \ZZ e_1 + \cdots \ZZ e_r$ for some vectors $e_i$. Moreover, the compactness of $A(\CC)$ implies $\ker$ is a full lattice so that $r = 2g$.
 \end{description}
 \end{proof}
 
 \begin{warn}
-	The converse to \autoref{av_cmplx_tori} is \emph{not} true in general. That is, not every $\CC^g/L$ is isomorphic to the analytification of an abelian variety. However, when $g=1$ it is true as these are elliptic curves.
+	The converse to \autoref{av_cmplx_tori} is \emph{not} true in general. That is, not every $\CC^g/L$ is isomorphic to the analytification of an abelian variety. However, when $g=1$ it is true as these are elliptic curves. For examples see \cite[Pg.~104]{siegel2008analytic} or \cite[Ch.~VIII.1.4-5]{2012basic}.
 \end{warn}
 
-\begin{ex}[See {\cite[Pg.~104]{siegel2008analytic}}]
-	Suppose $X = \CC^2/L$ came from some abelian variety $A(\CC)$. Note the function field of $A$ has transcendence degree $2$ over $\CC$, so this implies $\CC(X)$ contains non-constant meromorphic functions (these are meromorphic in two variables).
-	
-	We will give an example of a lattice $L$ such that there are no non-constant $L$-invariant meromorphic functions on $\CC^2$ which by above shows that $X$ does not come from an abelian variety.
-	
-	Let $L$ be the lattice spanned by the columns of the period matrix
+%\begin{ex}[See {\cite[Pg.~104]{siegel2008analytic}}]
+%	Suppose $X = \CC^2/L$ came from some abelian variety $A(\CC)$. Note the function field of $A$ has transcendence degree $2$ over $\CC$, so this implies $\CC(X)$ contains non-constant meromorphic functions (these are meromorphic in two variables).
+%	
+%	We will give an example of a lattice $L$ such that there are no non-constant $L$-invariant meromorphic functions on $\CC^2$ which by above shows that $X$ does not come from an abelian variety.
+%	
+%	Let $L$ be the lattice spanned by the columns of the period matrix
+%	$$
+%	C = 
+%	\begin{pmatrix}
+%		1&0&\sqrt{-2}&\sqrt{-5}
+%		\\
+%		0&1&\sqrt{-3}&\sqrt{-7}
+%	\end{pmatrix}.	
+%	$$
+%	Note these vectors are $\RR$-linearly independent so they do in fact generate a full lattice in $\CC^2$.
+%	
+%	We will prove by contradiction that the transcendence degree $s$ of $\CC(X)/\CC$ must be $0$.
+%	
+%	\begin{description}
+%		\item[$(s=2):$]
+%			Suppose that $\CC(X)$ has transcendence degree $2$. A consequence of the hypothesis is that there exists a matrix $A$ made up of integral multiples of $\pi i$ such that 1) $A$ is nonsingular,  2) $CA^{-1}C^T = 0$, and  3) $\overline{C}A^{-1}C^T < 0$ (i.e. negative definite).
+%			
+%			Let $B = \pi i A^{-1}$ so that $B$ has rational values. From the second condition, looking at the value of $CBC^{T}$ in the first row and second column we find
+%			$$
+%			\begin{pmatrix}
+%				1 & 0 & \sqrt{-2} & \sqrt{-5}
+%			\end{pmatrix}
+%			B
+%			\begin{pmatrix}
+%				1 \\ 0 \\ \sqrt{-3} \\ \sqrt{-7}
+%			\end{pmatrix}
+%			=
+%			b_{12} + b_{13}\sqrt{-3} + b_{14}\sqrt{-7} - b_{23}\sqrt{-2} - b_{24}\sqrt{-5} + b_{34}(\sqrt{14} - \sqrt{15})
+%			=
+%			0
+%			$$
+%			But $b_{ij}\in\QQ$ so this implies that $B = 0$ and hence contradicts (1).
+%		
+%		\item[$(s=1):$]
+%			Suppose that $\CC(X)$ has transcendence degree $1$. One can show that this implies up to a linear transformation all functions are dependent on $z_1$ only. This linear transformation basically replaces $z = (z_1,z_2)$ with $Q^{-1}z$ where
+%			$$
+%			Q = \begin{pmatrix}
+%				\alpha & \beta
+%				\\
+%				\gamma & \delta
+%			\end{pmatrix}.
+%			$$
+%			After making this substitution, the new period lattice is given by projecting $QC$ onto the first copy of $\CC$. This gives us
+%			$$
+%			C_1 =
+%			\left(
+%				\alpha,\beta,\alpha\sqrt{-2} + \beta\sqrt{-3}, \alpha\sqrt{-5} + \beta\sqrt{-7}
+%			\right)
+%			$$
+%			If this is a period matrix, it must generate a two dimensional lattice. Let $\omega_1,\omega_2$ be a basis for this lattice so that all the above points are integer combinations of the $\omega_i$. In particular
+%			\begin{align*}
+%				\alpha &= p_1\omega_1 + p_2 \omega_2
+%				\\
+%				\beta &= q_1\omega_1 + q_2 \omega_2
+%				\\
+%				\alpha\sqrt{-2} + \beta\sqrt{-3} &= r_1\omega_1 + r_2 \omega_2
+%				\\
+%				\alpha\sqrt{-5} + \beta\sqrt{-7} &= s_1\omega_1 + s_2 \omega_2
+%			\end{align*}
+%			Some slick linear algebra using that $1,\sqrt{-2},\sqrt{-3},\sqrt{-5},\sqrt{-7}$ are all $\QQ$-independent shows that every 2-row minor of
+%			$$
+%			\begin{pmatrix}
+%				p_1 & p_2
+%				\\
+%				q_1 & q_2
+%				\\
+%				r_1 & r_2
+%				\\
+%				s_1 & s_2
+%			\end{pmatrix}
+%			$$
+%			has determinate $0$ which contracts that two of the complex numbers from $C_1$ must be independent over $\RR$.
+%	\end{description}
+%\end{ex}
+
+\begin{thm}[Poincare complete irreducibility theorem]\label{thm:pcit}
+	Let $X,Y$ be abelian varieties and a map $\varphi:X\to~Y$ a surjective homomorphism. Then there exists an abelian subvariety $Z\subseteq X$ such that $\dim Z = \dim Y$ and $\varphi|_Z:Z\to Y$ is surjective.
+\end{thm}
+
+\begin{ex}[See {\cite[Ch.~VIII.1.5, Pg.~162]{2012basic}}]
+	Consider the complex tori given by $A = \CC^2/L$ where $L$ has as a basis
 	$$
-	C = 
-	\begin{pmatrix}
-		1&0&\sqrt{-2}&\sqrt{-5}
+	L = \free{
+	\begin{pmatrix}1 \\ 0\end{pmatrix},
+	\begin{pmatrix}i \\ 0\end{pmatrix},
+	\begin{pmatrix}0 \\ 1\end{pmatrix},
+	\begin{pmatrix}\alpha \\ \beta\end{pmatrix}}.
+	$$
+	Let $B = \CC/L'$ where $L'$ has as a basis $\free{1,i}$. Note $\varphi:X \to Y$ induced by $p_2:(z_1,z_2) \mapsto z_2$ is a surjective holomorphic group homomorphism $A \to B$. Suppose $A$ is algebraic (i.e. the analytification of some abelian variety). We will derive a contradiction from \autoref{thm:pcit} (note $B$ is already algebraic as it is an elliptic curve).
+	
+	Let $C$ be any $1$-dimensional sub-abelian variety of $A$. Write $M\subseteq \CC^2$ for the inverse image of $C$ under the map $\CC^2 \to \CC^2/L$. Note $M$ is a closed subgroup of $\CC^2$. One can show that $M$ must be of the form $\RR^s\oplus\ZZ^t$ (similar to the proof of \autoref{av_cmplx_tori}). Since $M$ descends to a complex $1$ dimensional manifold we must have $M = \RR e_1 + \RR e_2 + \ZZ e_3 + \ZZ e_4$ for some $\RR$-independent vectors $e_1,\dots,e_4$.
+	
+	Because $M \supset L$ and $L$ has rank $4$, we can assume (with some argument) that $e_1,e_2\in L$.
+
+	As $C$ has codimension $1$ in $A$, $C$ is locally cut out by a single function $f$. Let $M^0$ be the connected component of $M$ containing $0$ so in particular $M^0 = \RR e_1 + \RR e_2$. Because $C$ is nonsingular and $M^0$ is an $\RR$-vector subspace, one can show that $f$ is linear and therefore $\RR e_1 + \RR e_2$ is a complex line, i.e. $e_2 = \lambda e_1$ for some $\lambda\in\CC\setminus\{0\}$.
+	
+	So we have $e,\lambda e\in L$ with $\lambda\in\CC\setminus\RR$ with $p_2(e)\neq 0$. Write
+	\begin{align*}
+		e &= 
+		a\begin{pmatrix}1 \\ 0\end{pmatrix}
+		+b\begin{pmatrix}i \\ 0\end{pmatrix}
+		+c\begin{pmatrix}0 \\ 1\end{pmatrix}
+		+d\begin{pmatrix}\alpha \\ \beta\end{pmatrix}
 		\\
-		0&1&\sqrt{-3}&\sqrt{-7}
-	\end{pmatrix}.	
-	$$
-	Note these vectors are $\RR$-linearly independent so they do in fact generate a full lattice in $\CC^2$.
+		\lambda e &= 
+		\lambda a\begin{pmatrix}1 \\ 0\end{pmatrix}
+		+\lambda b\begin{pmatrix}i \\ 0\end{pmatrix}
+		+\lambda c\begin{pmatrix}0 \\ 1\end{pmatrix}
+		+\lambda d\begin{pmatrix}\alpha \\ \beta\end{pmatrix}
+		\\
+		&=
+		a'\begin{pmatrix}1 \\ 0\end{pmatrix}
+		+b'\begin{pmatrix}i \\ 0\end{pmatrix}
+		+c'\begin{pmatrix}0 \\ 1\end{pmatrix}
+		+d'\begin{pmatrix}\alpha \\ \beta\end{pmatrix}
+	\end{align*}
+	where all coefficients are in $\ZZ$.
 	
-	We will prove by contradiction that the transcendence degree $s$ of $\CC(X)/\CC$ must be $0$.
+	Note that $p_2(\lambda e) = \lambda(c + d\beta) \in p_2(L) = \ZZ[\beta]$ and by hypothesis $c+d\beta\neq 0$ so $\lambda \in \QQ(\beta)$.
 	
-	\begin{description}
-		\item[$(s=2):$]
-			Suppose that $\CC(X)$ has transcendence degree $2$. A consequence of the hypothesis is that there exists a matrix $A$ made up of integral multiples of $\pi i$ such that 1) $A$ is non-singular,  2) $CA^{-1}C^T = 0$, and  3) $\overline{C}A^{-1}C^T < 0$ (i.e. negative definite).
-			
-			Let $B = \pi i A^{-1}$ so that $B$ has rational values. From the second condition, looking at the value of $CBC^{T}$ in the first row and second column we find
-			$$
-			\begin{pmatrix}
-				1 & 0 & \sqrt{-2} & \sqrt{-5}
-			\end{pmatrix}
-			B
-			\begin{pmatrix}
-				1 \\ 0 \\ \sqrt{-3} \\ \sqrt{-7}
-			\end{pmatrix}
-			=
-			b_{12} + b_{13}\sqrt{-3} + b_{14}\sqrt{-7} - b_{23}\sqrt{-2} - b_{24}\sqrt{-5} + b_{34}(\sqrt{14} - \sqrt{15})
-			=
-			0
-			$$
-			But $b_{ij}\in\QQ$ so this implies that $B = 0$ and hence contradicts (1).
-		
-		\item[$(s=1):$]
-			Suppose that $\CC(X)$ has transcendence degree $1$. One can show that this implies up to a linear transformation all functions are dependent on $z_1$ only. This linear transformation basically replaces $z = (z_1,z_2)$ with $Q^{-1}z$ where
-			$$
-			Q = \begin{pmatrix}
-				\alpha & \beta
-				\\
-				\gamma & \delta
-			\end{pmatrix}.
-			$$
-			After making this substitution, the new period lattice is given by projecting $QC$ onto the first copy of $\CC$. This gives us
-			$$
-			C_1 =
-			\left(
-				\alpha,\beta,\alpha\sqrt{-2} + \beta\sqrt{-3}, \alpha\sqrt{-5} + \beta\sqrt{-7}
-			\right)
-			$$
-			If this is a period matrix, it must generate a two dimensional lattice. Let $\omega_1,\omega_2$ be a basis for this lattice so that all the above points are integer combinations of the $\omega_i$. In particular
-			\begin{align*}
-				\alpha &= p_1\omega_1 + p_2 \omega_2
-				\\
-				\beta &= q_1\omega_1 + q_2 \omega_2
-				\\
-				\alpha\sqrt{-2} + \beta\sqrt{-3} &= r_1\omega_1 + r_2 \omega_2
-				\\
-				\alpha\sqrt{-5} + \beta\sqrt{-7} &= s_1\omega_1 + s_2 \omega_2
-			\end{align*}
-			Some slick linear algebra using that $1,\sqrt{-2},\sqrt{-3},\sqrt{-5},\sqrt{-7}$ are all $\QQ$-independent shows that every 2-row minor of
-			$$
-			\begin{pmatrix}
-				p_1 & p_2
-				\\
-				q_1 & q_2
-				\\
-				r_1 & r_2
-				\\
-				s_1 & s_2
-			\end{pmatrix}
-			$$
-			has determinate $0$ which contracts that two of the complex numbers from $C_1$ must be independent over $\RR$.
-	\end{description}
+	Suppose $p_1(e) = 0$. We may assume $1,i,\alpha$ are $\ZZ$-independent by choosing $\alpha$ appropriately so $a=b=d=0$. But $p_1(\lambda e)=0$ which implies $a'=b'=d'=0$. But then $p_1(\lambda e) = 0$ and hence $a'=b'=d'=0$. This means we must have $\lambda c = c'$ but $\lambda$ is not rational so this is a contradiction. Therefore $p_1(e) \neq 0$. So now we can do exactly the same argument, $\lambda p_1(e) = p_1(\lambda e)\in p_1(L) = \ZZ[i,\alpha]$ so $\lambda \in \QQ(i,\alpha)$.
+	
+	Now we only need to set $\alpha$ to be $\ZZ$-independent from $i$ and $1$. So take $\alpha = \sqrt{2}$ and $\beta = \sqrt{-3}$. Then $\lambda \in \QQ(i,\sqrt{2}) \cap \QQ(\sqrt{-3})$. As $\QQ(\sqrt{-3})$ is a quadratic extension this intersection is either $\QQ(\sqrt{-3})$ or $\QQ$. But we know the subfields of $\QQ(i,\sqrt{2})$. The only that is clearly not $\QQ(\sqrt{-3})$ is $\QQ(\sqrt{-2})$. But these are not the same as $\sqrt{2}$ and $\sqrt{3}$ are $\QQ$-linearly independent.
 \end{ex}
 
 \section{Riemann Forms}
 
-Even though not every complex tori is an abelian variety, there is a necessary and sufficient condition to test whether it is. First some linear algebra. Let $V$ be a complex vector space.
+Even though not every complex tori is an abelian variety, there is a necessary and sufficient condition using mostly linear algebra to test whether it is.
 
 \begin{lem}
-	There is a bijection between real-valued (i.e. view $V$ as a real vector space) alternating bilinear forms $E:V\times V \to \RR$ and Hermitian forms $H:V\times\overline{V} \to \RR$. The correspondence is given by
+	Let $V$ be a complex vector space. There is a bijection between real-valued (i.e. view $V$ as a real vector space) alternating\footnote{Note that alternating and skew-symmetric are equivalent in characteristic $0$.} bilinear forms $E:V\times V \to \RR$ such that $E(iv,iw)=E(w,v)$ and Hermitian forms $H:V\times\overline{V} \to \RR$. The correspondence is given by
 	\begin{align*}
 		H(v,w) &= E(iv,w) + iE(v,w)
 		\\
@@ -330,41 +400,23 @@ Even though not every complex tori is an abelian variety, there is a necessary a
 	\end{align*}
 \end{lem}
 \begin{proof}
-	Note that alternating and skew-symmetric are equivalent in characteristic $0$.
+	\hfill
 	\begin{enumerate}
-		\item[$(\Rightarrow):$] Suppose $E$ is a real-valued alternating bilinear form on $V$. Let $J$ be the $\RR$-linear map on $V$ given by multiplication by $i$. Note that $J$ is skew-symmetric. If we choose a basis $z_1,\dots,z_n$ for $V$ over $\CC$ then $x_1,y_1,\dots,x_n,y_n$ is a basis for $V$ over $\RR$. In this basis multiplication by $i$ is a block matrix with blocks of the form
-		$$
-		\begin{pmatrix}
-			0 & -1
-			\\
-			1 & 0
-		\end{pmatrix}.
-		$$
-		Note that $(JE)^T = E^TJ^T = (-E)(-J) = EJ$. Define $H$ as above. It' clear $H$ is $\RR$-linear so it's enough to show what happens when we scale by $i$ in each slot. Plugging into the formula and equating real and imaginary parts, it's enough to show
-		$$
-		E(iv,iw) = -E(v,w)
-		\quad\text{ and }\quad
-		E(v,iw) = -E(iv,w)
-		$$
-		These follow from a quick basis calculation
-		$$
-		E(iv,iw) = (Jv)^TEJw = v^TJ^TEJw = v^TJJ^TEw = v^T(-1)Ew = -E(v,w)
-		$$
-		and
-		$$
-		E(v,iw) = v^TEJw = v^TJEw = v^T(-J)^TEw = -(Jv)^TEw = -E(iv,w).
-		$$
+		\item[$(\Rightarrow):$] Suppose $E$ is a real-valued alternating bilinear form on $V$ such that $E(iu,iv)=E(u,v)$.
+		
+		Define $H$ as above. It' clear $H$ is $\RR$-linear so it's enough to show what happens when we scale by $i$ in each slot so that $H(iv,w)=iH(v,w)$ and $H(v,iw)=-iH(v,w)$. By equating real and imaginary parts, we see this is exactly the hypothesis on $E$.
 		
 		\item[$(\Leftarrow):$] Suppose $H$ is a Hermitian form. Then it's imaginary component is clearly a skew-symmetric as $H(v,w) = \overline{H(w,v)}$.
 	\end{enumerate}
 \end{proof}
 
 \begin{defn}
-	Let $L$ be a lattice in $\CC^g$, a \emph{Riemann form} is an alternating bilinear form $E:L \times L \to \ZZ$ such that
+	Let $L$ be a lattice in $\CC^g$. A \emph{Riemann form} is an alternating bilinear form $E:L \times L \to \ZZ$ such that
 	\begin{enumerate}[(a)]
 		\item $E_\RR(iv,iw) = E_\RR(v,w)$
 		\item The associated Hermitian form is positive definite.
 	\end{enumerate}
+	Here $E_\RR$ means $E$ viewed as an $\RR$-bilinear form on $L\otimes\RR$.
 \end{defn}
 
 \begin{defn}
@@ -394,7 +446,7 @@ The proof is sketched in \cite[Thm.~2.8]{milneAV}.
 	$$
 	H(z,z') = z\overline{z}'
 	$$
-	which is clearly positive definite.
+	which is positive definite.
 \end{ex}
 
 \begin{rem}
