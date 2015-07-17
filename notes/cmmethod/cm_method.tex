@@ -172,6 +172,7 @@ Then we run the CM method. The timing information was collected from running the
 D = 532
 H = QuadraticField(-D).hilbert_class_polynomial()
 def CM():
+    global E1,E2,p,j, m1
     while True:
         p = random_prime(2^101,2^100)
         # check H(x) has a solution mod p which is not 0 or 1728
@@ -196,10 +197,14 @@ def CM():
         # check for super singular
         if m1 == p + 1 or m2 == p + 1:
             continue
+        # check for small embedding degree
+        if mod(p,m1).multiplicative_order() < 12 or \
+            mod(p,m2).multiplicative_order() < 12:
+            continue
         # print acceptable paramaters
         j = roots[0]
-        k = j / (1728 - j)
-        E = EllipticCurve(GF(p),[0,0,0,3*k,2*k])
+        c = j / (1728 - j)
+        E = EllipticCurve(GF(p),[0,0,0,3*c,2*c])
         if E.count_points() == m1:
             E1 = E
             E2 = E.quadratic_twist()
@@ -212,16 +217,19 @@ def CM():
 %time CM()
 \end{sagecell}
 \begin{sageout}
-Elliptic Curve defined by y^2 = x^3 + 747393843899185539503573164495*x + \ 
-881311010343976697851714504849 over Finite Field of size \
-1519764003713922455855534008957
-Elliptic Curve defined by y^2 = x^3 + 752494165293336611140448094165*x + \
-501662776862224407426965396110 over Finite Field of size \
-1519764003713922455855534008957
-CPU time: 0.70 s, Wall time: 0.82 s
+Elliptic Curve defined by y^2 = x^3 + 223232341990641721200404093402*x + \ 
+650322132237979665411044471199 over Finite Field of size \
+1504501712732655553832325226793
+Elliptic Curve defined by y^2 = x^3 + 1259265304424004881857258414413*x + \ 
+345508154450510587847309332358 over Finite Field of size \ 
+1504501712732655553832325226793
+CPU time: 0.78 s, Wall time: 0.90 s
 \end{sageout}
 \end{sagecode}
 
+\begin{rem}
+	The parameters used above are made up for exposition. To compare with actual parameters, the NIST curve P-192 (see \cite[D.1.2.1, Pg.~90]{fips2013}) has a largest prime factor of $192$ bits, and a $189$ bit embedding degree. It should be noted that the embedding degree is often large, and in practice it is usually only checked to make sure it is not very small so it is faster to check the embedding degree is greater than $12$ than it is to compute the multiplicative order of $m\mod{p}$ as the algorithm above does. There is many more optimizations that could be made. Still the algorithm above takes under a minute to find curves of similar size as P-192.
+\end{rem}
 
 \bibliographystyle{alpha}
 \bibliography{../questions/references}
