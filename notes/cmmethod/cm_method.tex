@@ -126,6 +126,40 @@ To find a prime $p$, we randomly pick primes of about $100$ bits until we find o
 	\item No small value of $k$ such that $p^k\equiv 1\mod{m}$ to avoid the MOV/Weil pairing attack, see \cite[Pg.~169]{hankerson2004guide}.
 	\item $m\neq p$ to avoid a trace $1$ curve where ECDLP is trivial, see \cite{nigel1997trace1}.
 \end{enumerate}
+\begin{rem}
+	We actually do not need to explicitly check if $E$ is supersingular because of the fact that supersingular elliptic curves have embedding degree $k\leq 6$. Therefore as long as we check that the embedding degree is large (which is the typical case, see \cite[Rem.~XI.6.3, Pg.~388]{silverman2009arithmetic}), we will always avoid supersingular curves. This also excludes curves of trace $0$ and trace $2$ (see \cite[Ch.~V.7]{blake1999elliptic}).
+\end{rem}
+
+\begin{rem}
+	In most cases it's enough to check if the embedding degree satisfies $k\geq 12$.
+	
+	This is because with these $k$ values the standard sub-exponential algorithms on the finite field $p^k$ are still more expensive then the standard exponential algorithms on the prime order subgroup of our elliptic curve. A general number field sieve algorithm can solve the DLP in $\FF_{p^k}^*$ in $L[1/3,c] = e^{c(\ln p^k)^{1/3}(\ln\ln p^k)^{2/3}}$ with $c = (64/9)^{1/3}$. On the other hand, the best attack on a general elliptic curve $E/\FF_p$ with a large prime order subgroup is the Pollard-Rho algorithm or baby-step giant-step which has an exponential complexity of $L[1,1/2]$ or about $\sqrt{p}$. Note that really the ECDLP algorithms time complexity is really based off the largest prime $\ell$ ordered subgroup. If we assume $E(\FF_p)$ has a small cofactor (that is $\#E(\FF_p)/\ell \approx O(1)$) then by the Hasse bound $\ell\approx \#E(\FF_p) \approx p$.
+	
+	Thus in order to be safe against the MOV attack, if $p$ is about $150$ bits it would only take an embedding degree of about $4$ in order for the MOV attack to be slower than the general ECDLP. Again, this is forgetting about any constants and optimizations.
+%	$$
+%	e^{c(\ln p^k)^{1/3}(\ln\ln p^k)^{2/3}} \approx \sqrt{p}
+%	$$
+%	Solving for $k$ we find
+%	\begin{align*}
+%		c(\ln p^k)^{1/3}(\ln\ln p^k)^{2/3} &\approx \frac{1}{2}\ln p
+%		\\
+%		ck^{1/3}(\ln (k\ln p))^{2/3} &\approx \frac{1}{2}(\ln p)^{2/3}
+%		\\
+%		c^3k(\ln (k\ln p))^2 &\approx \frac{1}{8}(\ln p)^2
+%		\\
+%		k &\approx \frac{(\ln p)^2}{8c^3(\ln (k\ln p))^2} \leq \left(\frac{\ln p}{\ln\ln p}\right)^2
+%	\end{align*}
+%	
+%	So if $p$ is about $150$ bits, then we need $k \geq \left(\frac{160}{\ln 160}\right)^2$
+\end{rem}
+
+\begin{rem}
+	The $L$-notation above is used to measure time complexity of subexponential algorithms. In general, given an input size of $n$ and ignoring constant factors,
+	$$
+	L[\alpha,c] = e^{c(\ln n)^\alpha(\ln\ln n)^{1 - \alpha}}
+	$$
+	If $\alpha = 1$ then the algorithm is exponential in $\ln n$ (usually we measure algorithms by the number of bits in $n$). If $\alpha = 0$ it is polynomial.
+\end{rem}
 
 We do this with the following Sage code.
 
@@ -174,7 +208,7 @@ H = QuadraticField(-D).hilbert_class_polynomial()
 def CM():
     global E1,E2,p,j, m1
     while True:
-        p = random_prime(2^101,2^100)
+        p = random_prime(2^150,2^151)
         # check H(x) has a solution mod p which is not 0 or 1728
         roots = [r[0] for r in H.change_ring(GF(p)).roots() if r[0] != 0 and r[0] != 1728]
         if len(roots) == 0:
@@ -193,9 +227,6 @@ def CM():
         # check for large prime factor
         if max([len(l[0].bits()) for l in factor(m1)]) < 80 or \
             max([len(l[0].bits()) for l in factor(m2)]) < 80:
-            continue
-        # check for super singular
-        if m1 == p + 1 or m2 == p + 1:
             continue
         # check for small embedding degree
         if mod(p,m1).multiplicative_order() < 12 or \
@@ -217,19 +248,22 @@ def CM():
 %time CM()
 \end{sagecell}
 \begin{sageout}
-Elliptic Curve defined by y^2 = x^3 + 223232341990641721200404093402*x + \ 
-650322132237979665411044471199 over Finite Field of size \
-1504501712732655553832325226793
-Elliptic Curve defined by y^2 = x^3 + 1259265304424004881857258414413*x + \ 
-345508154450510587847309332358 over Finite Field of size \ 
-1504501712732655553832325226793
-CPU time: 0.78 s, Wall time: 0.90 s
+Elliptic Curve defined by y^2 = x^3 + 922504728382053349836088600810627556684967666*x + \ 
+121709915454822140608555307140053224646085286 over Finite Field of size \ 
+1136944521360932037786080284248147505844053561
+Elliptic Curve defined by y^2 = x^3 + \ 
+896013149634954889359565923133800958773804357*x + \ 
+597342099756636592906377282089200639182536238 over Finite Field of size \ 
+1136944521360932037786080284248147505844053561
+CPU time: 6.19 s, Wall time: 6.82 s
 \end{sageout}
 \end{sagecode}
 
 \begin{rem}
-	The parameters used above are made up for exposition. To compare with actual parameters, the NIST curve P-192 (see \cite[D.1.2.1, Pg.~90]{fips2013}) has a largest prime factor of $192$ bits, and a $189$ bit embedding degree. It should be noted that the embedding degree is often large, and in practice it is usually only checked to make sure it is not very small so it is faster to check the embedding degree is greater than $12$ than it is to compute the multiplicative order of $m\mod{p}$ as the algorithm above does. There is many more optimizations that could be made. Still the algorithm above takes under a minute to find curves of similar size as P-192.
+	The parameters used above are made up for exposition. To compare with actual parameters, the NIST curve P-192 (see \cite[D.1.2.1, Pg.~90]{fips2013}) has a largest prime factor of $192$ bits, and a $189$ bit embedding degree. It should be noted that the embedding degree is often large (on the order of the size of the group). There is many optimizations that could be made to the above algorithm, yet it only takes less than a minute to find curves of similar size as P-192.
 \end{rem}
+
+
 
 \bibliographystyle{alpha}
 \bibliography{../questions/references}
