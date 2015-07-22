@@ -10,7 +10,7 @@
 \newcommand{\myemail}{tscholl2@uw.edu}
 
 \begin{document}
-\title{\bfseries\sffamily \mytitle}
+\title{\mytitle}
 \author{\sc \myauthor }
 \maketitle
 
@@ -109,6 +109,14 @@
 	\#E = p + 1 \pm x
 	$$
 	The reason there are two values is because there is the quadratic twist of $E$. This curve can be written down explicitly by changing the $c$ we used in the previous definition by a quadratic non-residue mod $p$. Let $E'$ be the quadratic twist of $E$, note that it has the same $j$-invariant and will have complex multiplication by $\ZZ_K$ as well. In this case the Frobenius endomorphism on the twist by $\frac{x \mp y\sqrt{-D}}{2}$.
+	
+	\begin{warn}
+		If $D = 3$ then there is actually $6$ twists due to the $6$ roots of unity. In this case there is $6$ possible traces for curves. See \cite[A.14.2.3, Pg.~151]{ieee2000standards} for equations. This is just because there are more elements of norm $p$ which we get by scaling by a third root of unity (which only exists in $\QQ(\sqrt{-3})$).
+		
+		Sometimes this will be noted as the $j=0$ case because the Hilbert class polynomial in this case is $x$ and hence there is exactly one curve up to isomorphism (over the algebraic closure) and that is the curve with $j$-invariant $0$.
+		
+		There is something similar which happens in $\QQ(\sqrt{-1})$ (we get $j=1728$), but we can just avoid these.
+	\end{warn}
 	
 	So if $m = P + 1 + x$ or $m' = P + 1 - x$ is an acceptable number of points, then we need to figure out which curve is which. This can be done efficiently counting points using standard algorithms, or by choosing a random point $P$ on $E$ and computing $[p+1+x]P$. If this is $0$ and $[p+1-x]P$ is not, then you know which curve is which.
 \end{description}
