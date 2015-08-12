@@ -54,7 +54,12 @@
 	$$
 	Note that if $D\equiv 0\mod{4}$ then this is equivalent to solving $p = u^2 + dv^2$ with $d$ square free. Given $p,d$ one can find $u,v$ (if they exist) efficiently with Cornacchia's Algorithm (see \cite[Alg.~VIII.1]{blake1999elliptic}). In the case when $-D\equiv 1\mod{4}$ it needs some slight modification, but it's more or less the same algorithm\footnote{See \url{http://projecteuclid.org/download/pdf_1/euclid.pja/1116442240}}. Hence determining whether $p$ splits can be determined efficiently.
 	
-	There is another condition $p$ must satisfy. We will need the Hilbert class polynomial $H(x)$ to have a root mod $p$. This is because the $j$ invariant of $E$ (the curve we assumed to exist over $\FF_p$ with CM given by the ring of integers of $\QQ(\sqrt{-D})$) will be a solution to the Hilbert class polynomial mod $p$. This can be checked efficiently by precomputing the Hilbert class polynomial and then factoring it over $\FF_p[x]$.
+	There is another condition $p$ must satisfy. We will need the Hilbert class polynomial $H(x)$ to have a root mod $p$. This is because the $j$ invariant of $E$ (the curve we assumed to exist over $\FF_p$ with CM given by the ring of integers of $\QQ(\sqrt{-D})$) will be a solution to the Hilbert class polynomial mod $p$.
+	
+	
+	This is because any prime in $K$ splits into $h/f$ primes in the Hilbert class field $H$ where $f$ is the order of the prime in the class group of $K$ and $h$ is the class number of $K$\footnote{\url{https://en.wikipedia.org/wiki/Hilbert\_class\_field\#Additional\_properties}}. Since $4p = x^2 + Dy^2$ implies that $p$ splits into principle primes in $K$, that means $p$ splits completely in $H$. Hence $p$ splits completely in the extension obtained by the Hilbert class polynomial and therefore the polynomial has a root mod $p$.
+	  
+	This can be computed efficiently by precomputing the Hilbert class polynomial and then factoring it over $\FF_p[x]$.
 	
 	\item[(Find $j$):]
 	
@@ -211,30 +216,36 @@ def Cornacchia(p,d):
 Then we run the CM method. The timing information was collected from running the script on a Sage worksheet.
 \begin{sagecode}
 \begin{sagecell}
-D = 532
-H = QuadraticField(-D).hilbert_class_polynomial()
-def CM():
-    global E1,E2,p,j, m1
+def CM(D,m):
+    assert ((-D).is_squarefree() and (-D)%4==1) or \
+    	(D%4==0 and Integer(D/4).is_squarefree() and (-D/4)%4!=1), \
+    	"-D must be fund. disc."
+    H = QuadraticField(-D).hilbert_class_polynomial()
     while True:
-        p = random_prime(2^150,2^151)
+        p = random_prime(2^m - 1, lbound = 2^(m-1))
         # check H(x) has a solution mod p which is not 0 or 1728
         roots = [r[0] for r in H.change_ring(GF(p)).roots() if r[0] != 0 and r[0] != 1728]
         if len(roots) == 0:
             continue
         # check for solution 4p = x^2 + Dy^2
         try:
-            u,v = Cornacchia(p,D/4)
+            if mod(D,4) == 0:
+                x,y = Cornacchia(p,D/4)
+                x = 2*x
+            else:
+                x,y = Cornacchia(p,D)
+                x = 2*x
+                y = 2*y
         except NoSolutionError:
             continue
-        trace = 2*u
-        m1 = p + 1 + trace
-        m2 = p + 1 - trace
+        m1 = p + 1 - x
+        m2 = p + 1 + x
         # check for trace 1
         if m1 == p or m2 == p:
             continue
         # check for large prime factor
-        if max([len(l[0].bits()) for l in factor(m1)]) < 80 or \
-            max([len(l[0].bits()) for l in factor(m2)]) < 80:
+        if max([len(l[0].bits()) for l in factor(m1)]) < 0.75*m or \
+            max([len(l[0].bits()) for l in factor(m2)]) < 0.75*m:
             continue
         # check for small embedding degree
         if mod(p,m1).multiplicative_order() < 12 or \
@@ -253,17 +264,16 @@ def CM():
         print E1
         print E2
         break
-%time CM()
+%time CM(23,100)
 \end{sagecell}
 \begin{sageout}
-Elliptic Curve defined by y^2 = x^3 + 922504728382053349836088600810627556684967666*x + \ 
-121709915454822140608555307140053224646085286 over Finite Field of size \ 
-1136944521360932037786080284248147505844053561
-Elliptic Curve defined by y^2 = x^3 + \ 
-896013149634954889359565923133800958773804357*x + \ 
-597342099756636592906377282089200639182536238 over Finite Field of size \ 
-1136944521360932037786080284248147505844053561
-CPU time: 6.19 s, Wall time: 6.82 s
+Elliptic Curve defined by y^2 = x^3 + 200458222972659950615665077605*x + \
+197228673548309655385614563588 over Finite Field of size \
+710339171953694604645973439963
+Elliptic Curve defined by y^2 = x^3 + 197030598246049253669842133354*x + \
+368133456148597703995219235557 over Finite Field of size \
+710339171953694604645973439963
+CPU time: 0.91 s, Wall time: 0.96 s
 \end{sageout}
 \end{sagecode}
 
