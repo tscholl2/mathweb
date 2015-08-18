@@ -1,0 +1,166 @@
+\usepackage{amsmath,amssymb,amsthm,amsfonts,amscd,tikz} %usual symbols, theorems, etc
+\usepackage{tikz-cd} %diagrams
+\usepackage{enumerate} %lists
+\usepackage{hyperref} %links, references
+\usepackage{aliascnt} %copies counters but with new labels --- for autoref
+\usepackage{graphicx} %pictures
+\usepackage{subcaption} %subfigures - use minipage
+\usetikzlibrary{arrows,matrix,calc,decorations.pathmorphing} %curved arrows
+\usepackage{mathabx} %more symbols
+\usepackage{mathrsfs} %super curly letters
+\usepackage{bbm} %quaternions
+\usepackage{microtype} %supposedly makes things nicer, ask Peter
+\usepackage[margin=1in]{geometry} %margins
+\usepackage{wrapfig} %wraps figures/tables in text
+\usepackage{cite} %citations
+\usepackage{mathtools} %allows declarepaireddelimiter
+
+%GENERAL SYMBOLS
+\newcommand{\BB}[1]{\mathbb{#1}} %bold face
+\newcommand{\script}[1]{\mathcal{#1}} %curvy
+\newcommand{\curly}[1]{\mathscr{#1}} %extra curvy
+\newcommand{\cat}[1]{\textbf{\emph{#1}}} %bold
+\renewcommand{\frak}[1]{\mathfrak{#1}} %gothic
+\newcommand{\del}[1]{\frac{\partial}{\partial{#1}}} %single derivative vector d/dx
+\newcommand{\ddel}[2]{\frac{\partial{#1}}{\partial{#2}}} %dy/dx
+\newcommand{\floor}[1]{{\lfloor #1 \rfloor}} %flooor
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand{\free}[1]{\left\langle#1\right\rangle} %nice brackets
+\newcommand{\legrende}[2]{\left(\frac{#1}{#2}\right)}
+
+%SPECIFIC SYMBOLS
+\newcommand{\CC}{\BB{C}}
+\newcommand{\RR}{\BB{R}}
+\newcommand{\NN}{\BB{N}}
+\newcommand{\QQ}{\BB{Q}}
+\newcommand{\ZZ}{\BB{Z}}
+\newcommand{\PP}{\BB{P}}
+\renewcommand{\AA}{\BB{A}} %\AA is a non-ascii acented A, weird
+\newcommand{\HH}{\BB{H}}
+\newcommand{\DD}{\BB{D}}
+\newcommand{\TT}{\BB{T}}
+\newcommand{\FF}{\BB{F}}
+\newcommand{\RP}{\RR\PP}
+\newcommand{\CP}{\CC\PP}
+\renewcommand{\SS}{\BB{S}} %\SS is a silly non-ascii letter "SS".
+\newcommand{\sF}{\script{F}}
+\newcommand{\sG}{\script{G}}
+\newcommand{\sL}{\script{L}}
+\renewcommand{\O}{\script{O}}
+\newcommand{\E}{\script{E}}
+\newcommand{\W}{\script{W}}
+\newcommand{\A}{\script{A}}
+\newcommand{\X}{\script{X}}
+\newcommand{\sHom}{\script{H}om}
+\newcommand{\cF}{\curly{F}}
+\newcommand{\cG}{\curly{G}}
+\newcommand{\cH}{\curly{H}}
+\newcommand{\cO}{\curly{O}}
+\newcommand{\cL}{\curly{L}}
+\newcommand{\st}{\colon}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\colim}{\operatornamewithlimits{colim}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\supp}{\operatorname{Supp}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\sgn}{\operatorname{sign}}
+\newcommand{\coker}{\operatorname{coker}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\norm}{\operatorname{N}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\PGL}{\operatorname{PGL}}
+\newcommand{\gal}{\operatorname{Gal}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\res}{\operatorname{res}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\op}{\operatorname{op}}
+\newcommand{\nil}{\operatorname{nil}}
+\newcommand{\Frac}{\operatorname{Frac}}
+\newcommand{\Char}{\operatorname{char}}
+\newcommand{\Ann}{\operatorname{Ann}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\Quot}{\operatorname{Quot}}
+\newcommand{\Der}{\operatorname{Der}}
+\newcommand{\Div}{\operatorname{Div}}
+\newcommand{\disc}{\operatorname{disc}}
+\newcommand{\lcm}{\operatorname{lcm}}
+
+\newcommand{\fpbar}{\overline{\FF_p}}
+\newcommand{\fpt}{\FF_p[T]}
+\newcommand{\fptf}{\FF_p(T)}
+\newcommand{\fptbar}{\overline{\FF_p(T)}}
+
+%categories
+\newcommand{\Sch}{\cat{Sch}}
+\newcommand{\Set}{\cat{Set}}
+\newcommand{\fHom}{\underline{Hom}}
+\newcommand{\fAut}{\underline{Aut}}
+
+%counter for things
+\newtheorem{counter}{plzplzplzplzplzplzdontuseme}[section]
+
+\theoremstyle{plain}
+
+\newaliascnt{theoremCounter}{counter}
+\newtheorem{thm}[theoremCounter]{Theorem}
+\aliascntresetthe{theoremCounter}
+\newcommand{\theoremCounterautorefname}{Theorem}
+\newaliascnt{propositionCounter}{counter}
+\newcommand{\propositionCounterautorefname}{Proposition}
+\newtheorem{prop}[propositionCounter]{Proposition}
+\aliascntresetthe{propositionCounter}
+\newaliascnt{lemmaCounter}{counter}
+\newcommand{\lemmaCounterautorefname}{Lemma}
+\newtheorem{lem}[lemmaCounter]{Lemma}
+\aliascntresetthe{lemmaCounter}
+\newaliascnt{corollaryCounter}{counter}
+\newcommand{\corollaryCounterautorefname}{Corollary}
+\newtheorem{cor}[corollaryCounter]{Corollary}
+\aliascntresetthe{corollaryCounter}
+
+\theoremstyle{definition}
+
+\newaliascnt{definitionCounter}{counter}
+\newtheorem{defn}[definitionCounter]{Definition}
+\aliascntresetthe{definitionCounter}
+\newcommand{\definitionCounterautorefname}{Definition}
+\newaliascnt{exampleCounter}{counter}
+\newtheorem{ex}[exampleCounter]{Example}
+\aliascntresetthe{exampleCounter}
+\newcommand{\exampleCounterautorefname}{Example}
+\newaliascnt{exerciseCounter}{counter}
+\newtheorem{excer}[exerciseCounter]{Exercise}
+\aliascntresetthe{exerciseCounter}
+\newcommand{\exerciseCounterautorefname}{Exercise}
+\newaliascnt{warniningCounter}{counter}
+\newtheorem{warn}[warniningCounter]{Warning}
+\aliascntresetthe{warniningCounter}
+\newcommand{\warniningCounterautorefname}{Warning}
+
+\newtheorem*{prob}{Problem}
+
+\theoremstyle{remark}
+
+\newaliascnt{remarkCounter}{counter}
+\newtheorem{rem}[remarkCounter]{Remark}
+\aliascntresetthe{remarkCounter}
+\newcommand{\remarkCounterautorefname}{Remark}
+\newaliascnt{noteCounter}{counter}
+\newtheorem{note}[noteCounter]{Note}
+\aliascntresetthe{noteCounter}
+\newcommand{\noteCounterautorefname}{Note}
+
+\newtheorem*{claim}{Claim}
+
+\newtheorem*{hint}{Hint}
+
+\theoremstyle{definition}
+\newtheorem{quest}{Question}
+\newenvironment{ans}{\begin{proof}[Answer]}{\end{proof}}
