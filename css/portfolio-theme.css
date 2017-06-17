@@ -109,3 +109,9 @@ hr {
 footer {
 	padding: 80px 0 10px 0;
 }
+
+.vertical-center-label {
+	height: 44px;
+	display: flex;
+	align-items: center;
+}
