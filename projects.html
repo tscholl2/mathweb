@@ -1,628 +1,567 @@
-<!doctype html>
-<html lang="en-US">
+<html>
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Travis Scholl</title>
-  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.1/css/foundation.min.css">
-  <link rel="stylesheet" href="css/portfolio-theme.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.1/js/foundation.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-    });
-  </script>
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  <link href="vendor/lightbox.css" rel="stylesheet" />
-  <script src="vendor/lightbox.min.js"></script>
-  <!--script src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
-  <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
-  <script>sagecell.makeSagecell({"inputLocation": ".sage"});</script>
-  <link rel="stylesheet" type="text/css" href="https://sagecell.sagemath.org/static/sagecell_embed.css"-->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /*TODO: make a style sheet*/
+    img {
+      max-width: 400px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!--header-->
-  <div class="row">
-    <div class="large-12 columns">
-      <div class="nav-bar button-bar right">
-        <ul class="navbar button-group">
-          <li><a href="index.html" class="button">Home</a></li>
-          <li><a href="http://www.math.washington.edu/~tscholl2/125_summer_17/" class="button">Teaching</a></li>
-          <li><a href="notes.html" class="button">Notes</a></li>
-          <li><a href="cv/cv.pdf" class="button">CV</a></li>
-          <li><a href="projects.html" class="button">Projects</a></li>
-        </ul>
-      </div>
-      <h1>Projects</h1>
-      <hr/>
-    </div>
-  </div>
-  <!--/header-->
+  <nav>
+    <ul>
+      <a href="index.html">
+        <li>Home</li>
+      </a>
+      <a href="//www.math.washington.edu/~tscholl2/125_summer_17/">
+        <li>Teaching</li>
+      </a>
+      <!--a href="notes.html">
+            <li>Notes</li>
+          </a-->
+      <a href="cv/cv.pdf">
+        <li>CV</li>
+      </a>
+      <a href="projects.html">
+        <li>Projects</li>
+      </a>
+    </ul>
+  </nav>
 
-  <div class="row">
-    <div class="large-12 columns">
-      This page has some of my various projects.
-    </div>
-  </div>
-
-  <!--programming-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Programming</h4>
-      <div class="row">
-        <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">Riemann Sums</h5>
-              <p>
-                A Riemann sum visualization tool using flot.
-              </p>
-              <a class="button secondary" href="projects/flot/calc.html">
-                <i class="fa fa-file-code-o"></i> Try it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">Trigometric Functions</h5>
-              <p>
-                A trigometric function visualization tool using flot.
-              </p>
-              <a class="button secondary" href="projects/flot/trig.html">
-                <i class="fa fa-file-code-o"></i> Try it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">Parametrized Functions</h5>
-              <p>
-                A parametrized function visualization tool using flot.
-              </p>
-              <a class="button secondary" href="projects/flot/param.html">
-                <i class="fa fa-file-code-o"></i> Try it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">JS Encryption</h5>
-              <p>
-                A very simple AES encryption tool using crypto-js.
-              </p>
-              <a class="button secondary" href="projects/crypt/crypt.html">
-                <i class="fa fa-file-code-o"></i> Try it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">fudgen</h5>
-              <p>
-                Recipe generator backend and frontend written mostly in Go using
-                USDA data available online.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/fudgen">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">bookquotes</h5>
-              <p>
-                A bookquote app using Tornado websockets on the backend and
-                bootstrap frontend.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/bookquotes">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">numbirds</h5>
-              <p>
-                A simple random number generating web app written while learning React and Go.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/numbirds">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">psp</h5>
-              <p>
-                A small Go CLI tool to generate customized PGP keys.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/psp">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">beek</h5>
-              <p>
-                Another Go CLI tool to peak/read binary files.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/beek">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">beacon</h5>
-              <p>
-                A random beacon. It generates
-                <a href="http://travs.me:8888/">"beacon-bits"</a> every minute.
-                If you and a friend can't agree on a random number you
-                can agree to use the next one given by the beacon.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/beacon">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">colorpicker</h5>
-              <p>
-                A react colorpicker, useful for a quick color
-                input component that doesn't require many dependencies.
-                It's very lightweight while still being user/mobile-friendly.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/react-compact-colorpicker">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!--/programming-->
-
-  <!--contributions-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Contributions</h4>
-      <div class="row">
-        <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">Algebraic Number Theory</h5>
-              <p>
-                I am helping edit this book by William Stein.
-              </p>
-              <a class="button secondary" href="https://github.com/tscholl2/ant">
-                <i class="fa fa-code-fork"></i> Fork it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">IOLA</h5>
-              <p>
-                I worked as a consultant for this website.
-              </p>
-              <a class="button secondary" href="http://iola.math.vt.edu/">
-                <i class="fa fa-link"></i> See it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">Hamstr</h5>
-              <p>
-                I helped build and design this app.
-              </p>
-              <a class="button secondary" href="https://hamstr.org">
-                <i class="fa fa-link"></i> See it!
-              </a>
-            </div>
-          </li>
-          <li>
-            <div class="th">
-              <h5 style="text-align:left;">SageMathCloud</h5>
-              <p>
-                I helped write the user presence/chat features
-                during a Sage Days.
-              </p>
-              <a class="button secondary" href="https://cloud.sagemath.com/">
-                <i class="fa fa-link"></i> See it!
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!--/contributions-->
-
-  <!--gardening-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Gardening</h4>
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
+  <main>
+    <!--programming-->
+    <h2>Programming</h2>
+    <section>
+      <ul>
         <li>
-          <a class="th [radius]" data-lightbox="garden-4-25-15" data-title="Garden 4/25/15" href="projects/garden/4-25-15/garden.JPG">
-            <img src="projects/garden/4-25-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-4-25-15" data-title="Radishes" href="projects/garden/4-25-15/radishes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-4-25-15" data-title="Kale" href="projects/garden/4-25-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-4-25-15" data-title="Spinach" href="projects/garden/4-25-15/spinach.JPG">
-            </a>
+          <h5>Riemann Sums</h5>
+          <p>
+            A Riemann sum visualization tool using flot.
+          </p>
+          <a class="button secondary" href="projects/flot/calc.html">Demo</a>
+        </li>
+        <li>
+          <h5>Trigometric Functions</h5>
+          <p>
+            A trigometric function visualization tool using flot.
+          </p>
+          <a class="button secondary" href="projects/flot/trig.html">Demo</a>
+        </li>
+        <li>
+          <h5>Parametrized Functions</h5>
+          <p>
+            A parametrized function visualization tool using flot.
+          </p>
+          <a class="button secondary" href="projects/flot/param.html">Demo</a>
+        </li>
+        <li>
+          <h5>JS Encryption</h5>
+          <p>
+            A very simple AES encryption tool using crypto-js.
+          </p>
+          <a class="button secondary" href="projects/crypt/crypt.html">Demo</a>
+        </li>
+        <li>
+          <h5>fudgen</h5>
+          <p>
+            Recipe generator backend and frontend written mostly in Go using USDA data available online.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/fudgen">GitHub</a>
+        </li>
+        <li>
+          <h5>bookquotes</h5>
+          <p>
+            A bookquote app using Tornado websockets on the backend and bootstrap frontend.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/bookquotes">GitHub</a>
+        </li>
+        <li>
+          <h5>numbirds</h5>
+          <p>
+            A simple random number generating web app written while learning React and Go.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/numbirds">GitHub</a>
+        </li>
+        <li>
+          <h5>psp</h5>
+          <p>
+            A small Go CLI tool to generate customized PGP keys.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/psp">GitHub</a>
+        </li>
+        <li>
+          <h5>beek</h5>
+          <p>
+            Another Go CLI tool to peak/read binary files.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/beek">GitHub</a>
+        </li>
+        <li>
+          <h5>beacon</h5>
+          <p>
+            A beacon that generates random bits every minute.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/beacon">GitHub</a>
+        </li>
+        <li>
+          <h5>colorpicker</h5>
+          <p>
+            A react colorpicker, useful for a quick color input component that doesn't require many dependencies. It's very lightweight
+            while still being user/mobile-friendly.
+          </p>
+          <a class="button secondary" href="https://github.com/tscholl2/react-compact-colorpicker">GitHub</a>
+        </li>
+      </ul>
+    </section>
+    <!--/programming-->
+    <!--contributions-->
+    <h2>Contributions</h2>
+    <section>
+      <ul>
+        <li>
+          <div class="th">
+            <h5>Algebraic Number Theory</h5>
+            <p>
+              I am helping edit this book by William Stein.
+            </p>
+            <a class="button secondary" href="https://github.com/tscholl2/ant">GitHub</a>
           </div>
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="garden-5-2-15" data-title="Garden 5/2/15" href="projects/garden/5-2-15/garden.JPG">
-            <img src="projects/garden/5-2-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-5-2-15" data-title="Radishes" href="projects/garden/5-2-15/radishes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-2-15" data-title="Kale" href="projects/garden/5-2-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-2-15" data-title="Onions" href="projects/garden/5-2-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-2-15" data-title="Potatoes" href="projects/garden/5-2-15/potatoes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-2-15" data-title="Spinach" href="projects/garden/5-2-15/spinach.JPG">
-            </a>
+          <div class="th">
+            <h5>IOLA</h5>
+            <p>
+              I worked as a consultant for this website.
+            </p>
+            <a class="button secondary" href="http://iola.math.vt.edu/">Link.</a>
           </div>
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Garden 5/10/15" href="projects/garden/5-10-15/garden.JPG">
-            <img src="projects/garden/5-10-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Radishes" href="projects/garden/5-10-15/radishes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Kale" href="projects/garden/5-10-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Onions" href="projects/garden/5-10-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Potatoes" href="projects/garden/5-10-15/potatoes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Spinach" href="projects/garden/5-10-15/spinach.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-10-15" data-title="Carrots" href="projects/garden/5-10-15/carrots.JPG">
-            </a>
+          <div class="th">
+            <h5>Hamstr</h5>
+            <p>
+              I helped build and design this app.
+            </p>
+            <a class="button secondary" href="https://hamstr.org">Link.</a>
           </div>
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Garden 5/29/15" href="projects/garden/5-29-15/garden.JPG">
-            <img src="projects/garden/5-29-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Radishes" href="projects/garden/5-29-15/radishes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Kale" href="projects/garden/5-29-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Onions" href="projects/garden/5-29-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Potatoes" href="projects/garden/5-29-15/potatoes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Spinach" href="projects/garden/5-29-15/spinach.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-5-29-15" data-title="Carrots" href="projects/garden/5-29-15/carrots.JPG">
-            </a>
-          </div>
-        </li>
-        <li>
-          <a class="th [radius]" data-lightbox="garden-6-18-15" data-title="Garden 6/18/15" href="projects/garden/6-18-15/garden.JPG">
-            <img src="projects/garden/6-18-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-6-18-15" data-title="Cilantro" href="projects/garden/6-18-15/cilantro.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-6-18-15" data-title="Kale" href="projects/garden/6-18-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-6-18-15" data-title="Onions" href="projects/garden/6-18-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-6-18-15" data-title="Potatoes" href="projects/garden/6-18-15/potatoes.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-6-18-15" data-title="Zuchinni" href="projects/garden/6-18-15/zuchinni.JPG">
-            </a>
-          </div>
-        </li>
-        <li>
-          <a class="th [radius]" data-lightbox="garden-7-12-15" data-title="Garden 7/12/15" href="projects/garden/7-12-15/garden.JPG">
-            <img src="projects/garden/7-12-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-7-12-15" data-title="Cilantro" href="projects/garden/7-12-15/cilantro.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-12-15" data-title="Kale" href="projects/garden/7-12-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-12-15" data-title="Onions" href="projects/garden/7-12-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-12-15" data-title="Spinach" href="projects/garden/7-12-15/spinach.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-12-15" data-title="Zuchinni" href="projects/garden/7-12-15/zuchinni.JPG">
-            </a>
-          </div>
-        </li>
-        <li>
-          <a class="th [radius]" data-lightbox="garden-7-20-15" data-title="Garden 7/20/15" href="projects/garden/7-20-15/garden.JPG">
-            <img src="projects/garden/7-20-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-7-20-15" data-title="Cilantro" href="projects/garden/7-20-15/cilantro.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-20-15" data-title="Kale" href="projects/garden/7-20-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-20-15" data-title="Onions" href="projects/garden/7-20-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-20-15" data-title="Spinach" href="projects/garden/7-20-15/spinach.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-7-20-15" data-title="Zuchinni" href="projects/garden/7-20-15/zuchinni.JPG">
-            </a>
-          </div>
-        </li>
-        <li>
-          <a class="th [radius]" data-lightbox="garden-8-3-15" data-title="Garden 8/3/15" href="projects/garden/8-3-15/garden.JPG">
-            <img src="projects/garden/8-3-15/garden.JPG" alt="Garden">
-          </a>
-          <div style="display:none;">
-            <a class="th [radius]" data-lightbox="garden-8-3-15" data-title="Coriander" href="projects/garden/8-3-15/coriander.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-8-3-15" data-title="Kale" href="projects/garden/8-3-15/kale.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-8-3-15" data-title="Onions" href="projects/garden/8-3-15/onions.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-8-3-15" data-title="Spinach" href="projects/garden/8-3-15/spinach.JPG">
-            </a>
-            <a class="th [radius]" data-lightbox="garden-8-3-15" data-title="Zuchinni" href="projects/garden/8-3-15/zuchinni.JPG">
-            </a>
+          <div class="th">
+            <h5>SageMathCloud</h5>
+            <p>
+              I helped write the user presence/chat features during a Sage Days.
+            </p>
+            <a class="button secondary" href="https://cloud.sagemath.com/">Link.</a>
           </div>
         </li>
       </ul>
-    </div>
-  </div>
-  <!--/gardening-->
-
-  <!--art-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Art</h4>
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
+    </section>
+    <!--/contributions-->
+    <!--gardening-->
+    <h2>Gardening</h2>
+    <section>
+      <h4>4/25/15</h4>
+      <ul>
         <li>
-          <a class="th [radius]" data-lightbox="Hamstr" data-title="Hamstr" href="projects/art/hamstr.svg">
-            <img src="projects/art/hamstr.th.svg" alt="Hamstr">
-          </a>
+          Garden
+          <img src="projects/garden/4-25-15/garden.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="ChefHops" data-title="Chef Hops" href="projects/art/bunny.svg">
-            <img src="projects/art/bunny.th.svg" alt="Chef Hops">
-          </a>
+          Radishes
+          <img src="projects/garden/4-25-15/radishes.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="envelope" data-title="Envelope" href="projects/art/envelope.jpg">
-            <img src="projects/art/envelope.jpg" alt="Envelope">
-          </a>
+          Kale
+          <img src="projects/garden/4-25-15/kale.JPG">
+          <li>
+            Spinach
+            <img src="projects/garden/4-25-15/spinach.JPG">
+          </li>
+      </ul>
+      <h4>5/2/15</h4>
+      <ul>
+        <li>
+          Garden
+          <img src="projects/garden/5-2-15/garden.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="Crayons" data-title="Crayons" href="projects/art/crayons.JPG">
-            <img src="projects/art/crayons.JPG" alt="Crayons">
-          </a>
+          Radishes
+          <img src="projects/garden/5-2-15/radishes.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="dogjpg" data-title="Dog Sketch" href="projects/art/dog.JPG">
-            <img src="projects/art/dog.JPG" alt="Dog Sketch">
-          </a>
+          Kale
+          <img src="projects/garden/5-2-15/kale.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="catjpg" data-title="Cat Sketch" href="projects/art/cat.JPG">
-            <img src="projects/art/cat.JPG" alt="Cat Sketch">
-          </a>
+          Onions
+          <img src="projects/garden/5-2-15/onions.JPG">
+        </li>
+        <li>
+          Potatoes
+          <img src="projects/garden/5-2-15/potatoes.JPG">
+        </li>
+        <li>
+          Spinach
+          <img src="projects/garden/5-2-15/spinach.JPG">
         </li>
       </ul>
-    </div>
-  </div>
-  <!--/art-->
-
-  <!--food-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Food</h4>
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
+      <h4>5/10/15</h4>
+      <ul>
         <li>
-          <a class="th [radius]" data-lightbox="bp" data-title="Bear Pancakes" href="projects/food/bearcakes1.jpg">
-            <img src="projects/food/bearcakes1.jpg" alt="Pancakes">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="bp" data-title="Didn't turn out great" href="projects/food/bearcakes2.jpg">
-            </a>
-          </div>
+          Garden
+          <img src="projects/garden/5-10-15/garden.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="b" data-title="Bread" href="projects/food/bread.jpeg">
-            <img src="projects/food/bread.jpeg" alt="Bread">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="b" data-title="More bread" href="projects/food/bread2.jpg">
-            </a>
-          </div>
+          Radishes
+          <img src="projects/garden/5-10-15/radishes.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="pi" data-title="Berry+Apple Pie" href="projects/food/pie.jpeg">
-            <img src="projects/food/pie.jpeg" alt="Pie">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="pi" data-title="Frozen berry pie, not a best attempt" href="projects/food/pie2.jpg">
-            </a>
-            <a data-lightbox="pi" data-title="Strawberry Rhubarb" href="projects/food/pie3.JPG">
-            </a>
-            <a data-lightbox="pi" data-title="With ice cream" href="projects/food/pie3slice.JPG">
-            </a>
-            <a data-lightbox="pi" data-title="Apple Pie" href="projects/food/applepie.JPG">
-            </a>
-          </div>
+          Kale
+          <img src="projects/garden/5-10-15/kale.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="klpi" data-title="Key Lime Pie" href="projects/food/keylimepie.JPG">
-            <img src="projects/food/keylimepie.JPG" alt="Key Lime Pie">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="klpi" data-title="Sliced" href="projects/food/keylimepieslice.JPG">
-            </a>
-            <a data-lightbox="klpi" data-title="Cracker Crust" href="projects/food/keylimepie2.JPG">
-            </a>
-          </div>
+          Onions
+          <img src="projects/garden/5-10-15/onions.JPG">
+        </li>
+        <li>
+          Potatoes
+          <img src="projects/garden/5-10-15/potatoes.JPG">
+        </li>
+        <li>
+          Spinach
+          <img src="projects/garden/5-10-15/spinach.JPG">
+        </li>
+        <li>
+          Carrots
+          <img src="projects/garden/5-10-15/carrots.JPG">
         </li>
       </ul>
-    </div>
-  </div>
-  <!--/food-->
-
-  <!--crafts-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Crafts</h4>
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
+      <h4>5/29/15</h4>
+      <ul>
         <li>
-          <a class="th [radius]" data-lightbox="chalkspeakers" data-title="Chalk speakers" href="projects/crafts/chalkspeakers1.jpg">
-            <img src="projects/crafts/chalkspeakers1.jpg" alt="Craft">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="chalkspeakers" data-title="The other one" href="projects/crafts/chalkspeakers2.jpg">
-            </a>
-          </div>
+          Garden
+          <img src="projects/garden/5-29-15/garden.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="shark" data-title="Sock Shark" href="projects/crafts/sockshark2.jpeg">
-            <img src="projects/crafts/sockshark2.jpeg" alt="Craft">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="shark" data-title="Sock Fish" href="projects/crafts/sockshark1.jpg">
-            </a>
-          </div>
+          Radishes
+          <img src="projects/garden/5-29-15/radishes.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="desk" data-title="College desk" href="projects/crafts/realdesk.jpg">
-            <img src="projects/crafts/realdesk.jpg" alt="Craft">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="desk" data-title="Sketchup" href="projects/crafts/virtualdesk.jpg">
-            </a>
-          </div>
+          Kale
+          <img src="projects/garden/5-29-15/kale.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="gcg" data-title="Catgrass" href="projects/crafts/catgrass.JPG">
-            <img src="projects/crafts/catgrass.JPG" alt="Catgrass">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="gcg" data-title="In progress" href="projects/crafts/minigrass.jpg">
-            </a>
-          </div>
+          Onions
+          <img src="projects/garden/5-29-15/onions.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="watercandle" data-title="Water Candle" href="projects/crafts/watercandle.jpg">
-            <img src="projects/crafts/watercandle.jpg" alt="Craft">
-          </a>
+          Potatoes
+          <img src="projects/garden/5-29-15/potatoes.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="tiedye" data-title="Tie-dye Pillows" href="projects/crafts/tiedye.jpg">
-            <img src="projects/crafts/tiedye.jpg" alt="Craft">
-          </a>
+          Spinach
+          <img src="projects/garden/5-29-15/spinach.JPG">
         </li>
         <li>
-          <a class="th [radius]" data-lightbox="pf" data-title="Lemongrab" href="projects/crafts/lemongrab.jpg">
-            <img src="projects/crafts/lemongrab.jpg" alt="Craft">
-          </a>
-          <div style="display:none;">
-            <a data-lightbox="pf" data-title="Mr. Cupcake" href="projects/crafts/muffinman.jpg">
-            </a>
-          </div>
+          Carrots
+          <img src="projects/garden/5-29-15/carrots.JPG">
         </li>
       </ul>
-    </div>
-  </div>
-  <!--/crafts-->
-
-  <!--music-->
-  <div class="row work">
-    <hr>
-    <div class="large-12 columns">
-      <h4>Music</h4>
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
+      <h4>6/18/15</h4>
+      <ul>
         <li>
-          <a href="projects/music/Volcano_NoVocals.mp3">
-            Volcano
-          </a>
-          <a class="th">
-            <audio controls>
-              <source src="projects/music/Volcano_NoVocals.mp3" type="audio/mpeg">
-              Your browser does not support the audio element.
-            </audio>
-          </a>
+          Garden
+          <img src="projects/garden/6-18-15/garden.JPG">
         </li>
         <li>
-          <a href="projects/music/Follow_Instrumental.mp3">
-            Follow
-          </a>
-          <a class="th">
-            <audio controls>
-              <source src="projects/music/Follow_Instrumental.mp3" type="audio/mpeg">
-              Your browser does not support the audio element.
-            </audio>
-          </a>
+          Cilantro
+          <img src="projects/garden/6-18-15/cilantro.JPG">
         </li>
         <li>
-          <a href="projects/music/ukulele_test.mp3">
-            Ukulele Test
-          </a>
-          <a class="th">
-            <audio controls>
-              <source src="projects/music/ukulele_test.mp3" type="audio/mpeg">
-              Your browser does not support the audio element.
-            </audio>
-          </a>
+          Kale
+          <img src="projects/garden/6-18-15/kale.JPG">
+        </li>
+        <li>
+          Onions
+          <img src="projects/garden/6-18-15/onions.JPG">
+        </li>
+        <li>
+          Potatoes
+          <img src="projects/garden/6-18-15/potatoes.JPG">
+        </li>
+        <li>
+          Zuchinni
+          <img src="projects/garden/6-18-15/zuchinni.JPG">
         </li>
       </ul>
-    </div>
-  </div>
-  <!--/music-->
+      <h4>7/12/15</h4>
+      <ul>
+        <li>
+          Garden
+          <img src="projects/garden/7-12-15/garden.JPG">
+        </li>
+        <li>
+          Cilantro
+          <img src="projects/garden/7-12-15/cilantro.JPG">
+        </li>
+        <li>
+          Kale
+          <img src="projects/garden/7-12-15/kale.JPG">
+        </li>
+        <li>
+          Onions
+          <img src="projects/garden/7-12-15/onions.JPG">
+        </li>
+        <li>
+          Spinach
+          <img src="projects/garden/7-12-15/spinach.JPG">
+        </li>
+        <li>
+          Zuchinni
+          <img src="projects/garden/7-12-15/zuchinni.JPG">
+        </li>
+      </ul>
+      <h4>7/20/15</h4>
+      <ul>
+        <li>
+          Garden
+          <img src="projects/garden/7-20-15/garden.JPG">
+        </li>
+        <li>
+          Cilantro
+          <img src="projects/garden/7-20-15/cilantro.JPG">
+        </li>
+        <li>
+          Kale
+          <img src="projects/garden/7-20-15/kale.JPG">
+        </li>
+        <li>
+          Onions
+          <img src="projects/garden/7-20-15/onions.JPG">
+        </li>
+        <li>
+          Spinach
+          <img src="projects/garden/7-20-15/spinach.JPG">
+        </li>
+        <li>
+          Zuchinni
+          <img src="projects/garden/7-20-15/zuchinni.JPG">
+        </li>
+      </ul>
+      <h4>8/3/15</h4>
+      <ul>
+        <li>
+          Garden
+          <img src="projects/garden/8-3-15/garden.JPG">
+        </li>
+        <li>
+          Coriander
+          <img src="projects/garden/8-3-15/coriander.JPG">
+        </li>
+        <li>
+          Kale
+          <img src="projects/garden/8-3-15/kale.JPG">
+        </li>
+        <li>
+          Onions
+          <img src="projects/garden/8-3-15/onions.JPG">
+        </li>
+        <li>
+          Spinach
+          <img src="projects/garden/8-3-15/spinach.JPG">
+        </li>
+        <li>
+          Zuchinni
+          <img src="projects/garden/8-3-15/zuchinni.JPG">
+        </li>
+      </ul>
+    </section>
+    <!--/gardening-->
+    <!--art-->
+    <h2>Art</h2>
+    <section>
+      <ul>
+        <li>
+          <img src="projects/art/hamstr.svg">
+        </li>
+        <li>
+          <img src="projects/art/hamstr.2.svg">
+        </li>
+        <li>
+          <img src="projects/art/bunny.svg">
+        </li>
+        <li>
+          <img src="projects/art/envelope.jpg">
+        </li>
+        <li>
+          <img src="projects/art/crayons.JPG">
+        </li>
+        <li>
+          <img src="projects/art/dog.JPG">
+        </li>
+        <li>
+          <img src="projects/art/cat.JPG">
+        </li>
+        <li>
+          <img src="projects/art/bear.svg">
+        </li>
+      </ul>
+    </section>
+    <!--/art-->
+    <!--food-->
+    <h2>Food</h2>
+    <section>
+      <ul>
+        <li>
+          <img src="projects/food/bearcakes1.jpg">
+        </li>
+        <li>
+          <img src="projects/food/bearcakes1.jpg">
+        </li>
+        <li>
+          <img src="projects/food/bearcakes2.jpg">
+        </li>
+        <li>
+          <img src="projects/food/bread.jpeg">
+        </li>
+        <li>
+          <img src="projects/food/bread.jpeg">
+        </li>
+        <li>
+          <img src="projects/food/bread2.jpg">
+        </li>
+        <li>
+          <img src="projects/food/pie.jpeg">
+        </li>
+        <li>
+          <img src="projects/food/pie.jpeg">
+        </li>
+        <li>
+          <img src="projects/food/pie2.jpg">
+        </li>
+        <li>
+          <img src="projects/food/pie3.JPG">
+        </li>
+        <li>
+          <img src="projects/food/pie3slice.JPG">
+        </li>
+        <li>
+          <img src="projects/food/applepie.JPG">
+        </li>
+        <li>
+          <img src="projects/food/keylimepie.JPG">
+        </li>
+        <li>
+          <img src="projects/food/keylimepie.JPG">
+        </li>
+        <li>
+          <img src="projects/food/keylimepieslice.JPG">
+        </li>
+        <li>
+          <img src="projects/food/keylimepie2.JPG">
+        </li>
+      </ul>
+    </section>
+    <!--/food-->
+    <!--crafts-->
+    <section>
+      <h2>Crafts</h2>
+      <ul>
+        <li>
+          <img src="projects/crafts/chalkspeakers1.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/chalkspeakers1.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/chalkspeakers2.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/sockshark2.jpeg">
+        </li>
+        <li>
+          <img src="projects/crafts/sockshark2.jpeg">
+        </li>
+        <li>
+          <img src="projects/crafts/sockshark1.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/realdesk.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/realdesk.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/virtualdesk.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/catgrass.JPG">
+        </li>
+        <li>
+          <img src="projects/crafts/catgrass.JPG">
+        </li>
+        <li>
+          <img src="projects/crafts/minigrass.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/watercandle.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/watercandle.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/tiedye.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/tiedye.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/lemongrab.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/lemongrab.jpg">
+        </li>
+        <li>
+          <img src="projects/crafts/muffinman.jpg">
+        </li>
+      </ul>
+    </section>
+    <!--crafts-->
+    <!--music-->
+    <section>
+      <ul>
+        <li>
+          Volcano
+          <audio controls>
+            <source src="projects/music/Volcano_NoVocals.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+          </audio>
+        </li>
+        <li>
+          Follow
+          <audio controls>
+            <source src="projects/music/Follow_Instrumental.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+          </audio>
+        </li>
+        <li>
+          Ukulele Test
+          <audio controls>
+            <source src="projects/music/ukulele_test.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+          </audio>
+        </li>
+      </ul>
+    </section>
+  </main>
 
-  <!--div class="sage">
-    <script type="text/x-sage">1+2</script>
-  </div-->
-
-
-  <!--footer-->
-  <footer class="row">
-      <div class="large-12 columns">
-        <hr/>
-        <div class="row">
-          <div class="large-6 columns">
-            <p>© 2017</p>
-          </div>
-          <div class="large-6 columns">
-          </div>
-        </div>
-      </div>
+  <footer>
+    <p>© 2017</p>
   </footer>
-  <!--/footer-->
 
 </body>
+
 </html>
