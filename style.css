@@ -4,12 +4,12 @@ body {
 }
 
 
-/* NAV */
+/* HEADER */
 
 header {
   background-color: green;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 header>nav {
@@ -33,4 +33,49 @@ header>nav>a {
 }
 
 
-/* /NAV */
+/* /HEADER */
+
+
+/* MAIN */
+
+main {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#section-about>img {
+  float: right;
+  width: 200px;
+  height: 200px;
+  object-fit: none;
+}
+
+#section-contact>img {
+  width: 200px;
+  height: 200px;
+}
+
+#section-contact>div {
+  display: flex;
+  align-items: center;
+}
+
+#section-contact>div>span:first-child {
+  flex-basis: 10%;
+  font-size: 2rem;
+  text-align: center;
+}
+
+
+
+/* /MAIN */
+
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+}
+
+
+/* /FOOTER */
