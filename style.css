@@ -3,16 +3,16 @@ body {
   margin: 0;
 }
 
-
 /* HEADER */
 
-header {
+body > header {
   background-color: green;
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 20px;
 }
 
-header>nav {
+body > header > nav {
   width: 100%;
   max-width: 900px;
   display: flex;
@@ -21,7 +21,7 @@ header>nav {
   flex-wrap: wrap;
 }
 
-header>nav>a {
+body > header > nav > a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,9 +32,7 @@ header>nav>a {
   color: white;
 }
 
-
 /* /HEADER */
-
 
 /* MAIN */
 
@@ -43,39 +41,53 @@ main {
   margin-right: 10%;
 }
 
-#section-about>img {
+#section-about > img {
   float: right;
   width: 200px;
   height: 200px;
   object-fit: none;
+  margin-left: 20px;
 }
 
-#section-contact>img {
+#section-about p {
+  min-width: 200px;
+}
+
+#section-contact {
+  margin-bottom: 20px;
+}
+
+#section-contact > img {
   width: 200px;
   height: 200px;
 }
 
-#section-contact>div {
+#section-contact > div {
   display: flex;
   align-items: center;
 }
 
-#section-contact>div>span:first-child {
-  flex-basis: 10%;
+#section-contact > div > span {
   font-size: 2rem;
+  width: 60px;
   text-align: center;
 }
 
+#section-pictures img {
+  max-width: 200px;
+}
 
+#section-pictures h3 {
+  margin-top: 20px;
+}
 
 /* /MAIN */
-
 
 /* FOOTER */
 
 footer {
+  margin-top: 20px;
   text-align: center;
 }
-
 
 /* /FOOTER */
