@@ -6,7 +6,7 @@ body {
 /* HEADER */
 
 body > header {
-  background-color: green;
+  background-color: #eee;
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 20px;
@@ -29,7 +29,11 @@ body > header > nav > a {
   width: 100px;
   padding: 10px;
   text-decoration: none;
-  color: white;
+  color: #777;
+}
+
+body > header > nav > a:hover {
+  color: #000;
 }
 
 /* /HEADER */
