@@ -3,146 +3,56 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Travis Scholl</title>
-  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.1/css/foundation.min.css">
-  <link rel="stylesheet" href="css/portfolio-theme.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.1/js/foundation.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
-    });
-  </script>
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  <!--script src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
-  <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
-  <script>sagecell.makeSagecell({"inputLocation": ".sage"});</script>
-  <link rel="stylesheet" type="text/css" href="https://sagecell.sagemath.org/static/sagecell_embed.css"-->
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <!-- Milligram CSS minified -->
+  <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
 </head>
 
 <body>
 
-  <!--header-->
-  <div class="row">
-    <div class="large-12 columns">
-      <div class="nav-bar button-bar right">
-        <ul class="navbar button-group">
-          <li><a href="index.html" class="button">Home</a></li>
-          <li><a href="http://www.math.washington.edu/~tscholl2/125_summer_17/" class="button">Teaching</a></li>
-          <li><a href="notes.html" class="button">Notes</a></li>
-          <li><a href="cv/cv.pdf" class="button">CV</a></li>
-          <li><a href="projects.html" class="button">Projects</a></li>
-        </ul>
-      </div>
-      <h1>Notes</h1>
-      <hr/>
-    </div>
-  </div>
-  <!--/header-->
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="//www.math.washington.edu/~tscholl2/125_summer_17/">Teaching</a>
+      <!--a href="notes.html">Notes</a-->
+      <a href="cv/cv.pdf">CV</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+  </header>
 
+  <main>
+    <p>Papers, notes, and collections. Source TeX files are also available.</p>
+    <ul>
+      <li>
+        <a href="notes/characters/characters.pdf">Introduction to Characters from a course by Ralph Greenberg</a>.
+      </li>
+      <li>
+        <a href="notes/hyperplanes/hyperplanes.pdf">The topology of the compliement of an arrangement of hyperplanes</a>.
+      </li>
+      <li>
+        <a href="notes/supersing/supersing.pdf">A summary of supersingular curves from Silverman's book</a>.
+      </li>
+      <li>
+        <a href="notes/modcurves/modcurves.pdf">Moduli problems and the classical modular curves $X(1)$, $X_0(N)$, and $X_1(N)$</a>.
+      </li>
+      <li>
+        <a href="notes/abelianvarieties/basics.pdf">Basic definitions and properties of Abelian varieties</a>.
+      </li>
+      <li>
+        <a href="notes/neronmodels/neronmodels.pdf">Notes from a talk on Neron models in the Abelian varieties seminar</a>.
+      </li>
+    </ul>
+  </main>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <p>Papers, notes, and collections. Source TeX files are also available.</p>
-
-      <ul class="clearing-thumbs small-block-grid-1 medium-block-grid-2 large-block-grid-3 text-center" data-clearing>
-        <li>
-          <div class="th">
-            <p>
-            Introduction to Characters from a course by Ralph Greenberg.
-            </p>
-            <a class="button" href="notes/characters/characters.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="th">
-            <p>
-              The topology of the compliement of an arrangement of hyperplanes.
-            </p>
-            <a class="button" href="notes/hyperplanes/hyperplanes.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="th">
-            <p>
-            A summary of supersingular curves from Silverman's book.
-            </p>
-            <a class="button" href="notes/supersing/supersing.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="th">
-            <p>
-            Moduli problems and the classical modular curves $X(1)$, $X_0(N)$, and $X_1(N)$.
-            </p>
-            <a class="button" href="notes/modcurves/modcurves.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="th">
-            <p>
-            Basic definitions and properties of Abelian varieties.
-            </p>
-            <a class="button" href="notes/abelianvarieties/basics.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="th">
-            <p>
-            Some notes while reading about the "CM method".
-            </p>
-            <a class="button" href="notes/cmmethod/cm_method.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="th">
-            <p>
-            Notes from a talk on Neron models in the Abelian
-            varieties seminar.
-            </p>
-            <a class="button" href="notes/neronmodels/neronmodels.pdf">
-              <i class="fa fa-file-pdf-o"></i> PDF
-            </a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!--div class="sage">
-    <script type="text/x-sage">1+2</script>
-  </div-->
-
-  <!--footer-->
-  <footer class="row">
-      <div class="large-12 columns">
-        <hr/>
-        <div class="row">
-          <div class="large-6 columns">
-            <p>© 2017</p>
-          </div>
-          <div class="large-6 columns">
-          </div>
-        </div>
-      </div>
+  <footer>
+    <p>© 2017 Travis Scholl</p>
   </footer>
-  <!--/footer-->
 
 </body>
+
 </html>
