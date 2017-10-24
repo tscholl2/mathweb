@@ -96,7 +96,8 @@ main {
 
 #section-art img,
 #section-crafts img,
-#section-food img {
+#section-food img,
+#section-woodworking img {
   width: 200px;
   height: 200px;
   object-fit: contain;
