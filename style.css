@@ -3,17 +3,16 @@ body {
   margin: 0;
 }
 
-
 /* HEADER */
 
-body>header {
+body > header {
   background-color: #eee;
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 20px;
 }
 
-body>header>nav {
+body > header > nav {
   width: 100%;
   max-width: 900px;
   display: flex;
@@ -22,7 +21,7 @@ body>header>nav {
   flex-wrap: wrap;
 }
 
-body>header>nav>a {
+body > header > nav > a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,13 +32,11 @@ body>header>nav>a {
   color: #777;
 }
 
-body>header>nav>a:hover {
+body > header > nav > a:hover {
   color: #000;
 }
 
-
 /* /HEADER */
-
 
 /* MAIN */
 
@@ -48,7 +45,7 @@ main {
   margin-right: 10%;
 }
 
-#section-about>img {
+#section-about > img {
   float: right;
   width: 200px;
   height: 200px;
@@ -64,20 +61,20 @@ main {
   margin-bottom: 20px;
 }
 
-#section-contact>img {
-  width: 200px;
-  height: 200px;
-}
-
-#section-contact>div {
+#section-contact > div {
   display: flex;
   align-items: center;
 }
 
-#section-contact>div>span {
+#section-contact > div > span {
   font-size: 2rem;
   width: 60px;
   text-align: center;
+}
+
+#section-contact > div > span > img {
+  width: 25px;
+  height: 25px;
 }
 
 #section-pictures img {
@@ -103,9 +100,7 @@ main {
   object-fit: contain;
 }
 
-
 /* /MAIN */
-
 
 /* FOOTER */
 
@@ -113,6 +108,5 @@ footer {
   margin-top: 20px;
   text-align: center;
 }
-
 
 /* /FOOTER */
