@@ -10,11 +10,11 @@
     <g id="body">
       <ellipse id="body" ry="275" rx="375" cy="0" cx="0"/>
     </g>
-    <g id="ears">
-      <path d="M 300,-265 l 60,-60 l 40,100 z"/>
-      <path d="M 250,-265 l -60,-60 l -40,100 z"/>
-    </g>
     <circle id="head" cx="275" cy="-100" r="175"/>
+    <g id="ears">
+      <path d="M 325,-280 h 90 l -50 60 z"/>
+      <path d="M 230,-280 h -90 l 50 60 z"/>
+    </g>
     <g id="snout">
       <circle cx="275" cy="-50" r="50"/>
       <path d="M 290,-70 v 40"/>
