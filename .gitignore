@@ -22,3 +22,8 @@
 *.mtc1
 *.out
 *.synctex.gz
+
+#cocalc
+*.tex.syncdb
+*.fdb_latexmk
+*.fls
