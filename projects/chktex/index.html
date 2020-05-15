@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: powderblue;
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            padding: 0;
+            height: 95vh;
+            justify-content: space-between;
+        }
+
+        body>fieldset {
+            width: 100%;
+            height: 100%;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #input {
+            width: 100%;
+            height: calc(100% - 30px);
+        }
+
+        .highlight {
+            background-color: rgba(255, 255, 0, 0.8);
+        }
+    </style>
+    <script type="text/javascript">
+        /**
+        * Returns a debounced version of the given function.
+        * @param {function} func 
+        * @param {number} wait 
+        * @param {boolean} immediate 
+        * @returns {function}
+        */
+        function debounce(func, wait = 500, immediate = false) {
+            let timeout;
+            return () => {
+                const context = this, args = arguments;
+                const later = () => {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (immediate && !timeout) func.apply(context, args);
+            };
+        };
+        /**
+         * Tries to replace equation modes with spaces.
+         * @param {string} latex
+         * @returns {string}
+         */
+        function stripNonText(latex) {
+            return latex
+                .replace(
+                    /[\s\S]*\\begin\s*\{\s*document\s*\}/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /\\end\s*\{\s*document\s*\}[\s\S]*/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /(?<=\$\$\b)[\s\S]+?(?=\b\$\$)/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /(?<=\$\b)[\s\S]+?(?=\b\$)/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /(?<=\\\[)[\s\S]+?(?=\\\])/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /(?<=\\\()[\s\S]+?(?=\\\))/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /(?<=\\begin\s*\{\s*((?:equation|align)\*?)\s*\})[\s\S]+?(?=\\end\s*\{\1\s*\})/giu,
+                    (a) => " ".repeat(a.length),
+                )
+                .replace(
+                    /(?<=%)[\s\S]+?(?=\n)/giu,
+                    (a) => " ".repeat(a.length),
+                )
+        }
+        /**
+         * Returns a list of comments
+         * @param {string} input
+         * @returns {Array<{description:string,start:number,stop:number}>}
+         */
+        function commenters(input) {
+            input = stripNonText(input);
+            console.log(input);
+            const comments = [];
+            // double words
+            for (let m of input.matchAll(/(\b[a-zA-Z]+\b)[\s\.,]+\b\1\b/uisg)) {
+                comments.push({
+                    description: `double word: '${/^\w+/.exec(m[0])}'`,
+                    start: m.index,
+                    stop: m.index + m[0].length,
+                })
+            }
+            // http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/
+            const weaselWords = "many|various|very|fairly|several|extremely|exceedingly|quite|remarkably|few|surprisingly|mostly|largely|huge|tiny|((are|is) a number)|excellent|interestingly|significantly|substantially|clearly|vast|relatively|completely";
+            for (let m of input.matchAll(new RegExp(`\\b(${weaselWords})\\b`, "uisg"))) {
+                comments.push({
+                    description: `weasel word: '${/^\w+/.exec(m[0])}'`,
+                    start: m.index,
+                    stop: m.index + m[0].length,
+                })
+            }
+            const irregulars = "awoken|been|born|beat|become|begun|bent|beset|bet|bid|bidden|bound|bitten|bled|blown|broken|bred|brought|broadcast|built|burnt|burst|bought|cast|caught|chosen|clung|come|cost|crept|cut|dealt|dug|dived|done|drawn|dreamt|driven|drunk|eaten|fallen|fed|felt|fought|found|fit|fled|flung|flown|forbidden|forgotten|foregone|forgiven|forsaken|frozen|gotten|given|gone|ground|grown|hung|heard|hidden|hit|held|hurt|kept|knelt|knit|known|laid|led|leapt|learnt|left|lent|let|lain|lighted|lost|made|meant|met|misspelt|mistaken|mown|overcome|overdone|overtaken|overthrown|paid|pled|proven|put|quit|read|rid|ridden|rung|risen|run|sawn|said|seen|sought|sold|sent|set|sewn|shaken|shaven|shorn|shed|shone|shod|shot|shown|shrunk|shut|sung|sunk|sat|slept|slain|slid|slung|slit|smitten|sown|spoken|sped|spent|spilt|spun|spit|split|spread|sprung|stood|stolen|stuck|stung|stunk|stridden|struck|strung|striven|sworn|swept|swollen|swum|swung|taken|taught|torn|told|thought|thrived|thrown|thrust|trodden|understood|upheld|upset|woken|worn|woven|wed|wept|wound|won|withheld|withstood|wrung|written"
+            for (let m of input.matchAll(new RegExp(`\\b(am|are|were|being|is|been|was|be)\\b[ ]*(\w+ed|(${irregulars}))\\b`, "uisg"))) {
+                comments.push({
+                    description: `passive voice: '${/^\w+/.exec(m[0])}'`,
+                    start: m.index,
+                    stop: m.index + m[0].length,
+                })
+            }
+            return comments;
+        }
+        /**
+         * 
+         * @param {string} input 
+         * @returns {string} 
+         */
+        function run(input) {
+            const comments = commenters(input);
+            for (let c of comments) {
+                c.context = input.substring(c.start - 20, c.stop + 20);
+            }
+            return JSON.stringify(comments, null, 2);
+        }
+        window.addEventListener("load", () => {
+            const update = () => {
+                const input = document.getElementById("input");
+                const output = document.getElementById("output");
+                output.innerText = run(input.value || "")
+            }
+            input.oninput = debounce(update);
+            update();
+        });
+    </script>
+</head>
+
+<body>
+    <fieldset>
+        <legend>Input</legend>
+        <textarea id="input" value="hello"></textarea>
+    </fieldset>
+    <fieldset>
+        <legend>Output</legend>
+        <div id="output"></div>
+    </fieldset>
+</body>
