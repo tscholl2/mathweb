@@ -5,28 +5,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Username Generator</title>
-    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css" />
     <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
+        form {
+            display: flex;
+            justify-content: center;
+        }
+
+        form fieldset {
+            display: flex;
+        }
+
+        form label {
+            flex-basis: 45%;
+        }
+
+        #output {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+            font-size: 20pt;
+        }
     </style>
     <script>
-        // TODO
+        let LOADED = false;
+        const words = {
+            adjectives: [], animals: [], colors: [], plants: [], vegetables: [],
+        };
+        async function load() {
+            for (let k in words) {
+                const response = await fetch(`${k}.txt`);
+                const data = await response.text();
+                words[k] = data.split("\n").filter(x => x);
+            }
+            LOADED = true;
+        }
+        function randomChoice(arr) {
+            console.log(arr.length, " - ", Math.floor(arr.length * Math.random()))
+            return arr[Math.floor(arr.length * Math.random())];
+        }
+        async function generate(e) {
+            if (e)
+                e.preventDefault();
+            if (!LOADED)
+                await load();
+            const l1 = document.getElementById("list-1").value;
+            let l2 = document.getElementById("list-2").value;
+            while (!l2 || l2 == "adjectives" || l2 == "colors")
+                l2 = randomChoice(Object.keys(words));
+            const w1 = randomChoice(words[l1]).replace(" ", "-");
+            const w2 = randomChoice(words[l2]).replace(" ", "-");
+            const value = `${w1}-${w2}`;
+            document.getElementById("output").innerText = value;
+            await navigator.clipboard.writeText(value);
+        }
+        function ready(callbackFunction) {
+            if (document.readyState != 'loading')
+                callbackFunction(event)
+            else
+                document.addEventListener("DOMContentLoaded", callbackFunction)
+        }
+        ready(event => {
+            generate();
+        })
     </script>
 </head>
 
 <body>
-    <header>Username Generator</header>
-    <main>
-        <form>
-            <fieldset>
-                <legend>Options</legend>
-
-            </fieldset>
-            <button></button>
-        </form>
-        <code></code>
-    </main>
-    <footer></footer>
+    <header>
+        <h1>Username Generator</h1>
+    </header>
+    <form onsubmit="generate(event)">
+        <fieldset>
+            <legend>Options</legend>
+            <label>
+                Word 1
+                <select id="list-1">
+                    <option value="adjectives" selected>Adjective</option>
+                    <option value="colors">Color</option>
+                </select>
+            </label>
+            <label>
+                Word 2
+                <select id="list-2">
+                    <option value="" selected>Random</option>
+                    <option value="animals">Animal</option>
+                    <option value="vegetables">Vegetable</option>
+                    <option value="plants">Plant</option>
+                </select>
+            </label>
+            <button>Generate</button>
+        </fieldset>
+    </form>
+    <code id="output"></code>
 </body>
 
 </html>

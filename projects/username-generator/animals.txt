@@ -9,13 +9,10 @@ anteater
 antelope
 ape
 armadillo
-avocet
-axolotl
 baboon
 badger
 balinese
 bandicoot
-barb
 barnacle
 barracuda
 basilisk
@@ -29,7 +26,6 @@ bernard
 bird
 bison
 bloodhound
-blue
 boar
 bobcat
 buffalo
@@ -76,7 +72,6 @@ dalmatian
 deer
 dog
 dogfish
-dollar
 dolphin
 donkey
 dove
@@ -100,7 +95,6 @@ foxhound
 frog
 gazelle
 gecko
-gemsbok
 gerbil
 giraffe
 goat
@@ -253,7 +247,6 @@ spider
 sponge
 squid
 squirrel
-squirt
 stag
 stallion
 starfish
