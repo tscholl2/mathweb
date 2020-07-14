@@ -19,15 +19,14 @@
 
         form fieldset {
             display: flex;
-        }
-
-        form label {
-            flex-basis: 45%;
+            padding: 20px;
         }
 
         #output {
             display: flex;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
             margin: 20px;
             font-size: 20pt;
         }
@@ -49,20 +48,23 @@
             console.log(arr.length, " - ", Math.floor(arr.length * Math.random()))
             return arr[Math.floor(arr.length * Math.random())];
         }
+        async function copy(value) {
+            navigator.clipboard.writeText(value);
+        }
         async function generate(e) {
             if (e)
                 e.preventDefault();
             if (!LOADED)
                 await load();
-            const l1 = document.getElementById("list-1").value;
-            let l2 = document.getElementById("list-2").value;
-            while (!l2 || l2 == "adjectives" || l2 == "colors")
-                l2 = randomChoice(Object.keys(words));
+            const l1 = document.getElementById("list-1").value ||
+                randomChoice(["colors", "adjectives"]);
+            const l2 = document.getElementById("list-2").value ||
+                randomChoice(["animals", "plants", "vegetables"]);
             const w1 = randomChoice(words[l1]).replace(" ", "-");
             const w2 = randomChoice(words[l2]).replace(" ", "-");
             const value = `${w1}-${w2}`;
-            document.getElementById("output").innerText = value;
-            await navigator.clipboard.writeText(value);
+            await copy(value);
+            document.getElementById("output").innerHTML += `<span style='cursor:pointer;' onclick='copy("${value}")'>${value}</span>`;
         }
         function ready(callbackFunction) {
             if (document.readyState != 'loading')
@@ -86,7 +88,8 @@
             <label>
                 Word 1
                 <select id="list-1">
-                    <option value="adjectives" selected>Adjective</option>
+                    <option value="" selected>Random</option>
+                    <option value="adjectives">Adjective</option>
                     <option value="colors">Color</option>
                     <option value="animals">Animal</option>
                     <option value="vegetables">Vegetable</option>

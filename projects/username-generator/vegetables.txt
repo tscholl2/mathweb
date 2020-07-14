@@ -28,9 +28,8 @@ mushrooms
 mustard
 okra
 onion
-parsnips
+parsnip
 potato
-potatoes
 pumpkin
 radicchio
 radish
@@ -44,8 +43,8 @@ spinach
 sweet potato
 swiss chard
 tomatillo
-tomatoes
-turnips
+tomato
+turnip
 water chestnut
 watercress
 zucchini
