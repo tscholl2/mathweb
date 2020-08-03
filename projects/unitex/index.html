@@ -39,7 +39,7 @@
       while (index < input.length) {
         if (input[index] === "\\") {
           let len = 1;
-          while (/^\w/.exec(input.substr(index + len))) len++;
+          while (/^[a-zA-Z]/.exec(input.substr(index + len))) len++;
           const cmd = input.substr(index, len);
           const result = fuse.search(cmd)[0];
           if (result && result.item.latex === cmd) {
