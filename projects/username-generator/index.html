@@ -31,37 +31,19 @@
             font-size: 20pt;
         }
     </style>
+    <script type="text/javascript" src="main.js"></script>
     <script>
-        let LOADED = false;
-        const words = {
-            adjectives: [], animals: [], colors: [], plants: [], vegetables: [],
-        };
-        async function load() {
-            for (let k in words) {
-                const response = await fetch(`${k}.txt`);
-                const data = await response.text();
-                words[k] = data.split("\n").filter(x => x);
-            }
-            LOADED = true;
-        }
-        function randomChoice(arr) {
-            return arr[Math.floor(arr.length * Math.random())];
-        }
         async function copy(value) {
             navigator.clipboard.writeText(value);
         }
-        async function generate(e) {
+        async function run(e) {
             if (e)
                 e.preventDefault();
-            if (!LOADED)
-                await load();
             const l1 = document.getElementById("list-1").value ||
                 randomChoice(["colors", "adjectives"]);
             const l2 = document.getElementById("list-2").value ||
                 randomChoice(["animals", "plants", "vegetables"]);
-            const w1 = randomChoice(words[l1]).replace(" ", "-");
-            const w2 = randomChoice(words[l2]).replace(" ", "-");
-            const value = `${w1}-${w2}`;
+            const value = await generate({ "list-1": l1, "list-2": l2 });
             await copy(value);
             document.getElementById("output").innerHTML += `<span style='cursor:pointer;' onclick='copy("${value}")'>${value}</span>`;
         }
@@ -72,7 +54,7 @@
                 document.addEventListener("DOMContentLoaded", callbackFunction)
         }
         ready(event => {
-            generate();
+            run();
         })
     </script>
 </head>
@@ -81,7 +63,7 @@
     <header>
         <h1>Username Generator</h1>
     </header>
-    <form onsubmit="generate(event)">
+    <form onsubmit="run(event)">
         <fieldset>
             <legend>Options</legend>
             <label>
