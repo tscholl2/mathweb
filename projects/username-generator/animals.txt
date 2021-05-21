@@ -51,6 +51,7 @@ chihuahua
 chimpanzee
 chinchilla
 chipmunk
+cicada
 civet
 clam
 cobra
