@@ -11,13 +11,16 @@ cabbage
 carrot
 cauliflower
 celery
+chile
 chives
 collard greens
+corn
+cucumber
 dandelion
-eggplant 
-endive
+eggplant
 garlic
 green onion
+jalapeno
 jicama
 kale
 kimchi
@@ -27,12 +30,13 @@ lettuce
 mushrooms
 mustard
 okra
+olive
 onion
 parsnip
+pea
 potato
 pumpkin
 radicchio
-radish
 radish
 rutabaga
 sauerkraut
@@ -40,6 +44,7 @@ seaweed
 shallots
 spaghetti squash
 spinach
+squash
 sweet potato
 swiss chard
 tomatillo

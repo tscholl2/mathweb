@@ -5,6 +5,7 @@ carnation
 cedar
 chamomile
 cherry
+chestnut
 chives
 cilantro
 coriander

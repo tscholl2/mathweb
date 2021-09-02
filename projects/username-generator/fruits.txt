@@ -1,0 +1,86 @@
+acai
+apple
+apricot
+avocado
+banana
+barberry
+bilberry
+blackberry
+blackcurrant
+blood orange
+blueberry
+boysenberry
+breadfruit
+buddhas hand
+cactus pear
+canistel
+cantaloupe
+caviar lime
+cempedak
+cherimoya
+cherry
+clementine
+cloudberry
+coconut
+cranberry
+currant
+date
+dragonfruit
+durian
+egg fruit
+elderberry
+feijoa
+fig
+finger lime
+galia melon
+goji berry
+gooseberry
+grapefruit
+guava
+honeyberry
+honeydew
+huckleberry
+jackfruit
+juniper berry
+kaffir lime
+kiwifruit
+kumquat
+lemon
+lime
+loganberry
+lychee
+mandarine
+mango
+marionberry
+melon
+miracle fruit
+mulberry
+nance
+nectarine
+orange
+papaya
+passionfruit
+pawpaw
+peach
+pear
+persimmon
+pineapple
+pineberry
+pitaya
+plantain
+plum
+plumcot
+pomegranate
+prune
+raisin
+raspberry
+redcurrant
+salmonberry
+satsuma
+starfruit
+strawberry
+tamarind
+tangerine
+tayberry
+watermelon
+yuzu
